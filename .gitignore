@@ -105,3 +105,4 @@ dist
 
 *.mid
 test.js
+tmp/
