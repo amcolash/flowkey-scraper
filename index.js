@@ -30,9 +30,6 @@ const templates = {
 
 const tieRightTemplate = { mat: tieRight, thresh: 0.25 };
 
-const song = JSON.parse(fs.readFileSync('test.json').toString()).data.song;
-parseSong(song);
-
 function getDuration(matches, extraDuration) {
   let duration = '8';
   if (matches.wholeBar || matches.wholeBlank) duration = '1';
@@ -176,8 +173,6 @@ async function parseSong(song) {
     });
   }
 
-  // return;
-
   let min = 9999999999;
 
   const leftNotes = [];
@@ -197,12 +192,12 @@ async function parseSong(song) {
   rightTrack.setTimeSignature(6, 8);
   leftTrack.setTimeSignature(6, 8);
 
-  const bpm = 120;
-  const tpb = 120; // ticks per beat
-  const tps = 60000 / (bpm * tpb); // ticks per second
+  // const bpm = 120;
+  // const tpb = 120; // ticks per beat
+  // const tps = 60000 / (bpm * tpb); // ticks per second
 
   rightNotes.forEach((n, i) => {
-    const ticks = ((n.t - min) / 1000) * tps;
+    // const ticks = ((n.t - min) / 1000) * tps;
     // const notes = n.notesR.map((r) => `${r.name.replace('♭', 'b').replace('♯', '#')}${r.octave}`);
     const notes = n.notesR.map((r) => r.key);
     // rightTrack.addEvent(new MidiWriter.NoteEvent({ pitch: notes, duration: n.d, wait: 'T' + ticks }));
@@ -211,7 +206,7 @@ async function parseSong(song) {
   });
 
   leftNotes.forEach((n, i) => {
-    const ticks = ((n.t - min) / 1000) * tps;
+    // const ticks = ((n.t - min) / 1000) * tps;
     // const notes = n.notesL.map((l) => `${l.name.replace('♭', 'b').replace('♯', '#')}${l.octave}`);
     const notes = n.notesL.map((l) => l.key);
     // leftTrack.addEvent(new MidiWriter.NoteEvent({ pitch: notes, duration: n.d, wait: 'T' + ticks }));
@@ -222,3 +217,7 @@ async function parseSong(song) {
   const write = new MidiWriter.Writer([rightTrack, leftTrack]);
   write.saveMIDI(song.title);
 }
+
+// Init and parse song
+const song = JSON.parse(fs.readFileSync('test.json').toString()).data.song;
+parseSong(song);
