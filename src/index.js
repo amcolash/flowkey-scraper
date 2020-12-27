@@ -15,11 +15,11 @@ const templates = {
   wholeBar: { mat: loadImage('./templates/whole-bar.png'), thresh: 0.25 },
   wholeBlank: { mat: loadImage('./templates/whole-blank.png'), thresh: 0.25 },
   eighth: { mat: loadImage('./templates/eighth.png'), thresh: 0.2 },
-  tieLeft: { mat: loadImage('./templates/tie-left.png'), thresh: 0.25 },
 };
 
 const barsTemplate = { mat: loadImage('./templates/bars.png'), thresh: 0.2 };
 const measureTemplate = { mat: loadImage('./templates/measure.png'), thresh: 0.1 };
+const tieLeftTemplate = { mat: loadImage('./templates/tie-left.png'), thresh: 0.25 };
 const tieRightTemplate = { mat: loadImage('./templates/tie-right.png'), thresh: 0.25 };
 
 const timeSignatures = {
@@ -32,14 +32,13 @@ function loadImage(p) {
   return cv.imread(path.join(__dirname, p));
 }
 
-function getDuration(matches, extraDuration) {
+function getDuration(matches) {
   let duration = 'eighth';
   if (matches.wholeBar || matches.wholeBlank) duration = 'whole';
   if (matches.halfBar || matches.halfBlank) duration = 'half';
   if (matches.quarter) duration = 'quarter';
   if (matches.eighth) duration = 'eighth';
 
-  if (extraDuration) return [duration, extraDuration];
   return { duration, dot: matches.dot !== undefined };
 }
 
@@ -141,22 +140,57 @@ function getMatchedTemplates(mat, templates, multi) {
   return matches;
 }
 
-function handleTies(newCrop) {
-  const copiedCrop = newCrop.copy();
-  const match = getMatchedTemplates(copiedCrop, { tieRight: tieRightTemplate });
+function checkTies(bars, mat, note, augmentedNotes) {
+  let xPos = note.x * 2 + 25;
+  let moreTies = true;
 
-  // if (DEBUG) cv.imshow('window', copiedCrop);
-  // if (DEBUG) cv.waitKey();
+  while (moreTies) {
+    moreTies = false;
 
-  if (match.tieRight) {
-    const rightCrop = newCrop.getRegion(new cv.Rect(match.tieRight.x + 10, 0, 65, newCrop.rows));
+    let tieLeftBar = false;
+    let tieRightBar = false;
 
-    const tieMatch = getMatchedTemplates(rightCrop, templates);
+    const halfHeight = mat.rows / 2;
 
-    // if (DEBUG) cv.imshow('window', rightCrop);
-    // if (DEBUG) cv.waitKey();
+    bars.forEach((bar, j) => {
+      const leftTieMatch = getMatchedTemplates(bar, { tieLeft: tieLeftTemplate });
 
-    return getDuration(tieMatch);
+      if (leftTieMatch.tieLeft) {
+        let newCrop;
+        if (j === 0) newCrop = mat.getRegion(new cv.Rect(xPos, halfHeight, 250, halfHeight)).copy();
+        else newCrop = mat.getRegion(new cv.Rect(xPos, 0, 250, halfHeight)).copy();
+
+        const rightTieMatch = getMatchedTemplates(newCrop, { tieRight: tieRightTemplate, tieLeft: tieLeftTemplate });
+        if (rightTieMatch.tieRight) {
+          // if (DEBUG) cv.imshow('window', newCrop);
+          // if (DEBUG) cv.waitKey();
+
+          const rightCrop = newCrop.getRegion(
+            new cv.Rect(rightTieMatch.tieRight.x + 10, 0, Math.min(65, newCrop.cols - rightTieMatch.tieRight.x - 10), newCrop.rows)
+          );
+
+          const tieMatch = getMatchedTemplates(rightCrop, templates);
+          const extraDuration = getDuration(tieMatch);
+
+          if (j === 0) tieLeftBar = extraDuration;
+          if (j === 1) tieRightBar = extraDuration;
+        }
+
+        if (rightTieMatch.tieLeft) {
+          if (DEBUG) cv.imshow('window', newCrop);
+          if (DEBUG) cv.waitKey();
+          xPos = rightTieMatch.tieLeft.x - 15;
+          moreTies = true;
+        }
+      }
+    });
+
+    if (tieLeftBar || tieRightBar) {
+      if (tieLeftBar) note.notesL.forEach((n) => (n.duration = tieLeftBar));
+      if (tieRightBar) note.notesR.forEach((n) => (n.duration = tieRightBar));
+
+      augmentedNotes.push(note);
+    }
   }
 }
 
@@ -208,42 +242,36 @@ async function parseSong(song) {
   await downloadImages(song);
 
   const mat = loadImage('../tmp/output.png');
+  const halfHeight = mat.rows / 2;
 
-  const measures = getMeasures(mat.copy(), notes);
-  // console.log(measures);
-
-  const timeSig = getMatchedTemplates(mat, timeSignatures);
-  // console.log(getTimeSignature(timeSig));
+  const augmentedNotes = [];
 
   for (let i = 0; i < notes.length; i++) {
     const cropped = mat.getRegion(new cv.Rect(notes[i].x * 2 - 15, 0, 65, mat.rows)).copy();
 
-    const halfHeight = cropped.rows / 2;
     const leftBar = cropped.getRegion(new cv.Rect(0, halfHeight, cropped.cols, halfHeight));
     const rightBar = cropped.getRegion(new cv.Rect(0, 0, cropped.cols, halfHeight));
 
-    [leftBar, rightBar].forEach((bar, j) => {
-      const matches = getMatchedTemplates(bar, templates);
+    // Get note durations
+    const leftBarMatch = getMatchedTemplates(leftBar, templates);
+    const leftBarDuration = getDuration(leftBarMatch);
+    notes[i].notesL.forEach((n) => (n.duration = leftBarDuration));
 
-      let extraDuration;
-      // if (matches.tieLeft) {
-      //   let newCrop;
-      //   if (j === 0) newCrop = mat.getRegion(new cv.Rect(notes[i].x * 2 - 15, halfHeight, 250, halfHeight));
-      //   else newCrop = mat.getRegion(new cv.Rect(notes[i].x * 2 - 15, 0, 250, halfHeight));
-      //   extraDuration = handleTies(newCrop);
-      // }
+    const rightBarMatch = getMatchedTemplates(rightBar, templates);
+    const rightBarDuration = getDuration(rightBarMatch);
+    notes[i].notesR.forEach((n) => (n.duration = rightBarDuration));
 
-      // console.log(matches);
-      const duration = getDuration(matches, extraDuration);
-      // console.log(duration);
+    augmentedNotes.push(JSON.parse(JSON.stringify(notes[i])));
 
-      if (j === 0) notes[i].notesL.forEach((n) => (n.duration = duration));
-      if (j === 1) notes[i].notesR.forEach((n) => (n.duration = duration));
-
-      // if (DEBUG) cv.imshow('window', bar);
-      // if (DEBUG) cv.waitKey();
-    });
+    // Add additional notes for ties
+    checkTies([leftBar, rightBar], mat, JSON.parse(JSON.stringify(notes[i])), augmentedNotes);
   }
+
+  console.log(notes.length, augmentedNotes.length);
+
+  // Segment notes into measures
+  const measures = getMeasures(mat.copy(), augmentedNotes);
+  const timeSig = getMatchedTemplates(mat, timeSignatures);
 
   const xml = toXml(measures, { title: song.title, timeSig: getTimeSignature(timeSig) });
   fs.writeFileSync(path.join(__dirname, '../test.xml'), xml);

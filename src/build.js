@@ -60,7 +60,7 @@ function noteToMusicXMLObject(note, continuesChord, staff) {
 }
 
 function addMeasure(parent, model) {
-  if (model.number > 1) return;
+  // if (model.number > 1) return;
 
   const measure = parent.ele({ measure: { '@number': model.number } });
   if (model.number === 1) {
