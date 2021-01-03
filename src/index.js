@@ -50,15 +50,15 @@ function generateVariations(mats, mirror) {
     const mat = mirror ? m.flip(1) : m;
     variations.push(mat);
     variations.push(mat.copy().flip(0));
-    // variations.push(scale(m, 0.75));
-    // variations.push(scale(mat, 0.65));
+    // variations.push(scale(m, 0.85, 1));
+    // variations.push(scale(mat, 1.15, 1));
   });
 
   return variations;
 }
 
-function scale(m, s) {
-  return m.copy().resize(Math.floor(m.rows * s), Math.floor(m.cols * s));
+function scale(m, sx, sy) {
+  return m.copy().resize(Math.floor(m.rows * sx), Math.floor(m.cols * (sy || sx)));
 }
 
 function loadImage(p) {
