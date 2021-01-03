@@ -7,11 +7,24 @@ const toXml = require('./build');
 
 const DEBUG = true;
 
+const eighthTieAngled = loadImage('./templates/eighth-tie-angled.png');
+const eighthTieAngledFlipped = eighthTieAngled.copy().flip(0);
+
 const notesNoDotTemplates = {
   half: { mat: [loadImage('./templates/half-bar.png'), loadImage('./templates/half-blank.png')], thresh: 0.25 },
   quarter: { mat: loadImage('./templates/quarter.png'), thresh: 0.25 },
   whole: { mat: [loadImage('./templates/whole-bar.png'), loadImage('./templates/whole-blank.png')], thresh: 0.25 },
-  eighth: { mat: loadImage('./templates/eighth.png'), thresh: 0.2 },
+  eighth: {
+    mat: [
+      loadImage('./templates/eighth.png'),
+      loadImage('./templates/eighth-2.png'),
+      loadImage('./templates/eighth-3.png'),
+      loadImage('./templates/eighth-bottom.png'),
+      loadImage('./templates/eighth-bottom-2.png'),
+    ],
+    thresh: 0.2,
+  },
+  eighthTie: { mat: [loadImage('./templates/eighth-tie-flat.png'), eighthTieAngled, eighthTieAngledFlipped], thresh: 0.35 },
 };
 
 const noteTemplates = {
@@ -25,7 +38,7 @@ const restTemplates = {
 };
 
 const barsTemplate = { mat: loadImage('./templates/bars.png'), thresh: 0.2 };
-const measureTemplate = { mat: loadImage('./templates/measure.png'), thresh: 0.1 };
+const measureTemplate = { mat: loadImage('./templates/measure.png'), thresh: 0.15 };
 
 const tieLeftTemplate = {
   mat: generateVariations([
@@ -65,9 +78,9 @@ function getDuration(matches) {
   if (matches.whole) duration = 'whole';
   if (matches.half) duration = 'half';
   if (matches.quarter) duration = 'quarter';
-  if (matches.eighth) duration = 'eighth';
+  if (matches.eighth || matches.eighthTie) duration = 'eighth';
 
-  const rest = matches.quarterRest !== undefined;
+  const rest = matches.quarterRest !== undefined || matches.eighthRest !== undefined;
 
   return { duration, dot: matches.dot !== undefined, tieStart: false, tieStop: false, rest };
 }
@@ -299,10 +312,6 @@ function addRests(mat, augmentedNotes) {
     const matchedBar = bar.copy();
     const matchedRests = getMatchedTemplates(matchedBar, restTemplates, true);
 
-    const small = matchedBar.resize(matchedBar.rows / 3, matchedBar.cols / 3);
-    if (DEBUG) cv.imshow('window', small);
-    if (DEBUG) cv.waitKey();
-
     Object.keys(matchedRests).forEach((restKey) => {
       matchedRests[restKey].forEach((rest) => {
         let insertPoint = -1;
@@ -385,7 +394,7 @@ async function parseSong(song) {
 
   for (let i = 0; i < notes.length; i++) {
     // for (let i = 20; i < 27; i++) {
-    const cropped = mat.getRegion(new cv.Rect(notes[i].x * 2 - 15, 0, 65, mat.rows)).copy();
+    const cropped = mat.getRegion(new cv.Rect(notes[i].x * 2 - 15, 0, 85, mat.rows)).copy();
 
     const leftBar = cropped.getRegion(new cv.Rect(0, halfHeight, cropped.cols, halfHeight));
     const rightBar = cropped.getRegion(new cv.Rect(0, 0, cropped.cols, halfHeight));
@@ -398,6 +407,9 @@ async function parseSong(song) {
     const rightBarMatch = getMatchedTemplates(rightBar, noteTemplates);
     const rightBarDuration = getDuration(rightBarMatch);
     notes[i].notesR.forEach((n) => (n.duration = rightBarDuration));
+
+    // if (DEBUG) cv.imshow('window', rightBar);
+    // if (DEBUG) cv.waitKey();
 
     augmentedNotes.push(notes[i]);
 
