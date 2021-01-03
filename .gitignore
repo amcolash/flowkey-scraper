@@ -112,4 +112,4 @@ tmp/
 !test/**/*.json
 !test/**/*.xml
 
-test.js
+test/result.xml

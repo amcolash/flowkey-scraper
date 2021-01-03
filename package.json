@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node src/index.js",
-    "dev": "NODE_ENV=development nodemon --watch src -e js --exec 'npm start' 'test/input/test2.json' '.'",
+    "dev": "NODE_ENV=development nodemon --watch src -e js --exec 'npm start' 'test/input/test1.json' '.'",
     "test": "NODE_ENV=development node test/test.js"
   },
   "author": "Andrew McOlash",
