@@ -49,8 +49,7 @@ const restTemplates = {
   eighth: { mat: loadImage('./templates/rests/eighth-rest.png'), thresh: 0.2 },
 };
 
-const barsTemplate = { mat: loadImage('./templates/bars/bars.png'), thresh: 0.2 };
-const measureTemplate = { mat: loadImage('./templates/bars/measure.png'), thresh: 0.1 };
+const measureTemplate = { mat: loadImage('./templates/measure/measure.png'), thresh: 0.1 };
 
 const tieLeftTemplate = {
   mat: generateVariations([
@@ -358,15 +357,12 @@ function addRests(mat, augmentedNotes) {
 function getMeasures(mat, notes) {
   console.log('Generating Measures');
 
-  const rightBar = mat.getRegion(new cv.Rect(0, 0, mat.cols, mat.rows / 2));
-  const rightBarMatch = getMatchedTemplates(rightBar.copy(), { bars: barsTemplate });
-  const rightCrop = rightBar.getRegion(new cv.Rect(0, rightBarMatch.bars.y, mat.cols, barsTemplate.mat.rows));
-  const rightMeasure = getMatchedTemplates(rightCrop, { measure: measureTemplate }, true);
+  const measureMatch = getMatchedTemplates(mat.copy(), { measure: measureTemplate }, true);
 
   // Add first measure
-  rightMeasure.measure.push({ x: 0, y: rightMeasure.measure[0].y });
+  measureMatch.measure.push({ x: 0, y: measureMatch.measure[0].y });
 
-  const sorted = rightMeasure.measure.sort((a, b) => a.x - b.x);
+  const sorted = measureMatch.measure.sort((a, b) => a.x - b.x);
   const measures = sorted.map((m, i) => {
     return { i, x1: m.x, x2: i < sorted.length - 1 ? sorted[i + 1].x : mat.cols, staffs: [[], []] };
   });
