@@ -7,16 +7,21 @@ const toXml = require('./build');
 
 const DEBUG = true;
 
-const noteTemplates = {
-  dot: { mat: loadImage('./templates/dot.png'), thresh: 0.25 },
+const notesNoDotTemplates = {
   half: { mat: [loadImage('./templates/half-bar.png'), loadImage('./templates/half-blank.png')], thresh: 0.25 },
   quarter: { mat: loadImage('./templates/quarter.png'), thresh: 0.25 },
   whole: { mat: [loadImage('./templates/whole-bar.png'), loadImage('./templates/whole-blank.png')], thresh: 0.25 },
   eighth: { mat: loadImage('./templates/eighth.png'), thresh: 0.2 },
 };
 
+const noteTemplates = {
+  ...notesNoDotTemplates,
+  dot: { mat: loadImage('./templates/dot.png'), thresh: 0.25 },
+};
+
 const restTemplates = {
   quarter: { mat: loadImage('./templates/quarter-rest.png'), thresh: 0.2 },
+  eighth: { mat: loadImage('./templates/eighth-rest.png'), thresh: 0.2 },
 };
 
 const barsTemplate = { mat: loadImage('./templates/bars.png'), thresh: 0.2 };
@@ -30,13 +35,6 @@ const tieLeftTemplate = {
   ]),
   thresh: 0.25,
 };
-const tieRightTemplate = {
-  mat: generateVariations(
-    [loadImage('./templates/tie-short.png'), loadImage('./templates/tie-long.png'), loadImage('./templates/tie-bar.png')],
-    true
-  ),
-  thresh: 0.25,
-};
 
 const timeSignatures = {
   time_3_4: { mat: loadImage('./templates/3-4.png'), thresh: 0.2 },
@@ -44,14 +42,11 @@ const timeSignatures = {
   time_6_8: { mat: loadImage('./templates/6-8.png'), thresh: 0.2 },
 };
 
-function generateVariations(mats, mirror) {
+function generateVariations(mats) {
   const variations = [];
   mats.forEach((m) => {
-    const mat = mirror ? m.flip(1) : m;
-    variations.push(mat);
-    variations.push(mat.copy().flip(0));
-    // variations.push(scale(m, 0.85, 1));
-    // variations.push(scale(mat, 1.15, 1));
+    variations.push(m);
+    variations.push(m.copy().flip(0));
   });
 
   return variations;
@@ -74,7 +69,7 @@ function getDuration(matches) {
 
   const rest = matches.quarterRest !== undefined;
 
-  return { duration, dot: matches.dot !== undefined, tie: false, rest };
+  return { duration, dot: matches.dot !== undefined, tieStart: false, tieStop: false, rest };
 }
 
 function getTimeSignature(matches) {
@@ -84,11 +79,13 @@ function getTimeSignature(matches) {
 }
 
 async function downloadImages(song) {
+  console.log('Downloading Images');
+
   if (!fs.existsSync('tmp')) fs.mkdirSync('tmp');
 
   const imgs = song.musicsheets.imageURLs2x.map((i) => {
     return new Promise((resolve, reject) => {
-      const file = path.join('tmp', path.basename(i));
+      const file = path.join('tmp', `${song._id}_${path.basename(i)}`);
       if (fs.existsSync(file)) {
         resolve();
         return;
@@ -113,10 +110,11 @@ async function downloadImages(song) {
 
   await Promise.all(imgs);
 
-  const combined = path.join(__dirname, '../tmp/output.png');
+  const combined = path.join(__dirname, `../tmp/${song._id}_output.png`);
   if (fs.existsSync(combined)) fs.unlinkSync(combined);
   const files = fs
     .readdirSync(path.join(__dirname, '../tmp/'))
+    .filter((p) => p.indexOf(song._id) !== -1 && p.indexOf('output') === -1)
     .map((f) => path.join(__dirname, '../tmp/', f))
     .sort((a, b) => a.localeCompare(b, 'en', { numeric: true }));
 
@@ -139,6 +137,7 @@ const colors = [
 
 function getMatchedTemplates(mat, templates, multi) {
   const matches = {};
+  const pristine = mat.copy();
 
   Object.entries(templates).forEach((template, i) => {
     const name = template[0];
@@ -147,7 +146,7 @@ function getMatchedTemplates(mat, templates, multi) {
     const templates = Array.isArray(value.mat) ? value.mat : [value.mat];
 
     templates.forEach((t, j) => {
-      const match = mat.matchTemplate(t, cv.TM_CCOEFF_NORMED);
+      const match = pristine.matchTemplate(t, cv.TM_CCOEFF_NORMED);
       const color = colors[((i + 1) * (j + 1)) % colors.length];
 
       if (!multi) {
@@ -205,121 +204,104 @@ function getMatchedTemplates(mat, templates, multi) {
   return matches;
 }
 
-function checkTies(mat, note, augmentedNotes) {
-  let xPos = note.x * 2 - 25;
-  let moreTies = true;
+function addTiedNotes(mat, notes, augmentedNotes) {
+  console.log('Adding Tied Notes');
 
-  let count = 0;
+  const leftBar = mat.getRegion(new cv.Rect(0, mat.rows / 2, mat.cols, mat.rows / 2));
+  const rightBar = mat.getRegion(new cv.Rect(0, 0, mat.cols, mat.rows / 2));
 
-  while (moreTies) {
-    moreTies = false;
+  const leftNotes = [];
+  const rightNotes = [];
+  augmentedNotes.forEach((n) => {
+    if (n.notesL.length > 0) leftNotes.push(n);
+    if (n.notesR.length > 0) rightNotes.push(n);
+  });
 
-    let tieLeftBar = false;
-    let tieRightBar = false;
+  [leftBar, rightBar].forEach((bar, i) => {
+    const barMatch = bar.copy();
+    const matchedNotes = getMatchedTemplates(barMatch, notesNoDotTemplates, true);
 
-    let augmentedNoteX = -1;
+    const combined = [];
+    Object.keys(matchedNotes).forEach((duration) => {
+      matchedNotes[duration].forEach((m) => {
+        let skip = false;
+        notes.forEach((n) => {
+          if (Math.abs(n.x - m.x / 2) < 30) {
+            if (i === 0 && n.notesL.length !== 0) skip = true;
+            if (i === 1 && n.notesR.length !== 0) skip = true;
+          }
+        });
+        if (!skip) combined.push(m);
+      });
+    });
+    const sorted = combined.sort((a, b) => a.x - b.x);
 
-    const halfHeight = mat.rows / 2;
-
-    const cropped = mat.getRegion(new cv.Rect(xPos, 0, 90, mat.rows));
-    const leftBar = cropped.getRegion(new cv.Rect(0, halfHeight, cropped.cols, halfHeight)).copy();
-    const rightBar = cropped.getRegion(new cv.Rect(0, 0, cropped.cols, halfHeight)).copy();
-
-    // if (count > 0) {
-    //   if (DEBUG) cv.imshow('window', cropped);
-    //   if (DEBUG) cv.waitKey();
-    // }
-
-    // if (DEBUG) cv.imshow('window', rightBar);
+    // if (DEBUG) cv.imshow('window', barMatch);
     // if (DEBUG) cv.waitKey();
 
-    [leftBar, rightBar].forEach((bar, j) => {
-      const barMatch = bar.copy();
-      const leftTieMatch = getMatchedTemplates(barMatch, { tieLeft: tieLeftTemplate });
+    sorted.forEach((m) => {
+      let insertPoint = -1;
 
-      if (leftTieMatch.tieLeft) {
-        const cropOffset = xPos + 70;
+      const n = { x: m.x / 2, y: m.y / 2 };
 
-        // if (DEBUG) cv.imshow('window', barMatch);
+      for (let j = 0; j < augmentedNotes.length - 1; j++) {
+        const note = augmentedNotes[j];
+        const nextNote = augmentedNotes[j + 1];
+        if (n.x >= note.x && n.x < nextNote.x) insertPoint = j + 1;
+      }
+
+      if (n.x > augmentedNotes[augmentedNotes.length - 1].x) insertPoint = augmentedNotes.length;
+
+      if (insertPoint > 0) {
+        const cropped = bar.getRegion(new cv.Rect(n.x * 2 - 40, 0, 100, bar.rows)).copy();
+
+        const noteMatch = getMatchedTemplates(cropped, {
+          ...noteTemplates,
+          tieLeft: tieLeftTemplate,
+        });
+        const duration = getDuration(noteMatch);
+
+        let previousNote = -1;
+        const barNotes = i === 0 ? leftNotes : rightNotes;
+        for (let j = 0; j < barNotes.length - 1; j++) {
+          if (n.x >= barNotes[j].x && n.x < barNotes[j + 1].x) previousNote = j;
+        }
+        if (n.x > barNotes[barNotes.length - 1].x) previousNote = barNotes.length - 1;
+
+        // if (DEBUG) cv.imshow('window', cropped);
         // if (DEBUG) cv.waitKey();
 
-        let newCrop;
-        if (j === 0) newCrop = mat.getRegion(new cv.Rect(cropOffset, halfHeight, 450, halfHeight)).copy();
-        else newCrop = mat.getRegion(new cv.Rect(cropOffset, 0, 450, halfHeight)).copy();
+        // console.log(barNotes.length, previousNote);
 
-        const matchMat = newCrop.copy();
-        const bothTieMatch = getMatchedTemplates(matchMat, { tieRight: tieRightTemplate, tieLeft: tieLeftTemplate }, true);
+        if (noteMatch.tieLeft) duration.tieStart = true;
 
-        bothTieMatch.tieRight.sort((a, b) => a.x - b.x);
-        bothTieMatch.tieLeft.sort((a, b) => a.x - b.x);
-        // console.log(j, cropOffset, bothTieMatch);
+        duration.tieStop = true;
+        if (i === 0) barNotes[previousNote].notesL.forEach((n) => (n.duration.tieStart = true));
+        if (i === 1) barNotes[previousNote].notesR.forEach((n) => (n.duration.tieStart = true));
 
-        // if (j === 0) {
-        // if (DEBUG) cv.imshow('window', matchMat);
-        // if (DEBUG) cv.waitKey();
-        // }
+        const notes = JSON.parse(JSON.stringify(i === 0 ? [...barNotes[previousNote].notesL] : [...barNotes[previousNote].notesR]));
+        notes.forEach((n) => (n.duration = duration));
 
-        if (bothTieMatch.tieRight[0]) {
-          const firstTie = bothTieMatch.tieRight[0];
-
-          const rightCrop = newCrop
-            .getRegion(new cv.Rect(firstTie.x + 10, 0, Math.min(80, newCrop.cols - firstTie.x - 10), newCrop.rows))
-            .copy();
-
-          const tieMatch = getMatchedTemplates(rightCrop, noteTemplates);
-          const extraDuration = getDuration(tieMatch);
-
-          // console.log(extraDuration);
-          // if (DEBUG) cv.imshow('window', rightCrop);
-          // if (DEBUG) cv.waitKey();
-
-          if (j === 0) {
-            tieLeftBar = extraDuration;
-            augmentedNoteX = cropOffset + firstTie.x + 10;
-          }
-
-          if (j === 1) {
-            tieRightBar = extraDuration;
-            augmentedNoteX = cropOffset + firstTie.x + 10;
-          }
-        }
-
-        if (bothTieMatch.tieLeft[0] && Math.abs(bothTieMatch.tieRight[0].x - bothTieMatch.tieLeft[0].x) < 100) {
-          // if (DEBUG) cv.imshow('window', matchMat);
-          // if (DEBUG) cv.waitKey();
-
-          xPos += bothTieMatch.tieLeft[0].x + 40;
-          moreTies = true;
-        }
+        const note = { ...n, notesL: i === 0 ? notes : [], notesR: i === 1 ? notes : [] };
+        augmentedNotes.splice(insertPoint, 0, note);
       }
     });
-
-    if (tieLeftBar || tieRightBar) {
-      if (tieLeftBar) note.notesL.forEach((n) => (n.duration.tieStart = true));
-      if (tieRightBar) note.notesR.forEach((n) => (n.duration.tieStart = true));
-
-      const newNote = JSON.parse(JSON.stringify(note));
-      newNote.x = augmentedNoteX / 2;
-
-      if (tieLeftBar) newNote.notesL.forEach((n) => (n.duration = { ...tieLeftBar, tieStop: true, tieStart: moreTies }));
-      if (tieRightBar) newNote.notesR.forEach((n) => (n.duration = { ...tieRightBar, tieStop: true, tieStart: moreTies }));
-
-      // console.log(tieLeftBar, tieRightBar);
-
-      augmentedNotes.push(newNote);
-      count++;
-    }
-  }
-
-  // if (count > 0) console.log(count);
+  });
 }
 
 function addRests(mat, augmentedNotes) {
+  console.log('Adding Rests');
+
   const leftBar = mat.getRegion(new cv.Rect(0, mat.rows / 2, mat.cols, mat.rows / 2)).copy();
   const rightBar = mat.getRegion(new cv.Rect(0, 0, mat.cols, mat.rows / 2)).copy();
 
   [leftBar, rightBar].forEach((bar, i) => {
-    const matchedRests = getMatchedTemplates(bar.copy(), restTemplates, true);
+    const matchedBar = bar.copy();
+    const matchedRests = getMatchedTemplates(matchedBar, restTemplates, true);
+
+    const small = matchedBar.resize(matchedBar.rows / 3, matchedBar.cols / 3);
+    if (DEBUG) cv.imshow('window', small);
+    if (DEBUG) cv.waitKey();
 
     Object.keys(matchedRests).forEach((restKey) => {
       matchedRests[restKey].forEach((rest) => {
@@ -330,6 +312,8 @@ function addRests(mat, augmentedNotes) {
         for (let i = 0; i < augmentedNotes.length - 1; i++) {
           if (r.x > augmentedNotes[i].x && r.x < augmentedNotes[i + 1].x) insertPoint = i + 1;
         }
+        if (r.x < augmentedNotes[0].x) insertPoint = 0;
+        if (r.x > augmentedNotes[augmentedNotes.length - 1].x) insertPoint = augmentedNotes.length;
 
         if (insertPoint !== -1) {
           const cropped = bar.getRegion(new cv.Rect(r.x * 2 - 15, 0, 65, bar.rows)).copy();
@@ -347,6 +331,8 @@ function addRests(mat, augmentedNotes) {
 }
 
 function getMeasures(mat, notes) {
+  console.log('Generating Measures');
+
   const rightBar = mat.getRegion(new cv.Rect(0, 0, mat.cols, mat.rows / 2));
   const rightBarMatch = getMatchedTemplates(rightBar.copy(), { bars: barsTemplate });
   const rightCrop = rightBar.getRegion(new cv.Rect(0, rightBarMatch.bars.y, mat.cols, barsTemplate.mat.rows));
@@ -389,12 +375,14 @@ async function parseSong(song) {
 
   await downloadImages(song);
 
-  const mat = loadImage('../tmp/output.png');
+  const mat = loadImage(`../tmp/${song._id}_output.png`);
   const halfHeight = mat.rows / 2;
 
   const augmentedNotes = [];
 
   // Iterate through each note to get durations and add in missing tied notes
+  console.log('Adding Note Durations');
+
   for (let i = 0; i < notes.length; i++) {
     // for (let i = 20; i < 27; i++) {
     const cropped = mat.getRegion(new cv.Rect(notes[i].x * 2 - 15, 0, 65, mat.rows)).copy();
@@ -414,8 +402,11 @@ async function parseSong(song) {
     augmentedNotes.push(notes[i]);
 
     // Add additional notes for ties
-    checkTies(mat, notes[i], augmentedNotes);
+    // checkTies(mat, notes[i], augmentedNotes);
   }
+
+  // Add missing notes that are tied
+  addTiedNotes(mat, notes, augmentedNotes);
 
   // if (DEBUG) console.log(notes.length, augmentedNotes.length);
 
@@ -427,7 +418,7 @@ async function parseSong(song) {
   const timeSig = getMatchedTemplates(mat, timeSignatures);
 
   const xml = toXml(measures, { title: song.title, artist: song.artist, timeSig: getTimeSignature(timeSig) });
-  fs.writeFileSync(path.join(__dirname, '../test.xml'), xml);
+  fs.writeFileSync(path.join(__dirname, `../${song.title}.xml`), xml);
 }
 
 // Init and parse song
