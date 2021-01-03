@@ -15,27 +15,32 @@ function buildPartlist(id, name) {
 
 function noteToMusicXMLObject(note, continuesChord, staff) {
   const obj = {};
-  if (continuesChord) {
-    obj['chord'] = {};
+
+  if (note.rest) {
+    obj['rest'] = {};
+  } else {
+    if (continuesChord) {
+      obj['chord'] = {};
+    }
+
+    const step = note.name.replace('♭', '').replace('♯', '');
+    const flat = note.name.indexOf('♭') !== -1;
+    const sharp = note.name.indexOf('♯') !== -1;
+
+    if (note.duration.tieStop || note.duration.tieStart) {
+      obj['tie'] = [];
+      if (note.duration.tieStop) obj['tie'].push({ '@type': 'stop' });
+      if (note.duration.tieStart) obj['tie'].push({ '@type': 'start' });
+    }
+
+    obj['pitch'] = {
+      step: { '#text': step },
+      alter: sharp ? 1 : flat ? -1 : 0,
+      octave: { '#text': note.octave },
+    };
+
+    if (sharp || flat) obj['accidental'] = sharp ? 'sharp' : flat ? 'flat' : '';
   }
-
-  const step = note.name.replace('♭', '').replace('♯', '');
-  const flat = note.name.indexOf('♭') !== -1;
-  const sharp = note.name.indexOf('♯') !== -1;
-
-  if (note.duration.tieStop || note.duration.tieStart) {
-    obj['tie'] = [];
-    if (note.duration.tieStop) obj['tie'].push({ '@type': 'stop' });
-    if (note.duration.tieStart) obj['tie'].push({ '@type': 'start' });
-  }
-
-  obj['pitch'] = {
-    step: { '#text': step },
-    alter: sharp ? 1 : flat ? -1 : 0,
-    octave: { '#text': note.octave },
-  };
-
-  if (sharp || flat) obj['accidental'] = sharp ? 'sharp' : flat ? 'flat' : '';
 
   let duration = 16;
   switch (note.duration.duration) {

@@ -7,12 +7,16 @@ const toXml = require('./build');
 
 const DEBUG = true;
 
-const templates = {
+const noteTemplates = {
   dot: { mat: loadImage('./templates/dot.png'), thresh: 0.25 },
   half: { mat: [loadImage('./templates/half-bar.png'), loadImage('./templates/half-blank.png')], thresh: 0.25 },
   quarter: { mat: loadImage('./templates/quarter.png'), thresh: 0.25 },
   whole: { mat: [loadImage('./templates/whole-bar.png'), loadImage('./templates/whole-blank.png')], thresh: 0.25 },
   eighth: { mat: loadImage('./templates/eighth.png'), thresh: 0.2 },
+};
+
+const restTemplates = {
+  quarter: { mat: loadImage('./templates/quarter-rest.png'), thresh: 0.2 },
 };
 
 const barsTemplate = { mat: loadImage('./templates/bars.png'), thresh: 0.2 };
@@ -37,7 +41,9 @@ function getDuration(matches) {
   if (matches.quarter) duration = 'quarter';
   if (matches.eighth) duration = 'eighth';
 
-  return { duration, dot: matches.dot !== undefined, tie: false };
+  const rest = matches.quarterRest !== undefined;
+
+  return { duration, dot: matches.dot !== undefined, tie: false, rest };
 }
 
 function getTimeSignature(matches) {
@@ -173,7 +179,7 @@ function checkTies(mat, note, augmentedNotes) {
             new cv.Rect(bothTieMatch.tieRight.x + 10, 0, Math.min(65, newCrop.cols - bothTieMatch.tieRight.x - 10), newCrop.rows)
           );
 
-          const tieMatch = getMatchedTemplates(rightCrop, templates);
+          const tieMatch = getMatchedTemplates(rightCrop, noteTemplates);
           const extraDuration = getDuration(tieMatch);
 
           if (j === 0) {
@@ -209,6 +215,45 @@ function checkTies(mat, note, augmentedNotes) {
       augmentedNotes.push(newNote);
     }
   }
+}
+
+function addRests(mat, augmentedNotes) {
+  const leftBar = mat.getRegion(new cv.Rect(0, mat.rows / 2, mat.cols, mat.rows / 2)).copy();
+  const rightBar = mat.getRegion(new cv.Rect(0, 0, mat.cols, mat.rows / 2)).copy();
+
+  [leftBar, rightBar].forEach((bar, i) => {
+    const matchedRests = getMatchedTemplates(bar.copy(), restTemplates, true);
+
+    const filteredRests = [];
+    Object.keys(matchedRests).forEach((restKey) => {
+      matchedRests[restKey].forEach((r) => {
+        let duplicate = false;
+        filteredRests.forEach((f) => {
+          if (Math.abs(r.x / 2 - f.x) < 50) duplicate = true;
+        });
+        if (!duplicate) filteredRests.push({ x: r.x / 2, y: r.y / 2 });
+      });
+    });
+
+    filteredRests.forEach((r) => {
+      let insertPoint = -1;
+
+      for (let i = 0; i < augmentedNotes.length - 1; i++) {
+        if (r.x > augmentedNotes[i].x && r.x < augmentedNotes[i + 1].x) insertPoint = i + 1;
+      }
+
+      if (insertPoint !== -1) {
+        const cropped = bar.getRegion(new cv.Rect(r.x * 2 - 15, 0, 65, bar.rows)).copy();
+
+        const restMatch = getMatchedTemplates(cropped, { ...restTemplates, dot: { ...noteTemplates.dot } });
+        const duration = getDuration(restMatch);
+        const notes = [{ rest: true, duration }];
+        const rest = { ...r, notesL: i === 0 ? notes : [], notesR: i === 1 ? notes : [] };
+
+        augmentedNotes.splice(insertPoint, 0, rest);
+      }
+    });
+  });
 }
 
 function getMeasures(mat, notes) {
@@ -263,19 +308,20 @@ async function parseSong(song) {
 
   const augmentedNotes = [];
 
-  // for (let i = 0; i < notes.length; i++) {
-  for (let i = 0; i < 14; i++) {
+  // Iterate through each note to get durations and add in missing tied notes
+  for (let i = 0; i < notes.length; i++) {
+    // for (let i = 0; i < 14; i++) {
     const cropped = mat.getRegion(new cv.Rect(notes[i].x * 2 - 15, 0, 65, mat.rows)).copy();
 
     const leftBar = cropped.getRegion(new cv.Rect(0, halfHeight, cropped.cols, halfHeight));
     const rightBar = cropped.getRegion(new cv.Rect(0, 0, cropped.cols, halfHeight));
 
     // Get note durations
-    const leftBarMatch = getMatchedTemplates(leftBar, templates);
+    const leftBarMatch = getMatchedTemplates(leftBar, noteTemplates);
     const leftBarDuration = getDuration(leftBarMatch);
     notes[i].notesL.forEach((n) => (n.duration = leftBarDuration));
 
-    const rightBarMatch = getMatchedTemplates(rightBar, templates);
+    const rightBarMatch = getMatchedTemplates(rightBar, noteTemplates);
     const rightBarDuration = getDuration(rightBarMatch);
     notes[i].notesR.forEach((n) => (n.duration = rightBarDuration));
 
@@ -285,7 +331,10 @@ async function parseSong(song) {
     checkTies(mat, notes[i], augmentedNotes);
   }
 
-  console.log(notes.length, augmentedNotes.length);
+  // if (DEBUG) console.log(notes.length, augmentedNotes.length);
+
+  // Add missing rests
+  addRests(mat, augmentedNotes);
 
   // Segment notes into measures
   const measures = getMeasures(mat.copy(), augmentedNotes);
