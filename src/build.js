@@ -122,6 +122,7 @@ function toXml(measures, metaData) {
     }
   );
   root.ele({ work: { 'work-title': metaData.title } });
+  root.ele({ identification: { creator: { '@type': 'composer', '#text': metaData.artist } } });
   root.ele({ 'part-list': buildPartlist('P1', '') });
   const part = root.ele({ part: { '@id': 'P1' } });
 

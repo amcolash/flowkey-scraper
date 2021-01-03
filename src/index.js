@@ -296,7 +296,7 @@ async function parseSong(song) {
   const measures = getMeasures(mat.copy(), augmentedNotes);
   const timeSig = getMatchedTemplates(mat, timeSignatures);
 
-  const xml = toXml(measures, { title: song.title, timeSig: getTimeSignature(timeSig) });
+  const xml = toXml(measures, { title: song.title, artist: song.artist, timeSig: getTimeSignature(timeSig) });
   fs.writeFileSync(path.join(__dirname, '../test.xml'), xml);
 }
 
