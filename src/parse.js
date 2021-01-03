@@ -235,8 +235,9 @@ function getMatchedTemplates(mat, templates, multi) {
 function addTiedNotes(mat, notes, augmentedNotes) {
   console.log('Adding Tied Notes');
 
-  const leftBar = mat.getRegion(new cv.Rect(0, mat.rows / 2, mat.cols, mat.rows / 2));
-  const rightBar = mat.getRegion(new cv.Rect(0, 0, mat.cols, mat.rows / 2));
+  const halfHeight = Math.floor(mat.rows / 2);
+  const leftBar = mat.getRegion(new cv.Rect(0, halfHeight, mat.cols, halfHeight));
+  const rightBar = mat.getRegion(new cv.Rect(0, 0, mat.cols, halfHeight));
 
   const leftNotes = [];
   const rightNotes = [];
@@ -320,8 +321,9 @@ function addTiedNotes(mat, notes, augmentedNotes) {
 function addRests(mat, augmentedNotes) {
   console.log('Adding Rests');
 
-  const leftBar = mat.getRegion(new cv.Rect(0, mat.rows / 2, mat.cols, mat.rows / 2)).copy();
-  const rightBar = mat.getRegion(new cv.Rect(0, 0, mat.cols, mat.rows / 2)).copy();
+  const halfHeight = Math.floor(mat.rows / 2);
+  const leftBar = mat.getRegion(new cv.Rect(0, halfHeight, mat.cols, halfHeight)).copy();
+  const rightBar = mat.getRegion(new cv.Rect(0, 0, mat.cols, halfHeight)).copy();
 
   [leftBar, rightBar].forEach((bar, i) => {
     const matchedBar = bar.copy();
@@ -397,7 +399,7 @@ async function parseSong(song, output) {
   await downloadImages(song);
 
   const mat = loadImage(`../tmp/${song._id}_output.png`);
-  const halfHeight = mat.rows / 2;
+  const halfHeight = Math.floor(mat.rows / 2);
 
   const augmentedNotes = [];
 
@@ -421,8 +423,8 @@ async function parseSong(song, output) {
     notes[i].notesR.forEach((n) => (n.duration = rightBarDuration));
 
     // if (i > 94) {
-    //   if (DEBUG) cv.imshow('window', rightBar);
-    //   if (DEBUG) cv.waitKey();
+    // if (DEBUG) cv.imshow('window', rightBar);
+    // if (DEBUG) cv.waitKey();
     // }
 
     augmentedNotes.push(notes[i]);
