@@ -39,7 +39,7 @@ function getDuration(matches) {
   if (matches.quarter) duration = 'quarter';
   if (matches.eighth) duration = 'eighth';
 
-  return { duration, dot: matches.dot !== undefined };
+  return { duration, dot: matches.dot !== undefined, tie: false };
 }
 
 function getTimeSignature(matches) {
@@ -144,13 +144,13 @@ function checkTies(mat, note, augmentedNotes) {
   let xPos = note.x * 2 - 15;
   let moreTies = true;
 
-  let count = 0;
-
   while (moreTies) {
     moreTies = false;
 
     let tieLeftBar = false;
     let tieRightBar = false;
+
+    let augmentedNoteX = -1;
 
     const halfHeight = mat.rows / 2;
 
@@ -162,9 +162,11 @@ function checkTies(mat, note, augmentedNotes) {
       const leftTieMatch = getMatchedTemplates(bar, { tieLeft: tieLeftTemplate });
 
       if (leftTieMatch.tieLeft) {
+        const cropOffset = xPos + 40;
+
         let newCrop;
-        if (j === 0) newCrop = mat.getRegion(new cv.Rect(xPos + 40, halfHeight, 250, halfHeight)).copy();
-        else newCrop = mat.getRegion(new cv.Rect(xPos + 40, 0, 250, halfHeight)).copy();
+        if (j === 0) newCrop = mat.getRegion(new cv.Rect(cropOffset, halfHeight, 250, halfHeight)).copy();
+        else newCrop = mat.getRegion(new cv.Rect(cropOffset, 0, 250, halfHeight)).copy();
 
         const matchMat = newCrop.copy();
         const bothTieMatch = getMatchedTemplates(matchMat, { tieRight: tieRightTemplate, tieLeft: tieLeftTemplate });
@@ -179,13 +181,14 @@ function checkTies(mat, note, augmentedNotes) {
           const tieMatch = getMatchedTemplates(rightCrop, templates);
           const extraDuration = getDuration(tieMatch);
 
-          if (j === 0) tieLeftBar = extraDuration;
-          if (j === 1) tieRightBar = extraDuration;
+          if (j === 0) {
+            tieLeftBar = extraDuration;
+            augmentedNoteX = cropOffset + bothTieMatch.tieLeft.x + 10;
+          }
 
-          if (DEBUG && count === 1) {
-            console.log(xPos, tieLeftBar, tieRightBar);
-            cv.imshow('window', rightCrop);
-            cv.waitKey();
+          if (j === 1) {
+            tieRightBar = extraDuration;
+            augmentedNoteX = cropOffset + bothTieMatch.tieRight.x + 10;
           }
         }
 
@@ -199,13 +202,17 @@ function checkTies(mat, note, augmentedNotes) {
     });
 
     if (tieLeftBar || tieRightBar) {
-      if (tieLeftBar) note.notesL.forEach((n) => (n.duration = tieLeftBar));
-      if (tieRightBar) note.notesR.forEach((n) => (n.duration = tieRightBar));
+      note.notesL.forEach((n) => (n.duration.tie = 'start'));
+      note.notesR.forEach((n) => (n.duration.tie = 'start'));
 
-      augmentedNotes.push(note);
+      const newNote = JSON.parse(JSON.stringify(note));
+      newNote.x = augmentedNoteX / 2;
+
+      if (tieLeftBar) newNote.notesL.forEach((n) => (n.duration = { ...tieLeftBar, tie: !moreTies ? 'end' : undefined }));
+      if (tieRightBar) newNote.notesR.forEach((n) => (n.duration = { ...tieRightBar, tie: !moreTies ? 'end' : undefined }));
+
+      augmentedNotes.push(newNote);
     }
-
-    count++;
   }
 }
 
@@ -261,7 +268,8 @@ async function parseSong(song) {
 
   const augmentedNotes = [];
 
-  for (let i = 0; i < notes.length; i++) {
+  // for (let i = 0; i < notes.length; i++) {
+  for (let i = 0; i < 7; i++) {
     const cropped = mat.getRegion(new cv.Rect(notes[i].x * 2 - 15, 0, 65, mat.rows)).copy();
 
     const leftBar = cropped.getRegion(new cv.Rect(0, halfHeight, cropped.cols, halfHeight));
@@ -279,7 +287,8 @@ async function parseSong(song) {
     augmentedNotes.push(JSON.parse(JSON.stringify(notes[i])));
 
     // Add additional notes for ties
-    checkTies(mat, JSON.parse(JSON.stringify(notes[i])), augmentedNotes);
+    checkTies(mat, notes[i], augmentedNotes);
+    // checkTies2(mat, JSON.parse(JSON.stringify(notes[i])), notes[i].x * 2 - 10, augmentedNotes);
   }
 
   console.log(notes.length, augmentedNotes.length);
