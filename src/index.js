@@ -157,32 +157,31 @@ function getMatchedTemplates(mat, templates, multi) {
         const dataList = match.getDataAsArray();
         if (!matches[name]) matches[name] = [];
 
+        const tmpMatches = [];
         for (let y = 0; y < dataList.length; y++) {
           for (let x = 0; x < dataList[y].length; x++) {
             if (dataList[y][x] > 1 - value.thresh) {
-              matches[name].push({ x, y });
+              tmpMatches.push({ x, y });
             }
           }
         }
 
         // Filter out duplicates
-        const filteredResults = [];
-        matches[name].forEach((m) => {
+        const filteredResults = [...matches[name]];
+        tmpMatches.forEach((m) => {
           let duplicate = false;
           filteredResults.forEach((f) => {
-            if (Math.abs(m.x - f.x) < 25) duplicate = true;
+            if (Math.abs(m.x - f.x) < 50) duplicate = true;
           });
           if (!duplicate) {
             filteredResults.push(m);
 
             if (DEBUG) {
-              // console.log(name, x, y, dataList[y][x]);
+              // console.log(name, m);
               mat.drawRectangle(new cv.Rect(m.x, m.y, t.cols, t.rows), new cv.Vec3(color[0], color[1], color[2]), 2, cv.LINE_8);
             }
           }
         });
-
-        // console.log(name, matches[name].length, filteredResults.length);
 
         matches[name] = filteredResults;
       }
