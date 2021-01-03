@@ -5,7 +5,7 @@ const axios = require('axios');
 const im = require('imagemagick');
 const toXml = require('./build');
 
-const DEBUG = true;
+const DEBUG = process.env.NODE_ENV === 'development';
 
 const notesNoExtrasTemplates = {
   half: { mat: [loadImage('./templates/notes/half/half-bar.png'), loadImage('./templates/notes/half/half-blank.png')], thresh: 0.25 },
@@ -420,8 +420,10 @@ async function parseSong(song, output) {
     const rightBarDuration = getDuration(rightBarMatch);
     notes[i].notesR.forEach((n) => (n.duration = rightBarDuration));
 
-    // if (DEBUG) cv.imshow('window', rightBar);
-    // if (DEBUG) cv.waitKey();
+    // if (i > 94) {
+    //   if (DEBUG) cv.imshow('window', rightBar);
+    //   if (DEBUG) cv.waitKey();
+    // }
 
     augmentedNotes.push(notes[i]);
   }

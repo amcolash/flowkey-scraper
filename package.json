@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "start": "node src/index.js",
-    "dev": "nodemon --watch src -e js --exec 'npm start' 'test/input/test2.json' '.'",
-    "test": "node test/test.js"
+    "dev": "NODE_ENV=development nodemon --watch src -e js --exec 'npm start' 'test/input/test2.json' '.'",
+    "test": "NODE_ENV=development node test/test.js"
   },
   "author": "Andrew McOlash",
   "license": "MIT",
