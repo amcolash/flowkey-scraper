@@ -254,7 +254,7 @@ function checkTies(mat, note, augmentedNotes) {
           const firstTie = bothTieMatch.tieRight[0];
 
           const rightCrop = newCrop
-            .getRegion(new cv.Rect(firstTie.x + 10, 0, Math.min(65, newCrop.cols - firstTie.x - 10), newCrop.rows))
+            .getRegion(new cv.Rect(firstTie.x + 10, 0, Math.min(80, newCrop.cols - firstTie.x - 10), newCrop.rows))
             .copy();
 
           const tieMatch = getMatchedTemplates(rightCrop, noteTemplates);
@@ -353,7 +353,13 @@ function getMeasures(mat, notes) {
     measures[measure].staffs[1].push(n.notesL);
   });
 
-  return measures;
+  const filteredMeasures = [];
+  measures.forEach((m, i) => {
+    // if (i < 15 || i > 20) return;
+    if (m.staffs[0].length > 0 || m.staffs[1].length > 0) filteredMeasures.push(m);
+  });
+
+  return filteredMeasures;
 }
 
 // 0-indexed position
