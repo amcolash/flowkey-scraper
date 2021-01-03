@@ -86,14 +86,37 @@ function loadImage(p) {
 
 function getDuration(matches) {
   let duration = 'eighth';
-  if (matches.whole) duration = 'whole';
-  if (matches.half) duration = 'half';
-  if (matches.quarter) duration = 'quarter';
-  if (matches.eighth || matches.eighthBeam) duration = 'eighth';
+  let y = -1;
+  if (matches.whole) {
+    duration = 'whole';
+    y = matches.whole.y;
+  }
+  if (matches.half) {
+    duration = 'half';
+    y = matches.half.y;
+  }
+  if (matches.quarter) {
+    duration = 'quarter';
+    y = matches.quarter.y;
+  }
+  if (matches.eighth) {
+    duration = 'eighth';
+    y = matches.eighth.y;
+  }
 
+  // Fix a bug where two quarter notes tied look like an eightbeam
   let beam;
-  if (matches.eighthBeam) beam = 'begin';
-  if (matches.eighthBeamEnd) beam = 'end';
+  if (matches.eighthBeam || matches.eighthBeamEnd) {
+    let valid = true;
+    if (y > -1 && matches.eighthBeam && Math.abs(y - matches.eighthBeam.y) < 20) valid = false;
+    if (y > -1 && matches.eighthBeamEnd && Math.abs(y - matches.eighthBeamEnd.y) < 20) valid = false;
+
+    if (valid) {
+      duration = 'eighth';
+      if (matches.eighthBeam) beam = 'begin';
+      if (matches.eighthBeamEnd) beam = 'end';
+    }
+  }
 
   const rest = matches.quarterRest !== undefined || matches.eighthRest !== undefined;
 
@@ -421,6 +444,8 @@ async function parseSong(song, output) {
     const rightBarMatch = getMatchedTemplates(rightBar, noteTemplates);
     const rightBarDuration = getDuration(rightBarMatch);
     notes[i].notesR.forEach((n) => (n.duration = rightBarDuration));
+
+    // console.log(rightBarDuration);
 
     // if (i > 94) {
     // if (DEBUG) cv.imshow('window', rightBar);
