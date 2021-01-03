@@ -104,8 +104,12 @@ dist
 .tern-port
 
 *.mid
+tmp/
+
 *.xml
 *.json
-tmp/
+
+!test/**/*.json
+!test/**/*.xml
 
 test.js

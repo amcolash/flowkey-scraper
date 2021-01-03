@@ -1,0 +1,1134 @@
+{
+  "data": {
+    "song": {
+      "_id": "Se9khytc6bnMnGC87",
+      "artist": "Leonard Cohen",
+      "arrangement": null,
+      "title": "Hallelujah",
+      "lightningKeys": {
+        "xPositions": [
+          0.6770833333333334,
+          1.875,
+          3.3333333333333335,
+          4.322916666666667,
+          5.15625,
+          6.5625,
+          7.395833333333333,
+          8.802083333333334,
+          9.84375,
+          10.729166666666666,
+          12.083333333333334,
+          12.916666666666668,
+          14.21875,
+          15.052083333333332,
+          16.302083333333332,
+          17.34375,
+          18.385416666666668,
+          19.6875,
+          20.677083333333332,
+          21.927083333333332,
+          23.020833333333332,
+          24.010416666666668,
+          25.208333333333332,
+          26.197916666666664,
+          27.395833333333336,
+          28.385416666666668,
+          29.583333333333332,
+          30.572916666666668,
+          31.666666666666664,
+          32.916666666666664,
+          34.010416666666664,
+          35.208333333333336,
+          36.354166666666664,
+          37.395833333333336,
+          38.59375,
+          39.635416666666664,
+          40.78125,
+          41.770833333333336,
+          42.96875,
+          44.01041666666667,
+          45.104166666666664,
+          46.40625,
+          47.447916666666664,
+          48.69791666666667,
+          49.791666666666664,
+          50.88541666666667,
+          52.083333333333336,
+          53.07291666666667,
+          54.270833333333336,
+          55.36458333333333,
+          56.510416666666664,
+          57.552083333333336,
+          58.64583333333333,
+          60,
+          61.04166666666667,
+          62.291666666666664,
+          63.38541666666667,
+          64.53125,
+          65.67708333333333,
+          66.61458333333333,
+          67.86458333333333,
+          68.90625,
+          70.05208333333334,
+          71.09375,
+          72.23958333333333,
+          73.48958333333333,
+          74.53125,
+          75.83333333333333,
+          76.97916666666667,
+          77.96875,
+          79.21875,
+          80.26041666666667,
+          81.51041666666666,
+          82.5,
+          83.69791666666667,
+          84.6875,
+          85.78125,
+          87.08333333333333,
+          88.125,
+          89.47916666666667,
+          90.46875,
+          91.5625,
+          92.91666666666667,
+          93.80208333333333,
+          95.15625,
+          95.98958333333333,
+          97.39583333333334,
+          98.22916666666667,
+          100.05208333333333
+        ],
+        "yOffset": 33.53846153846154,
+        "keyIndexRanges": {
+          "left": { "lowest": 32, "highest": 43, "__typename": "IntRange" },
+          "right": { "lowest": 39, "highest": 55, "__typename": "IntRange" },
+          "both": { "lowest": 32, "highest": 55, "__typename": "IntRange" },
+          "__typename": "LightningKeyIndexRanges"
+        },
+        "__typename": "LightningKeys"
+      },
+      "musicsheets": {
+        "svgURL": "https://flowkeycdn.com/sheets/5SbNyQhdXTR8gGkLJ/final.svg",
+        "svgSheetVerticalMiddle": 388,
+        "sheetYOffset": -9,
+        "imageURLs1x": [
+          "https://flowkeycdn.com/sheets/5SbNyQhdXTR8gGkLJ/150/0.png",
+          "https://flowkeycdn.com/sheets/5SbNyQhdXTR8gGkLJ/150/1.png",
+          "https://flowkeycdn.com/sheets/5SbNyQhdXTR8gGkLJ/150/2.png",
+          "https://flowkeycdn.com/sheets/5SbNyQhdXTR8gGkLJ/150/3.png",
+          "https://flowkeycdn.com/sheets/5SbNyQhdXTR8gGkLJ/150/4.png",
+          "https://flowkeycdn.com/sheets/5SbNyQhdXTR8gGkLJ/150/5.png",
+          "https://flowkeycdn.com/sheets/5SbNyQhdXTR8gGkLJ/150/6.png",
+          "https://flowkeycdn.com/sheets/5SbNyQhdXTR8gGkLJ/150/7.png",
+          "https://flowkeycdn.com/sheets/5SbNyQhdXTR8gGkLJ/150/8.png",
+          "https://flowkeycdn.com/sheets/5SbNyQhdXTR8gGkLJ/150/9.png",
+          "https://flowkeycdn.com/sheets/5SbNyQhdXTR8gGkLJ/150/10.png",
+          "https://flowkeycdn.com/sheets/5SbNyQhdXTR8gGkLJ/150/11.png",
+          "https://flowkeycdn.com/sheets/5SbNyQhdXTR8gGkLJ/150/12.png",
+          "https://flowkeycdn.com/sheets/5SbNyQhdXTR8gGkLJ/150/13.png",
+          "https://flowkeycdn.com/sheets/5SbNyQhdXTR8gGkLJ/150/14.png",
+          "https://flowkeycdn.com/sheets/5SbNyQhdXTR8gGkLJ/150/15.png"
+        ],
+        "imageURLs2x": [
+          "https://flowkeycdn.com/sheets/5SbNyQhdXTR8gGkLJ/300/0.png",
+          "https://flowkeycdn.com/sheets/5SbNyQhdXTR8gGkLJ/300/1.png",
+          "https://flowkeycdn.com/sheets/5SbNyQhdXTR8gGkLJ/300/2.png",
+          "https://flowkeycdn.com/sheets/5SbNyQhdXTR8gGkLJ/300/3.png",
+          "https://flowkeycdn.com/sheets/5SbNyQhdXTR8gGkLJ/300/4.png",
+          "https://flowkeycdn.com/sheets/5SbNyQhdXTR8gGkLJ/300/5.png",
+          "https://flowkeycdn.com/sheets/5SbNyQhdXTR8gGkLJ/300/6.png",
+          "https://flowkeycdn.com/sheets/5SbNyQhdXTR8gGkLJ/300/7.png",
+          "https://flowkeycdn.com/sheets/5SbNyQhdXTR8gGkLJ/300/8.png",
+          "https://flowkeycdn.com/sheets/5SbNyQhdXTR8gGkLJ/300/9.png",
+          "https://flowkeycdn.com/sheets/5SbNyQhdXTR8gGkLJ/300/10.png",
+          "https://flowkeycdn.com/sheets/5SbNyQhdXTR8gGkLJ/300/11.png",
+          "https://flowkeycdn.com/sheets/5SbNyQhdXTR8gGkLJ/300/12.png",
+          "https://flowkeycdn.com/sheets/5SbNyQhdXTR8gGkLJ/300/13.png",
+          "https://flowkeycdn.com/sheets/5SbNyQhdXTR8gGkLJ/300/14.png",
+          "https://flowkeycdn.com/sheets/5SbNyQhdXTR8gGkLJ/300/15.png"
+        ],
+        "accidentalWidth": 105,
+        "sliceWidth": 512,
+        "sliceHeight": 169,
+        "totalWidth": 7685,
+        "__typename": "MusicSheet"
+      },
+      "noteEvents": [
+        {
+          "x": 147,
+          "t": 1512,
+          "notesL": [{ "key": 60, "name": "C", "octave": 4, "pitch": 0, "__typename": "Note" }],
+          "notesR": [],
+          "__typename": "NoteEvent"
+        },
+        {
+          "x": 184,
+          "t": 1979,
+          "notesL": [],
+          "notesR": [{ "key": 64, "name": "E", "octave": 4, "pitch": 4, "__typename": "Note" }],
+          "__typename": "NoteEvent"
+        },
+        {
+          "x": 220,
+          "t": 2362,
+          "notesL": [],
+          "notesR": [{ "key": 67, "name": "G", "octave": 4, "pitch": 7, "__typename": "Note" }],
+          "__typename": "NoteEvent"
+        },
+        {
+          "x": 256,
+          "t": 2744,
+          "notesL": [],
+          "notesR": [{ "key": 72, "name": "C", "octave": 5, "pitch": 0, "__typename": "Note" }],
+          "__typename": "NoteEvent"
+        },
+        {
+          "x": 292,
+          "t": 3127,
+          "notesL": [],
+          "notesR": [{ "key": 67, "name": "G", "octave": 4, "pitch": 7, "__typename": "Note" }],
+          "__typename": "NoteEvent"
+        },
+        {
+          "x": 329,
+          "t": 3515,
+          "notesL": [],
+          "notesR": [{ "key": 64, "name": "E", "octave": 4, "pitch": 4, "__typename": "Note" }],
+          "__typename": "NoteEvent"
+        },
+        {
+          "x": 384,
+          "t": 3887,
+          "notesL": [{ "key": 57, "name": "A", "octave": 3, "pitch": 9, "__typename": "Note" }],
+          "notesR": [],
+          "__typename": "NoteEvent"
+        },
+        {
+          "x": 423,
+          "t": 4280,
+          "notesL": [],
+          "notesR": [{ "key": 64, "name": "E", "octave": 4, "pitch": 4, "__typename": "Note" }],
+          "__typename": "NoteEvent"
+        },
+        {
+          "x": 462,
+          "t": 4654,
+          "notesL": [],
+          "notesR": [{ "key": 69, "name": "A", "octave": 4, "pitch": 9, "__typename": "Note" }],
+          "__typename": "NoteEvent"
+        },
+        {
+          "x": 500,
+          "t": 5026,
+          "notesL": [],
+          "notesR": [{ "key": 72, "name": "C", "octave": 5, "pitch": 0, "__typename": "Note" }],
+          "__typename": "NoteEvent"
+        },
+        {
+          "x": 539,
+          "t": 5403,
+          "notesL": [],
+          "notesR": [{ "key": 69, "name": "A", "octave": 4, "pitch": 9, "__typename": "Note" }],
+          "__typename": "NoteEvent"
+        },
+        {
+          "x": 578,
+          "t": 5791,
+          "notesL": [],
+          "notesR": [{ "key": 64, "name": "E", "octave": 4, "pitch": 4, "__typename": "Note" }],
+          "__typename": "NoteEvent"
+        },
+        {
+          "x": 636,
+          "t": 6162,
+          "notesL": [{ "key": 60, "name": "C", "octave": 4, "pitch": 0, "__typename": "Note" }],
+          "notesR": [],
+          "__typename": "NoteEvent"
+        },
+        {
+          "x": 674,
+          "t": 6577,
+          "notesL": [],
+          "notesR": [{ "key": 64, "name": "E", "octave": 4, "pitch": 4, "__typename": "Note" }],
+          "__typename": "NoteEvent"
+        },
+        {
+          "x": 713,
+          "t": 6940,
+          "notesL": [],
+          "notesR": [{ "key": 67, "name": "G", "octave": 4, "pitch": 7, "__typename": "Note" }],
+          "__typename": "NoteEvent"
+        },
+        {
+          "x": 751,
+          "t": 7302,
+          "notesL": [],
+          "notesR": [{ "key": 72, "name": "C", "octave": 5, "pitch": 0, "__typename": "Note" }],
+          "__typename": "NoteEvent"
+        },
+        {
+          "x": 790,
+          "t": 7658,
+          "notesL": [],
+          "notesR": [{ "key": 67, "name": "G", "octave": 4, "pitch": 7, "__typename": "Note" }],
+          "__typename": "NoteEvent"
+        },
+        {
+          "x": 829,
+          "t": 8025,
+          "notesL": [],
+          "notesR": [{ "key": 64, "name": "E", "octave": 4, "pitch": 4, "__typename": "Note" }],
+          "__typename": "NoteEvent"
+        },
+        {
+          "x": 887,
+          "t": 8379,
+          "notesL": [{ "key": 57, "name": "A", "octave": 3, "pitch": 9, "__typename": "Note" }],
+          "notesR": [],
+          "__typename": "NoteEvent"
+        },
+        {
+          "x": 929,
+          "t": 8736,
+          "notesL": [],
+          "notesR": [{ "key": 64, "name": "E", "octave": 4, "pitch": 4, "__typename": "Note" }],
+          "__typename": "NoteEvent"
+        },
+        {
+          "x": 971,
+          "t": 9108,
+          "notesL": [],
+          "notesR": [{ "key": 69, "name": "A", "octave": 4, "pitch": 9, "__typename": "Note" }],
+          "__typename": "NoteEvent"
+        },
+        {
+          "x": 1012,
+          "t": 9528,
+          "notesL": [],
+          "notesR": [{ "key": 72, "name": "C", "octave": 5, "pitch": 0, "__typename": "Note" }],
+          "__typename": "NoteEvent"
+        },
+        {
+          "x": 1079,
+          "t": 10282,
+          "notesL": [],
+          "notesR": [{ "key": 64, "name": "E", "octave": 4, "pitch": 4, "__typename": "Note" }],
+          "__typename": "NoteEvent"
+        },
+        {
+          "x": 1157,
+          "t": 10663,
+          "notesL": [{ "key": 60, "name": "C", "octave": 4, "pitch": 0, "__typename": "Note" }],
+          "notesR": [{ "key": 67, "name": "G", "octave": 4, "pitch": 7, "__typename": "Note" }],
+          "__typename": "NoteEvent"
+        },
+        {
+          "x": 1238,
+          "t": 11427,
+          "notesL": [],
+          "notesR": [{ "key": 67, "name": "G", "octave": 4, "pitch": 7, "__typename": "Note" }],
+          "__typename": "NoteEvent"
+        },
+        {
+          "x": 1289,
+          "t": 11823,
+          "notesL": [],
+          "notesR": [{ "key": 67, "name": "G", "octave": 4, "pitch": 7, "__typename": "Note" }],
+          "__typename": "NoteEvent"
+        },
+        {
+          "x": 1371,
+          "t": 12591,
+          "notesL": [],
+          "notesR": [{ "key": 67, "name": "G", "octave": 4, "pitch": 7, "__typename": "Note" }],
+          "__typename": "NoteEvent"
+        },
+        {
+          "x": 1443,
+          "t": 12983,
+          "notesL": [{ "key": 57, "name": "A", "octave": 3, "pitch": 9, "__typename": "Note" }],
+          "notesR": [{ "key": 69, "name": "A", "octave": 4, "pitch": 9, "__typename": "Note" }],
+          "__typename": "NoteEvent"
+        },
+        {
+          "x": 1528,
+          "t": 13733,
+          "notesL": [],
+          "notesR": [{ "key": 69, "name": "A", "octave": 4, "pitch": 9, "__typename": "Note" }],
+          "__typename": "NoteEvent"
+        },
+        {
+          "x": 1582,
+          "t": 14143,
+          "notesL": [],
+          "notesR": [{ "key": 69, "name": "A", "octave": 4, "pitch": 9, "__typename": "Note" }],
+          "__typename": "NoteEvent"
+        },
+        {
+          "x": 1667,
+          "t": 14888,
+          "notesL": [],
+          "notesR": [{ "key": 64, "name": "E", "octave": 4, "pitch": 4, "__typename": "Note" }],
+          "__typename": "NoteEvent"
+        },
+        {
+          "x": 1745,
+          "t": 15282,
+          "notesL": [{ "key": 60, "name": "C", "octave": 4, "pitch": 0, "__typename": "Note" }],
+          "notesR": [{ "key": 67, "name": "G", "octave": 4, "pitch": 7, "__typename": "Note" }],
+          "__typename": "NoteEvent"
+        },
+        {
+          "x": 1830,
+          "t": 16051,
+          "notesL": [],
+          "notesR": [{ "key": 67, "name": "G", "octave": 4, "pitch": 7, "__typename": "Note" }],
+          "__typename": "NoteEvent"
+        },
+        {
+          "x": 1883,
+          "t": 16430,
+          "notesL": [],
+          "notesR": [{ "key": 67, "name": "G", "octave": 4, "pitch": 7, "__typename": "Note" }],
+          "__typename": "NoteEvent"
+        },
+        {
+          "x": 1967,
+          "t": 17195,
+          "notesL": [],
+          "notesR": [{ "key": 67, "name": "G", "octave": 4, "pitch": 7, "__typename": "Note" }],
+          "__typename": "NoteEvent"
+        },
+        {
+          "x": 2063,
+          "t": 17597,
+          "notesL": [{ "key": 57, "name": "A", "octave": 3, "pitch": 9, "__typename": "Note" }],
+          "notesR": [{ "key": 69, "name": "A", "octave": 4, "pitch": 9, "__typename": "Note" }],
+          "__typename": "NoteEvent"
+        },
+        {
+          "x": 2150,
+          "t": 18347,
+          "notesL": [],
+          "notesR": [{ "key": 69, "name": "A", "octave": 4, "pitch": 9, "__typename": "Note" }],
+          "__typename": "NoteEvent"
+        },
+        {
+          "x": 2204,
+          "t": 18740,
+          "notesL": [],
+          "notesR": [{ "key": 69, "name": "A", "octave": 4, "pitch": 9, "__typename": "Note" }],
+          "__typename": "NoteEvent"
+        },
+        {
+          "x": 2290,
+          "t": 19489,
+          "notesL": [],
+          "notesR": [{ "key": 67, "name": "G", "octave": 4, "pitch": 7, "__typename": "Note" }],
+          "__typename": "NoteEvent"
+        },
+        {
+          "x": 2372,
+          "t": 19880,
+          "notesL": [{ "key": 53, "name": "F", "octave": 3, "pitch": 5, "__typename": "Note" }],
+          "notesR": [{ "key": 69, "name": "A", "octave": 4, "pitch": 9, "__typename": "Note" }],
+          "__typename": "NoteEvent"
+        },
+        {
+          "x": 2453,
+          "t": 20663,
+          "notesL": [],
+          "notesR": [{ "key": 69, "name": "A", "octave": 4, "pitch": 9, "__typename": "Note" }],
+          "__typename": "NoteEvent"
+        },
+        {
+          "x": 2503,
+          "t": 21042,
+          "notesL": [],
+          "notesR": [{ "key": 69, "name": "A", "octave": 4, "pitch": 9, "__typename": "Note" }],
+          "__typename": "NoteEvent"
+        },
+        {
+          "x": 2583,
+          "t": 21833,
+          "notesL": [],
+          "notesR": [{ "key": 69, "name": "A", "octave": 4, "pitch": 9, "__typename": "Note" }],
+          "__typename": "NoteEvent"
+        },
+        {
+          "x": 2664,
+          "t": 22239,
+          "notesL": [
+            { "key": 53, "name": "F", "octave": 3, "pitch": 5, "__typename": "Note" },
+            { "key": 60, "name": "C", "octave": 4, "pitch": 0, "__typename": "Note" }
+          ],
+          "notesR": [{ "key": 69, "name": "A", "octave": 4, "pitch": 9, "__typename": "Note" }],
+          "__typename": "NoteEvent"
+        },
+        {
+          "x": 2740,
+          "t": 22992,
+          "notesL": [],
+          "notesR": [{ "key": 67, "name": "G", "octave": 4, "pitch": 7, "__typename": "Note" }],
+          "__typename": "NoteEvent"
+        },
+        {
+          "x": 2788,
+          "t": 23396,
+          "notesL": [
+            { "key": 55, "name": "G", "octave": 3, "pitch": 7, "__typename": "Note" },
+            { "key": 62, "name": "D", "octave": 4, "pitch": 2, "__typename": "Note" }
+          ],
+          "notesR": [{ "key": 67, "name": "G", "octave": 4, "pitch": 7, "__typename": "Note" }],
+          "__typename": "NoteEvent"
+        },
+        {
+          "x": 2865,
+          "t": 24155,
+          "notesL": [],
+          "notesR": [{ "key": 65, "name": "F", "octave": 4, "pitch": 5, "__typename": "Note" }],
+          "__typename": "NoteEvent"
+        },
+        {
+          "x": 2936,
+          "t": 24560,
+          "notesL": [
+            { "key": 60, "name": "C", "octave": 4, "pitch": 0, "__typename": "Note" },
+            { "key": 64, "name": "E", "octave": 4, "pitch": 4, "__typename": "Note" }
+          ],
+          "notesR": [{ "key": 67, "name": "G", "octave": 4, "pitch": 7, "__typename": "Note" }],
+          "__typename": "NoteEvent"
+        },
+        {
+          "x": 3041,
+          "t": 25703,
+          "notesL": [],
+          "notesR": [{ "key": 67, "name": "G", "octave": 4, "pitch": 7, "__typename": "Note" }],
+          "__typename": "NoteEvent"
+        },
+        {
+          "x": 3165,
+          "t": 26871,
+          "notesL": [
+            { "key": 55, "name": "G", "octave": 3, "pitch": 7, "__typename": "Note" },
+            { "key": 62, "name": "D", "octave": 4, "pitch": 2, "__typename": "Note" }
+          ],
+          "notesR": [],
+          "__typename": "NoteEvent"
+        },
+        {
+          "x": 3330,
+          "t": 28949,
+          "notesL": [],
+          "notesR": [{ "key": 64, "name": "E", "octave": 4, "pitch": 4, "__typename": "Note" }],
+          "__typename": "NoteEvent"
+        },
+        {
+          "x": 3407,
+          "t": 29360,
+          "notesL": [{ "key": 60, "name": "C", "octave": 4, "pitch": 0, "__typename": "Note" }],
+          "notesR": [{ "key": 67, "name": "G", "octave": 4, "pitch": 7, "__typename": "Note" }],
+          "__typename": "NoteEvent"
+        },
+        {
+          "x": 3487,
+          "t": 30165,
+          "notesL": [],
+          "notesR": [{ "key": 67, "name": "G", "octave": 4, "pitch": 7, "__typename": "Note" }],
+          "__typename": "NoteEvent"
+        },
+        {
+          "x": 3537,
+          "t": 30563,
+          "notesL": [],
+          "notesR": [{ "key": 67, "name": "G", "octave": 4, "pitch": 7, "__typename": "Note" }],
+          "__typename": "NoteEvent"
+        },
+        {
+          "x": 3618,
+          "t": 31373,
+          "notesL": [],
+          "notesR": [{ "key": 67, "name": "G", "octave": 4, "pitch": 7, "__typename": "Note" }],
+          "__typename": "NoteEvent"
+        },
+        {
+          "x": 3706,
+          "t": 31755,
+          "notesL": [
+            { "key": 53, "name": "F", "octave": 3, "pitch": 5, "__typename": "Note" },
+            { "key": 60, "name": "C", "octave": 4, "pitch": 0, "__typename": "Note" }
+          ],
+          "notesR": [{ "key": 69, "name": "A", "octave": 4, "pitch": 9, "__typename": "Note" }],
+          "__typename": "NoteEvent"
+        },
+        {
+          "x": 3791,
+          "t": 32547,
+          "notesL": [],
+          "notesR": [{ "key": 69, "name": "A", "octave": 4, "pitch": 9, "__typename": "Note" }],
+          "__typename": "NoteEvent"
+        },
+        {
+          "x": 3845,
+          "t": 32959,
+          "notesL": [
+            { "key": 55, "name": "G", "octave": 3, "pitch": 7, "__typename": "Note" },
+            { "key": 62, "name": "D", "octave": 4, "pitch": 2, "__typename": "Note" }
+          ],
+          "notesR": [{ "key": 71, "name": "B", "octave": 4, "pitch": 11, "__typename": "Note" }],
+          "__typename": "NoteEvent"
+        },
+        {
+          "x": 3930,
+          "t": 33749,
+          "notesL": [],
+          "notesR": [{ "key": 67, "name": "G", "octave": 4, "pitch": 7, "__typename": "Note" }],
+          "__typename": "NoteEvent"
+        },
+        {
+          "x": 4007,
+          "t": 34147,
+          "notesL": [
+            { "key": 57, "name": "A", "octave": 3, "pitch": 9, "__typename": "Note" },
+            { "key": 64, "name": "E", "octave": 4, "pitch": 4, "__typename": "Note" }
+          ],
+          "notesR": [{ "key": 72, "name": "C", "octave": 5, "pitch": 0, "__typename": "Note" }],
+          "__typename": "NoteEvent"
+        },
+        {
+          "x": 4085,
+          "t": 34948,
+          "notesL": [],
+          "notesR": [{ "key": 72, "name": "C", "octave": 5, "pitch": 0, "__typename": "Note" }],
+          "__typename": "NoteEvent"
+        },
+        {
+          "x": 4133,
+          "t": 35346,
+          "notesL": [],
+          "notesR": [{ "key": 72, "name": "C", "octave": 5, "pitch": 0, "__typename": "Note" }],
+          "__typename": "NoteEvent"
+        },
+        {
+          "x": 4211,
+          "t": 36163,
+          "notesL": [],
+          "notesR": [{ "key": 72, "name": "C", "octave": 5, "pitch": 0, "__typename": "Note" }],
+          "__typename": "NoteEvent"
+        },
+        {
+          "x": 4285,
+          "t": 36553,
+          "notesL": [{ "key": 53, "name": "F", "octave": 3, "pitch": 5, "__typename": "Note" }],
+          "notesR": [
+            { "key": 69, "name": "A", "octave": 4, "pitch": 9, "__typename": "Note" },
+            { "key": 72, "name": "C", "octave": 5, "pitch": 0, "__typename": "Note" }
+          ],
+          "__typename": "NoteEvent"
+        },
+        {
+          "x": 4364,
+          "t": 37334,
+          "notesL": [],
+          "notesR": [{ "key": 72, "name": "C", "octave": 5, "pitch": 0, "__typename": "Note" }],
+          "__typename": "NoteEvent"
+        },
+        {
+          "x": 4413,
+          "t": 37735,
+          "notesL": [],
+          "notesR": [{ "key": 74, "name": "D", "octave": 5, "pitch": 2, "__typename": "Note" }],
+          "__typename": "NoteEvent"
+        },
+        {
+          "x": 4491,
+          "t": 38544,
+          "notesL": [],
+          "notesR": [{ "key": 72, "name": "C", "octave": 5, "pitch": 0, "__typename": "Note" }],
+          "__typename": "NoteEvent"
+        },
+        {
+          "x": 4566,
+          "t": 38938,
+          "notesL": [{ "key": 55, "name": "G", "octave": 3, "pitch": 7, "__typename": "Note" }],
+          "notesR": [
+            { "key": 71, "name": "B", "octave": 4, "pitch": 11, "__typename": "Note" },
+            { "key": 74, "name": "D", "octave": 5, "pitch": 2, "__typename": "Note" }
+          ],
+          "__typename": "NoteEvent"
+        },
+        {
+          "x": 4651,
+          "t": 39714,
+          "notesL": [],
+          "notesR": [{ "key": 74, "name": "D", "octave": 5, "pitch": 2, "__typename": "Note" }],
+          "__typename": "NoteEvent"
+        },
+        {
+          "x": 4704,
+          "t": 40135,
+          "notesL": [],
+          "notesR": [{ "key": 74, "name": "D", "octave": 5, "pitch": 2, "__typename": "Note" }],
+          "__typename": "NoteEvent"
+        },
+        {
+          "x": 4789,
+          "t": 40917,
+          "notesL": [],
+          "notesR": [{ "key": 74, "name": "D", "octave": 5, "pitch": 2, "__typename": "Note" }],
+          "__typename": "NoteEvent"
+        },
+        {
+          "x": 4865,
+          "t": 41318,
+          "notesL": [{ "key": 56, "name": "G♯", "octave": 3, "pitch": 8, "__typename": "Note" }],
+          "notesR": [
+            { "key": 71, "name": "B", "octave": 4, "pitch": 11, "__typename": "Note" },
+            { "key": 76, "name": "E", "octave": 5, "pitch": 4, "__typename": "Note" }
+          ],
+          "__typename": "NoteEvent"
+        },
+        {
+          "x": 4940,
+          "t": 42099,
+          "notesL": [],
+          "notesR": [{ "key": 76, "name": "E", "octave": 5, "pitch": 4, "__typename": "Note" }],
+          "__typename": "NoteEvent"
+        },
+        {
+          "x": 4988,
+          "t": 42544,
+          "notesL": [],
+          "notesR": [{ "key": 76, "name": "E", "octave": 5, "pitch": 4, "__typename": "Note" }],
+          "__typename": "NoteEvent"
+        },
+        {
+          "x": 5063,
+          "t": 43298,
+          "notesL": [],
+          "notesR": [{ "key": 74, "name": "D", "octave": 5, "pitch": 2, "__typename": "Note" }],
+          "__typename": "NoteEvent"
+        },
+        {
+          "x": 5131,
+          "t": 43710,
+          "notesL": [
+            { "key": 57, "name": "A", "octave": 3, "pitch": 9, "__typename": "Note" },
+            { "key": 64, "name": "E", "octave": 4, "pitch": 4, "__typename": "Note" }
+          ],
+          "notesR": [{ "key": 74, "name": "D", "octave": 5, "pitch": 2, "__typename": "Note" }],
+          "__typename": "NoteEvent"
+        },
+        {
+          "x": 5233,
+          "t": 44867,
+          "notesL": [],
+          "notesR": [{ "key": 72, "name": "C", "octave": 5, "pitch": 0, "__typename": "Note" }],
+          "__typename": "NoteEvent"
+        },
+        {
+          "x": 5355,
+          "t": 46090,
+          "notesL": [{ "key": 57, "name": "A", "octave": 3, "pitch": 9, "__typename": "Note" }],
+          "notesR": [],
+          "__typename": "NoteEvent"
+        },
+        {
+          "x": 5452,
+          "t": 47257,
+          "notesL": [],
+          "notesR": [{ "key": 64, "name": "E", "octave": 4, "pitch": 4, "__typename": "Note" }],
+          "__typename": "NoteEvent"
+        },
+        {
+          "x": 5532,
+          "t": 48003,
+          "notesL": [],
+          "notesR": [{ "key": 67, "name": "G", "octave": 4, "pitch": 7, "__typename": "Note" }],
+          "__typename": "NoteEvent"
+        },
+        {
+          "x": 5602,
+          "t": 48434,
+          "notesL": [
+            { "key": 53, "name": "F", "octave": 3, "pitch": 5, "__typename": "Note" },
+            { "key": 60, "name": "C", "octave": 4, "pitch": 0, "__typename": "Note" }
+          ],
+          "notesR": [{ "key": 69, "name": "A", "octave": 4, "pitch": 9, "__typename": "Note" }],
+          "__typename": "NoteEvent"
+        },
+        {
+          "x": 5705,
+          "t": 49573,
+          "notesL": [],
+          "notesR": [{ "key": 69, "name": "A", "octave": 4, "pitch": 9, "__typename": "Note" }],
+          "__typename": "NoteEvent"
+        },
+        {
+          "x": 5826,
+          "t": 50772,
+          "notesL": [
+            { "key": 53, "name": "F", "octave": 3, "pitch": 5, "__typename": "Note" },
+            { "key": 60, "name": "C", "octave": 4, "pitch": 0, "__typename": "Note" }
+          ],
+          "notesR": [],
+          "__typename": "NoteEvent"
+        },
+        {
+          "x": 5924,
+          "t": 51932,
+          "notesL": [],
+          "notesR": [{ "key": 69, "name": "A", "octave": 4, "pitch": 9, "__typename": "Note" }],
+          "__typename": "NoteEvent"
+        },
+        {
+          "x": 6004,
+          "t": 52702,
+          "notesL": [],
+          "notesR": [{ "key": 67, "name": "G", "octave": 4, "pitch": 7, "__typename": "Note" }],
+          "__typename": "NoteEvent"
+        },
+        {
+          "x": 6074,
+          "t": 53121,
+          "notesL": [
+            { "key": 57, "name": "A", "octave": 3, "pitch": 9, "__typename": "Note" },
+            { "key": 60, "name": "C", "octave": 4, "pitch": 0, "__typename": "Note" }
+          ],
+          "notesR": [{ "key": 64, "name": "E", "octave": 4, "pitch": 4, "__typename": "Note" }],
+          "__typename": "NoteEvent"
+        },
+        {
+          "x": 6176,
+          "t": 54260,
+          "notesL": [],
+          "notesR": [{ "key": 64, "name": "E", "octave": 4, "pitch": 4, "__typename": "Note" }],
+          "__typename": "NoteEvent"
+        },
+        {
+          "x": 6298,
+          "t": 55463,
+          "notesL": [
+            { "key": 57, "name": "A", "octave": 3, "pitch": 9, "__typename": "Note" },
+            { "key": 60, "name": "C", "octave": 4, "pitch": 0, "__typename": "Note" }
+          ],
+          "notesR": [],
+          "__typename": "NoteEvent"
+        },
+        {
+          "x": 6396,
+          "t": 56665,
+          "notesL": [],
+          "notesR": [{ "key": 64, "name": "E", "octave": 4, "pitch": 4, "__typename": "Note" }],
+          "__typename": "NoteEvent"
+        },
+        {
+          "x": 6475,
+          "t": 57418,
+          "notesL": [],
+          "notesR": [{ "key": 67, "name": "G", "octave": 4, "pitch": 7, "__typename": "Note" }],
+          "__typename": "NoteEvent"
+        },
+        {
+          "x": 6546,
+          "t": 57846,
+          "notesL": [
+            { "key": 53, "name": "F", "octave": 3, "pitch": 5, "__typename": "Note" },
+            { "key": 60, "name": "C", "octave": 4, "pitch": 0, "__typename": "Note" }
+          ],
+          "notesR": [{ "key": 69, "name": "A", "octave": 4, "pitch": 9, "__typename": "Note" }],
+          "__typename": "NoteEvent"
+        },
+        {
+          "x": 6648,
+          "t": 58980,
+          "notesL": [],
+          "notesR": [{ "key": 69, "name": "A", "octave": 4, "pitch": 9, "__typename": "Note" }],
+          "__typename": "NoteEvent"
+        },
+        {
+          "x": 6770,
+          "t": 60179,
+          "notesL": [
+            { "key": 53, "name": "F", "octave": 3, "pitch": 5, "__typename": "Note" },
+            { "key": 60, "name": "C", "octave": 4, "pitch": 0, "__typename": "Note" }
+          ],
+          "notesR": [],
+          "__typename": "NoteEvent"
+        },
+        {
+          "x": 6867,
+          "t": 61393,
+          "notesL": [],
+          "notesR": [{ "key": 69, "name": "A", "octave": 4, "pitch": 9, "__typename": "Note" }],
+          "__typename": "NoteEvent"
+        },
+        {
+          "x": 6947,
+          "t": 62193,
+          "notesL": [],
+          "notesR": [{ "key": 67, "name": "G", "octave": 4, "pitch": 7, "__typename": "Note" }],
+          "__typename": "NoteEvent"
+        },
+        {
+          "x": 7016,
+          "t": 62621,
+          "notesL": [
+            { "key": 55, "name": "G", "octave": 3, "pitch": 7, "__typename": "Note" },
+            { "key": 60, "name": "C", "octave": 4, "pitch": 0, "__typename": "Note" }
+          ],
+          "notesR": [{ "key": 64, "name": "E", "octave": 4, "pitch": 4, "__typename": "Note" }],
+          "__typename": "NoteEvent"
+        },
+        {
+          "x": 7145,
+          "t": 64148,
+          "notesL": [],
+          "notesR": [{ "key": 65, "name": "F", "octave": 4, "pitch": 5, "__typename": "Note" }],
+          "__typename": "NoteEvent"
+        },
+        {
+          "x": 7189,
+          "t": 64556,
+          "notesL": [],
+          "notesR": [{ "key": 64, "name": "E", "octave": 4, "pitch": 4, "__typename": "Note" }],
+          "__typename": "NoteEvent"
+        },
+        {
+          "x": 7252,
+          "t": 64993,
+          "notesL": [
+            { "key": 55, "name": "G", "octave": 3, "pitch": 7, "__typename": "Note" },
+            { "key": 59, "name": "B", "octave": 3, "pitch": 11, "__typename": "Note" }
+          ],
+          "notesR": [{ "key": 62, "name": "D", "octave": 4, "pitch": 2, "__typename": "Note" }],
+          "__typename": "NoteEvent"
+        },
+        {
+          "x": 7452,
+          "t": 67382,
+          "notesL": [],
+          "notesR": [{ "key": 60, "name": "C", "octave": 4, "pitch": 0, "__typename": "Note" }],
+          "__typename": "NoteEvent"
+        }
+      ],
+      "syncData": {
+        "t": [
+          0,
+          1512,
+          1979,
+          2362,
+          2744,
+          3127,
+          3515,
+          3887,
+          4280,
+          4654,
+          5026,
+          5403,
+          5791,
+          6162,
+          6577,
+          6940,
+          7302,
+          7658,
+          8025,
+          8379,
+          8736,
+          9108,
+          9528,
+          10282,
+          10663,
+          11427,
+          11823,
+          12591,
+          12983,
+          13733,
+          14143,
+          14888,
+          15282,
+          16051,
+          16430,
+          17195,
+          17597,
+          18347,
+          18740,
+          19489,
+          19880,
+          20663,
+          21042,
+          21833,
+          22239,
+          22992,
+          23396,
+          24155,
+          24560,
+          25703,
+          26871,
+          28949,
+          29360,
+          30165,
+          30563,
+          31373,
+          31755,
+          32547,
+          32959,
+          33749,
+          34147,
+          34948,
+          35346,
+          36163,
+          36553,
+          37334,
+          37735,
+          38544,
+          38938,
+          39714,
+          40135,
+          40917,
+          41318,
+          42099,
+          42544,
+          43298,
+          43710,
+          44867,
+          46090,
+          47257,
+          48003,
+          48434,
+          49573,
+          50772,
+          51932,
+          52702,
+          53121,
+          54260,
+          55463,
+          56665,
+          57418,
+          57846,
+          58980,
+          60179,
+          61393,
+          62193,
+          62621,
+          64148,
+          64556,
+          64993,
+          67382,
+          71630
+        ],
+        "x": [
+          0,
+          147,
+          184,
+          220,
+          256,
+          292,
+          329,
+          384,
+          423,
+          462,
+          500,
+          539,
+          578,
+          636,
+          674,
+          713,
+          751,
+          790,
+          829,
+          887,
+          929,
+          971,
+          1012,
+          1079,
+          1157,
+          1238,
+          1289,
+          1371,
+          1443,
+          1528,
+          1582,
+          1667,
+          1745,
+          1830,
+          1883,
+          1967,
+          2063,
+          2150,
+          2204,
+          2290,
+          2372,
+          2453,
+          2503,
+          2583,
+          2664,
+          2740,
+          2788,
+          2865,
+          2936,
+          3041,
+          3165,
+          3330,
+          3407,
+          3487,
+          3537,
+          3618,
+          3706,
+          3791,
+          3845,
+          3930,
+          4007,
+          4085,
+          4133,
+          4211,
+          4285,
+          4364,
+          4413,
+          4491,
+          4566,
+          4651,
+          4704,
+          4789,
+          4865,
+          4940,
+          4988,
+          5063,
+          5131,
+          5233,
+          5355,
+          5452,
+          5532,
+          5602,
+          5705,
+          5826,
+          5924,
+          6004,
+          6074,
+          6176,
+          6298,
+          6396,
+          6475,
+          6546,
+          6648,
+          6770,
+          6867,
+          6947,
+          7016,
+          7145,
+          7189,
+          7252,
+          7452,
+          7685
+        ],
+        "__typename": "SyncData"
+      },
+      "videoMp4Url": "https://flowkeycdn.com/mp4/medium/resources/hallelujah-1_2018-08-13_09-08-04/1534145087081.mp4",
+      "videoMp4LowUrl": "https://flowkeycdn.com/mp4/lowend/resources/hallelujah-1_2018-08-13_09-08-04/1534145088288.mp4",
+      "videoWebmUrl": "https://flowkeycdn.com/webm/medium/resources/hallelujah-1_2018-08-13_09-08-04/1534145087506.webm",
+      "videoWebmLowUrl": "https://flowkeycdn.com/webm/lowend/resources/hallelujah-1_2018-08-13_09-08-04/1534145087896.webm",
+      "videoDuration": 71.68,
+      "authorText": null,
+      "__typename": "Song"
+    }
+  }
+}
