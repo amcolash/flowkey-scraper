@@ -202,14 +202,14 @@ function checkTies(mat, note, augmentedNotes) {
     });
 
     if (tieLeftBar || tieRightBar) {
-      note.notesL.forEach((n) => (n.duration.tie = 'start'));
-      note.notesR.forEach((n) => (n.duration.tie = 'start'));
+      if (tieLeftBar) note.notesL.forEach((n) => (n.duration.tieStart = true));
+      if (tieRightBar) note.notesR.forEach((n) => (n.duration.tieStart = true));
 
       const newNote = JSON.parse(JSON.stringify(note));
       newNote.x = augmentedNoteX / 2;
 
-      if (tieLeftBar) newNote.notesL.forEach((n) => (n.duration = { ...tieLeftBar, tie: !moreTies ? 'end' : undefined }));
-      if (tieRightBar) newNote.notesR.forEach((n) => (n.duration = { ...tieRightBar, tie: !moreTies ? 'end' : undefined }));
+      if (tieLeftBar) newNote.notesL.forEach((n) => (n.duration = { ...tieLeftBar, tieStop: true, tieStart: moreTies }));
+      if (tieRightBar) newNote.notesR.forEach((n) => (n.duration = { ...tieRightBar, tieStop: true, tieStart: moreTies }));
 
       augmentedNotes.push(newNote);
     }
@@ -284,11 +284,10 @@ async function parseSong(song) {
     const rightBarDuration = getDuration(rightBarMatch);
     notes[i].notesR.forEach((n) => (n.duration = rightBarDuration));
 
-    augmentedNotes.push(JSON.parse(JSON.stringify(notes[i])));
+    augmentedNotes.push(notes[i]);
 
     // Add additional notes for ties
     checkTies(mat, notes[i], augmentedNotes);
-    // checkTies2(mat, JSON.parse(JSON.stringify(notes[i])), notes[i].x * 2 - 10, augmentedNotes);
   }
 
   console.log(notes.length, augmentedNotes.length);
@@ -299,44 +298,6 @@ async function parseSong(song) {
 
   const xml = toXml(measures, { title: song.title, timeSig: getTimeSignature(timeSig) });
   fs.writeFileSync(path.join(__dirname, '../test.xml'), xml);
-
-  return;
-
-  let min = 9999999999;
-
-  const leftNotes = [];
-  const rightNotes = [];
-  notes.forEach((n, i) => {
-    if (i >= numNotes) return;
-
-    if (n.notesL.length > 0) leftNotes.push({ x: n.x, t: n.t, d: n.ld, notesL: n.notesL });
-    if (n.notesR.length > 0) rightNotes.push({ x: n.x, t: n.t, d: n.rd, notesR: n.notesR });
-
-    min = Math.min(min, n.t);
-  });
-
-  // const rightTrack = new MidiWriter.Track();
-  // const leftTrack = new MidiWriter.Track();
-
-  // rightTrack.setTimeSignature(6, 8);
-  // leftTrack.setTimeSignature(6, 8);
-
-  // rightNotes.forEach((n, i) => {
-  //   // const notes = n.notesR.map((r) => `${r.name.replace('♭', 'b').replace('♯', '#')}${r.octave}`);
-  //   const notes = n.notesR.map((r) => r.key);
-  //   if (Array.isArray(n.d)) n.d.forEach((d) => rightTrack.addEvent(new MidiWriter.NoteEvent({ pitch: notes, duration: d })));
-  //   else rightTrack.addEvent(new MidiWriter.NoteEvent({ pitch: notes, duration: n.d }));
-  // });
-
-  // leftNotes.forEach((n, i) => {
-  //   // const notes = n.notesL.map((l) => `${l.name.replace('♭', 'b').replace('♯', '#')}${l.octave}`);
-  //   const notes = n.notesL.map((l) => l.key);
-  //   if (Array.isArray(n.d)) n.d.forEach((d) => leftTrack.addEvent(new MidiWriter.NoteEvent({ pitch: notes, duration: d })));
-  //   else leftTrack.addEvent(new MidiWriter.NoteEvent({ pitch: notes, duration: n.d }));
-  // });
-
-  // const write = new MidiWriter.Writer([rightTrack, leftTrack]);
-  // write.saveMIDI(song.title);
 }
 
 // Init and parse song

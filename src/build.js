@@ -23,6 +23,12 @@ function noteToMusicXMLObject(note, continuesChord, staff) {
   const flat = note.name.indexOf('♭') !== -1;
   const sharp = note.name.indexOf('♯') !== -1;
 
+  if (note.duration.tieStop || note.duration.tieStart) {
+    obj['tie'] = [];
+    if (note.duration.tieStop) obj['tie'].push({ '@type': 'stop' });
+    if (note.duration.tieStart) obj['tie'].push({ '@type': 'start' });
+  }
+
   obj['pitch'] = {
     step: { '#text': step },
     alter: sharp ? 1 : flat ? -1 : 0,
