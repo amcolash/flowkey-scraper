@@ -50,7 +50,7 @@ const restTemplates = {
 };
 
 const barsTemplate = { mat: loadImage('./templates/bars/bars.png'), thresh: 0.2 };
-const measureTemplate = { mat: loadImage('./templates/bars/measure.png'), thresh: 0.15 };
+const measureTemplate = { mat: loadImage('./templates/bars/measure.png'), thresh: 0.1 };
 
 const tieLeftTemplate = {
   mat: generateVariations([
@@ -428,9 +428,6 @@ async function parseSong(song, output) {
     // if (DEBUG) cv.waitKey();
 
     augmentedNotes.push(notes[i]);
-
-    // Add additional notes for ties
-    // checkTies(mat, notes[i], augmentedNotes);
   }
 
   // Add missing notes that are tied

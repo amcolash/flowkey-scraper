@@ -4,7 +4,8 @@
   "description": "Scrape flowkey sheet music",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon --exec 'node src/index.js'",
+    "start": "node src/index.js",
+    "dev": "nodemon --exec 'npm start' 'test/input/test1.json' '.'",
     "test": "echo Set These Up!"
   },
   "author": "Andrew McOlash",
