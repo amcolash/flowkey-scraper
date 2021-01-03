@@ -21,14 +21,31 @@ const restTemplates = {
 
 const barsTemplate = { mat: loadImage('./templates/bars.png'), thresh: 0.2 };
 const measureTemplate = { mat: loadImage('./templates/measure.png'), thresh: 0.1 };
-const tieLeftTemplate = { mat: loadImage('./templates/tie-left.png'), thresh: 0.25 };
-const tieRightTemplate = { mat: loadImage('./templates/tie-right.png'), thresh: 0.25 };
+
+const tieLeftTemplate = {
+  mat: generateFlipped([loadImage('./templates/tie-left-short.png'), loadImage('./templates/tie-left-long.png')]),
+  thresh: 0.25,
+};
+const tieRightTemplate = {
+  mat: generateFlipped([loadImage('./templates/tie-right-short.png', loadImage('./templates/tie-right-long.png'))]),
+  thresh: 0.25,
+};
 
 const timeSignatures = {
   time_3_4: { mat: loadImage('./templates/3-4.png'), thresh: 0.2 },
   time_4_4: { mat: loadImage('./templates/4-4.png'), thresh: 0.2 },
   time_6_8: { mat: loadImage('./templates/6-8.png'), thresh: 0.2 },
 };
+
+function generateFlipped(mats) {
+  const flipped = [];
+  mats.forEach((m) => {
+    flipped.push(m);
+    flipped.push(m.copy().flip(0));
+  });
+
+  return flipped;
+}
 
 function loadImage(p) {
   return cv.imread(path.join(__dirname, p));
@@ -97,17 +114,27 @@ async function downloadImages(song) {
   });
 }
 
+const colors = [
+  [255, 0, 0],
+  [0, 255, 0],
+  [0, 0, 255],
+  [255, 0, 255],
+  [0, 255, 255],
+  [255, 255, 0],
+];
+
 function getMatchedTemplates(mat, templates, multi) {
   const matches = {};
 
-  Object.entries(templates).forEach((t) => {
-    const name = t[0];
-    const value = t[1];
+  Object.entries(templates).forEach((template, i) => {
+    const name = template[0];
+    const value = template[1];
 
     const templates = Array.isArray(value.mat) ? value.mat : [value.mat];
 
-    templates.forEach((t) => {
+    templates.forEach((t, j) => {
       const match = mat.matchTemplate(t, cv.TM_CCOEFF_NORMED);
+      const color = colors[((i + 1) * (j + 1)) % colors.length];
 
       if (!multi) {
         const minMax = match.minMaxLoc();
@@ -116,12 +143,19 @@ function getMatchedTemplates(mat, templates, multi) {
         if (minMax.maxVal > 1 - value.thresh) {
           matches[name] = { x: minMax.maxLoc.x, y: minMax.maxLoc.y };
 
-          // if (DEBUG) console.log(name, minMax);
-          if (DEBUG) mat.drawRectangle(new cv.Rect(minMax.maxLoc.x, minMax.maxLoc.y, t.cols, t.rows), new cv.Vec3(0, 0, 255), 2, cv.LINE_8);
+          if (DEBUG) {
+            // console.log(name, minMax);
+            mat.drawRectangle(
+              new cv.Rect(minMax.maxLoc.x, minMax.maxLoc.y, t.cols, t.rows),
+              new cv.Vec3(color[0], color[1], color[2]),
+              2,
+              cv.LINE_8
+            );
+          }
         }
       } else {
         const dataList = match.getDataAsArray();
-        matches[name] = [];
+        if (!matches[name]) matches[name] = [];
 
         for (let y = 0; y < dataList.length; y++) {
           for (let x = 0; x < dataList[y].length; x++) {
@@ -129,7 +163,7 @@ function getMatchedTemplates(mat, templates, multi) {
               matches[name].push({ x, y });
               if (DEBUG) {
                 // console.log(name, x, y, dataList[y][x]);
-                mat.drawRectangle(new cv.Rect(x, y, t.cols, t.rows), new cv.Vec3(0, 0, 255), 2, cv.LINE_8);
+                mat.drawRectangle(new cv.Rect(x, y, t.cols, t.rows), new cv.Vec3(color[0], color[1], color[2]), 2, cv.LINE_8);
               }
             }
           }
@@ -145,6 +179,8 @@ function checkTies(mat, note, augmentedNotes) {
   let xPos = note.x * 2 - 15;
   let moreTies = true;
 
+  let count = 0;
+
   while (moreTies) {
     moreTies = false;
 
@@ -155,15 +191,20 @@ function checkTies(mat, note, augmentedNotes) {
 
     const halfHeight = mat.rows / 2;
 
-    const cropped = mat.getRegion(new cv.Rect(xPos, 0, 65, mat.rows)).copy();
-    const leftBar = cropped.getRegion(new cv.Rect(0, halfHeight, cropped.cols, halfHeight));
-    const rightBar = cropped.getRegion(new cv.Rect(0, 0, cropped.cols, halfHeight));
+    const cropped = mat.getRegion(new cv.Rect(xPos, 0, 65, mat.rows));
+    const leftBar = cropped.getRegion(new cv.Rect(0, halfHeight, cropped.cols, halfHeight)).copy();
+    const rightBar = cropped.getRegion(new cv.Rect(0, 0, cropped.cols, halfHeight)).copy();
+
+    // if (count > 0) {
+    //   if (DEBUG) cv.imshow('window', cropped);
+    //   if (DEBUG) cv.waitKey();
+    // }
 
     [leftBar, rightBar].forEach((bar, j) => {
-      const leftTieMatch = getMatchedTemplates(bar, { tieLeft: tieLeftTemplate });
+      const leftTieMatch = getMatchedTemplates(bar.copy(), { tieLeft: tieLeftTemplate });
 
       if (leftTieMatch.tieLeft) {
-        const cropOffset = xPos + 40;
+        const cropOffset = xPos + 70;
 
         let newCrop;
         if (j === 0) newCrop = mat.getRegion(new cv.Rect(cropOffset, halfHeight, 250, halfHeight)).copy();
@@ -171,10 +212,8 @@ function checkTies(mat, note, augmentedNotes) {
 
         const matchMat = newCrop.copy();
         const bothTieMatch = getMatchedTemplates(matchMat, { tieRight: tieRightTemplate, tieLeft: tieLeftTemplate });
-        if (bothTieMatch.tieRight) {
-          // if (DEBUG) cv.imshow('window', newCrop);
-          // if (DEBUG) cv.waitKey();
 
+        if (bothTieMatch.tieRight) {
           const rightCrop = newCrop.getRegion(
             new cv.Rect(bothTieMatch.tieRight.x + 10, 0, Math.min(65, newCrop.cols - bothTieMatch.tieRight.x - 10), newCrop.rows)
           );
@@ -184,7 +223,7 @@ function checkTies(mat, note, augmentedNotes) {
 
           if (j === 0) {
             tieLeftBar = extraDuration;
-            augmentedNoteX = cropOffset + bothTieMatch.tieLeft.x + 10;
+            augmentedNoteX = cropOffset + bothTieMatch.tieRight.x + 10;
           }
 
           if (j === 1) {
@@ -194,9 +233,9 @@ function checkTies(mat, note, augmentedNotes) {
         }
 
         if (bothTieMatch.tieLeft) {
-          // if (DEBUG) cv.imshow('window', newCrop);
+          // if (DEBUG) cv.imshow('window', matchMat);
           // if (DEBUG) cv.waitKey();
-          xPos += bothTieMatch.tieLeft.x + 15;
+          xPos += bothTieMatch.tieLeft.x + 40;
           moreTies = true;
         }
       }
@@ -212,9 +251,14 @@ function checkTies(mat, note, augmentedNotes) {
       if (tieLeftBar) newNote.notesL.forEach((n) => (n.duration = { ...tieLeftBar, tieStop: true, tieStart: moreTies }));
       if (tieRightBar) newNote.notesR.forEach((n) => (n.duration = { ...tieRightBar, tieStop: true, tieStart: moreTies }));
 
+      // console.log(tieLeftBar, tieRightBar);
+
       augmentedNotes.push(newNote);
+      count++;
     }
   }
+
+  // if (count > 0) console.log(count);
 }
 
 function addRests(mat, augmentedNotes) {
@@ -309,8 +353,8 @@ async function parseSong(song) {
   const augmentedNotes = [];
 
   // Iterate through each note to get durations and add in missing tied notes
-  for (let i = 0; i < notes.length; i++) {
-    // for (let i = 0; i < 14; i++) {
+  // for (let i = 0; i < notes.length; i++) {
+  for (let i = 0; i < 16; i++) {
     const cropped = mat.getRegion(new cv.Rect(notes[i].x * 2 - 15, 0, 65, mat.rows)).copy();
 
     const leftBar = cropped.getRegion(new cv.Rect(0, halfHeight, cropped.cols, halfHeight));
