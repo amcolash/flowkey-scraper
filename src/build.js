@@ -39,6 +39,8 @@ function noteToMusicXMLObject(note, continuesChord, staff) {
       octave: { '#text': note.octave },
     };
 
+    if (note.duration.beam) obj['beam'] = { '@bumber': 1, '#text': note.duration.beam };
+
     if (sharp || flat) obj['accidental'] = sharp ? 'sharp' : flat ? 'flat' : '';
   }
 

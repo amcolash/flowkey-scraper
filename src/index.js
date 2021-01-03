@@ -7,52 +7,64 @@ const toXml = require('./build');
 
 const DEBUG = true;
 
-const eighthTieAngled = loadImage('./templates/eighth-tie-angled.png');
-const eighthTieAngledFlipped = eighthTieAngled.copy().flip(0);
-
-const notesNoDotTemplates = {
-  half: { mat: [loadImage('./templates/half-bar.png'), loadImage('./templates/half-blank.png')], thresh: 0.25 },
-  quarter: { mat: loadImage('./templates/quarter.png'), thresh: 0.25 },
-  whole: { mat: [loadImage('./templates/whole-bar.png'), loadImage('./templates/whole-blank.png')], thresh: 0.25 },
+const notesNoExtrasTemplates = {
+  half: { mat: [loadImage('./templates/notes/half/half-bar.png'), loadImage('./templates/notes/half/half-blank.png')], thresh: 0.25 },
+  quarter: { mat: loadImage('./templates/notes/quarter/quarter.png'), thresh: 0.25 },
+  whole: { mat: [loadImage('./templates/notes/whole/whole-bar.png'), loadImage('./templates/notes/whole/whole-blank.png')], thresh: 0.25 },
   eighth: {
     mat: [
-      loadImage('./templates/eighth.png'),
-      loadImage('./templates/eighth-2.png'),
-      loadImage('./templates/eighth-3.png'),
-      loadImage('./templates/eighth-bottom.png'),
-      loadImage('./templates/eighth-bottom-2.png'),
+      loadImage('./templates/notes/eighth/eighth.png'),
+      loadImage('./templates/notes/eighth/eighth-2.png'),
+      loadImage('./templates/notes/eighth/eighth-3.png'),
+      loadImage('./templates/notes/eighth/eighth-bottom.png'),
+      loadImage('./templates/notes/eighth/eighth-bottom-2.png'),
     ],
     thresh: 0.2,
   },
-  eighthTie: { mat: [loadImage('./templates/eighth-tie-flat.png'), eighthTieAngled, eighthTieAngledFlipped], thresh: 0.35 },
 };
 
 const noteTemplates = {
-  ...notesNoDotTemplates,
-  dot: { mat: loadImage('./templates/dot.png'), thresh: 0.25 },
+  ...notesNoExtrasTemplates,
+  dot: { mat: loadImage('./templates/notes/dot.png'), thresh: 0.25 },
+  eighthBeam: {
+    mat: generateVariations([
+      loadImage('./templates/notes/eighth/eighth-beam-1.png'),
+      loadImage('./templates/notes/eighth/eighth-beam-2.png'),
+    ]),
+    thresh: 0.35,
+  },
+  eighthBeamEnd: {
+    mat: generateVariations([
+      loadImage('./templates/notes/eighth/eighth-beam-end-1.png'),
+      loadImage('./templates/notes/eighth/eighth-beam-end-2.png'),
+      loadImage('./templates/notes/eighth/eighth-beam-end-3.png'),
+      loadImage('./templates/notes/eighth/eighth-beam-end-4.png'),
+    ]),
+    thresh: 0.15,
+  },
 };
 
 const restTemplates = {
-  quarter: { mat: loadImage('./templates/quarter-rest.png'), thresh: 0.2 },
-  eighth: { mat: loadImage('./templates/eighth-rest.png'), thresh: 0.2 },
+  quarter: { mat: loadImage('./templates/rests/quarter-rest.png'), thresh: 0.2 },
+  eighth: { mat: loadImage('./templates/rests/eighth-rest.png'), thresh: 0.2 },
 };
 
-const barsTemplate = { mat: loadImage('./templates/bars.png'), thresh: 0.2 };
-const measureTemplate = { mat: loadImage('./templates/measure.png'), thresh: 0.15 };
+const barsTemplate = { mat: loadImage('./templates/bars/bars.png'), thresh: 0.2 };
+const measureTemplate = { mat: loadImage('./templates/bars/measure.png'), thresh: 0.15 };
 
 const tieLeftTemplate = {
   mat: generateVariations([
-    loadImage('./templates/tie-short.png'),
-    loadImage('./templates/tie-long.png'),
-    loadImage('./templates/tie-bar.png'),
+    loadImage('./templates/ties/tie-short.png'),
+    loadImage('./templates/ties/tie-long.png'),
+    loadImage('./templates/ties/tie-bar.png'),
   ]),
   thresh: 0.25,
 };
 
 const timeSignatures = {
-  time_3_4: { mat: loadImage('./templates/3-4.png'), thresh: 0.2 },
-  time_4_4: { mat: loadImage('./templates/4-4.png'), thresh: 0.2 },
-  time_6_8: { mat: loadImage('./templates/6-8.png'), thresh: 0.2 },
+  time_3_4: { mat: loadImage('./templates/time-sig/3-4.png'), thresh: 0.2 },
+  time_4_4: { mat: loadImage('./templates/time-sig/4-4.png'), thresh: 0.2 },
+  time_6_8: { mat: loadImage('./templates/time-sig/6-8.png'), thresh: 0.2 },
 };
 
 function generateVariations(mats) {
@@ -78,11 +90,15 @@ function getDuration(matches) {
   if (matches.whole) duration = 'whole';
   if (matches.half) duration = 'half';
   if (matches.quarter) duration = 'quarter';
-  if (matches.eighth || matches.eighthTie) duration = 'eighth';
+  if (matches.eighth || matches.eighthBeam) duration = 'eighth';
+
+  let beam;
+  if (matches.eighthBeam) beam = 'begin';
+  if (matches.eighthBeamEnd) beam = 'end';
 
   const rest = matches.quarterRest !== undefined || matches.eighthRest !== undefined;
 
-  return { duration, dot: matches.dot !== undefined, tieStart: false, tieStop: false, rest };
+  return { duration, dot: matches.dot !== undefined, tieStart: false, tieStop: false, rest, beam };
 }
 
 function getTimeSignature(matches) {
@@ -232,7 +248,7 @@ function addTiedNotes(mat, notes, augmentedNotes) {
 
   [leftBar, rightBar].forEach((bar, i) => {
     const barMatch = bar.copy();
-    const matchedNotes = getMatchedTemplates(barMatch, notesNoDotTemplates, true);
+    const matchedNotes = getMatchedTemplates(barMatch, notesNoExtrasTemplates, true);
 
     const combined = [];
     Object.keys(matchedNotes).forEach((duration) => {
