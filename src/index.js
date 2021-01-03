@@ -161,13 +161,30 @@ function getMatchedTemplates(mat, templates, multi) {
           for (let x = 0; x < dataList[y].length; x++) {
             if (dataList[y][x] > 1 - value.thresh) {
               matches[name].push({ x, y });
-              if (DEBUG) {
-                // console.log(name, x, y, dataList[y][x]);
-                mat.drawRectangle(new cv.Rect(x, y, t.cols, t.rows), new cv.Vec3(color[0], color[1], color[2]), 2, cv.LINE_8);
-              }
             }
           }
         }
+
+        // Filter out duplicates
+        const filteredResults = [];
+        matches[name].forEach((m) => {
+          let duplicate = false;
+          filteredResults.forEach((f) => {
+            if (Math.abs(m.x - f.x) < 25) duplicate = true;
+          });
+          if (!duplicate) {
+            filteredResults.push(m);
+
+            if (DEBUG) {
+              // console.log(name, x, y, dataList[y][x]);
+              mat.drawRectangle(new cv.Rect(m.x, m.y, t.cols, t.rows), new cv.Vec3(color[0], color[1], color[2]), 2, cv.LINE_8);
+            }
+          }
+        });
+
+        // console.log(name, matches[name].length, filteredResults.length);
+
+        matches[name] = filteredResults;
       }
     });
   });
@@ -176,7 +193,7 @@ function getMatchedTemplates(mat, templates, multi) {
 }
 
 function checkTies(mat, note, augmentedNotes) {
-  let xPos = note.x * 2 - 15;
+  let xPos = note.x * 2 - 25;
   let moreTies = true;
 
   let count = 0;
@@ -191,7 +208,7 @@ function checkTies(mat, note, augmentedNotes) {
 
     const halfHeight = mat.rows / 2;
 
-    const cropped = mat.getRegion(new cv.Rect(xPos, 0, 65, mat.rows));
+    const cropped = mat.getRegion(new cv.Rect(xPos, 0, 90, mat.rows));
     const leftBar = cropped.getRegion(new cv.Rect(0, halfHeight, cropped.cols, halfHeight)).copy();
     const rightBar = cropped.getRegion(new cv.Rect(0, 0, cropped.cols, halfHeight)).copy();
 
@@ -200,8 +217,12 @@ function checkTies(mat, note, augmentedNotes) {
     //   if (DEBUG) cv.waitKey();
     // }
 
+    // if (DEBUG) cv.imshow('window', leftBar);
+    // if (DEBUG) cv.waitKey();
+
     [leftBar, rightBar].forEach((bar, j) => {
-      const leftTieMatch = getMatchedTemplates(bar.copy(), { tieLeft: tieLeftTemplate });
+      const barMatch = bar.copy();
+      const leftTieMatch = getMatchedTemplates(barMatch, { tieLeft: tieLeftTemplate });
 
       if (leftTieMatch.tieLeft) {
         const cropOffset = xPos + 70;
@@ -212,6 +233,11 @@ function checkTies(mat, note, augmentedNotes) {
 
         const matchMat = newCrop.copy();
         const bothTieMatch = getMatchedTemplates(matchMat, { tieRight: tieRightTemplate, tieLeft: tieLeftTemplate });
+
+        if (j === 0) {
+          // if (DEBUG) cv.imshow('window', matchMat);
+          // if (DEBUG) cv.waitKey();
+        }
 
         if (bothTieMatch.tieRight) {
           const rightCrop = newCrop.getRegion(
@@ -268,34 +294,27 @@ function addRests(mat, augmentedNotes) {
   [leftBar, rightBar].forEach((bar, i) => {
     const matchedRests = getMatchedTemplates(bar.copy(), restTemplates, true);
 
-    const filteredRests = [];
     Object.keys(matchedRests).forEach((restKey) => {
-      matchedRests[restKey].forEach((r) => {
-        let duplicate = false;
-        filteredRests.forEach((f) => {
-          if (Math.abs(r.x / 2 - f.x) < 50) duplicate = true;
-        });
-        if (!duplicate) filteredRests.push({ x: r.x / 2, y: r.y / 2 });
+      matchedRests[restKey].forEach((rest) => {
+        let insertPoint = -1;
+
+        const r = { x: rest.x / 2, y: rest.y / 2 };
+
+        for (let i = 0; i < augmentedNotes.length - 1; i++) {
+          if (r.x > augmentedNotes[i].x && r.x < augmentedNotes[i + 1].x) insertPoint = i + 1;
+        }
+
+        if (insertPoint !== -1) {
+          const cropped = bar.getRegion(new cv.Rect(r.x * 2 - 15, 0, 65, bar.rows)).copy();
+
+          const restMatch = getMatchedTemplates(cropped, { ...restTemplates, dot: { ...noteTemplates.dot } });
+          const duration = getDuration(restMatch);
+          const notes = [{ rest: true, duration }];
+          const rest = { ...r, notesL: i === 0 ? notes : [], notesR: i === 1 ? notes : [] };
+
+          augmentedNotes.splice(insertPoint, 0, rest);
+        }
       });
-    });
-
-    filteredRests.forEach((r) => {
-      let insertPoint = -1;
-
-      for (let i = 0; i < augmentedNotes.length - 1; i++) {
-        if (r.x > augmentedNotes[i].x && r.x < augmentedNotes[i + 1].x) insertPoint = i + 1;
-      }
-
-      if (insertPoint !== -1) {
-        const cropped = bar.getRegion(new cv.Rect(r.x * 2 - 15, 0, 65, bar.rows)).copy();
-
-        const restMatch = getMatchedTemplates(cropped, { ...restTemplates, dot: { ...noteTemplates.dot } });
-        const duration = getDuration(restMatch);
-        const notes = [{ rest: true, duration }];
-        const rest = { ...r, notesL: i === 0 ? notes : [], notesR: i === 1 ? notes : [] };
-
-        augmentedNotes.splice(insertPoint, 0, rest);
-      }
     });
   });
 }
@@ -306,23 +325,13 @@ function getMeasures(mat, notes) {
   const rightCrop = rightBar.getRegion(new cv.Rect(0, rightBarMatch.bars.y, mat.cols, barsTemplate.mat.rows));
   const rightMeasure = getMatchedTemplates(rightCrop, { measure: measureTemplate }, true);
 
-  // Filter out duplicate results
-  const filteredMeasure = [];
-  rightMeasure.measure.forEach((m) => {
-    let duplicate = false;
-    filteredMeasure.forEach((f) => {
-      if (Math.abs(m.x - f.x) < 50) duplicate = true;
-    });
-    if (!duplicate) filteredMeasure.push(m);
-  });
   // Add first measure
-  filteredMeasure.push({ x: 0, y: filteredMeasure[0].y });
+  rightMeasure.measure.push({ x: 0, y: rightMeasure.measure[0].y });
 
-  const measures = filteredMeasure
-    .sort((a, b) => a.x - b.x)
-    .map((m, i) => {
-      return { i, x1: m.x, x2: i < filteredMeasure.length - 1 ? filteredMeasure[i + 1].x : mat.cols, staffs: [[], []] };
-    });
+  const sorted = rightMeasure.measure.sort((a, b) => a.x - b.x);
+  const measures = sorted.map((m, i) => {
+    return { i, x1: m.x, x2: i < sorted.length - 1 ? sorted[i + 1].x : mat.cols, staffs: [[], []] };
+  });
 
   notes.forEach((n) => {
     const measure = findMeasure(n.x * 2, measures);
