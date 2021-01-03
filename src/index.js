@@ -23,11 +23,19 @@ const barsTemplate = { mat: loadImage('./templates/bars.png'), thresh: 0.2 };
 const measureTemplate = { mat: loadImage('./templates/measure.png'), thresh: 0.1 };
 
 const tieLeftTemplate = {
-  mat: generateFlipped([loadImage('./templates/tie-left-short.png'), loadImage('./templates/tie-left-long.png')]),
+  mat: generateFlipped([
+    loadImage('./templates/tie-left-short.png'),
+    loadImage('./templates/tie-left-long.png'),
+    loadImage('./templates/tie-left-bar.png'),
+  ]),
   thresh: 0.25,
 };
 const tieRightTemplate = {
-  mat: generateFlipped([loadImage('./templates/tie-right-short.png', loadImage('./templates/tie-right-long.png'))]),
+  mat: generateFlipped([
+    loadImage('./templates/tie-right-short.png'),
+    loadImage('./templates/tie-right-long.png'),
+    loadImage('./templates/tie-right-bar.png'),
+  ]),
   thresh: 0.25,
 };
 
@@ -227,40 +235,47 @@ function checkTies(mat, note, augmentedNotes) {
         const cropOffset = xPos + 70;
 
         let newCrop;
-        if (j === 0) newCrop = mat.getRegion(new cv.Rect(cropOffset, halfHeight, 250, halfHeight)).copy();
-        else newCrop = mat.getRegion(new cv.Rect(cropOffset, 0, 250, halfHeight)).copy();
+        if (j === 0) newCrop = mat.getRegion(new cv.Rect(cropOffset, halfHeight, 450, halfHeight)).copy();
+        else newCrop = mat.getRegion(new cv.Rect(cropOffset, 0, 450, halfHeight)).copy();
 
         const matchMat = newCrop.copy();
-        const bothTieMatch = getMatchedTemplates(matchMat, { tieRight: tieRightTemplate, tieLeft: tieLeftTemplate });
+        const bothTieMatch = getMatchedTemplates(matchMat, { tieRight: tieRightTemplate, tieLeft: tieLeftTemplate }, true);
 
-        if (j === 0) {
-          // if (DEBUG) cv.imshow('window', matchMat);
-          // if (DEBUG) cv.waitKey();
-        }
+        bothTieMatch.tieRight.sort((a, b) => a.x - b.x);
+        bothTieMatch.tieLeft.sort((a, b) => a.x - b.x);
+        console.log(j, cropOffset, bothTieMatch);
 
-        if (bothTieMatch.tieRight) {
-          const rightCrop = newCrop.getRegion(
-            new cv.Rect(bothTieMatch.tieRight.x + 10, 0, Math.min(65, newCrop.cols - bothTieMatch.tieRight.x - 10), newCrop.rows)
-          );
+        // if (j === 0) {
+        //   if (DEBUG) cv.imshow('window', matchMat);
+        //   if (DEBUG) cv.waitKey();
+        // }
+
+        if (bothTieMatch.tieRight[0]) {
+          const firstTie = bothTieMatch.tieRight[0];
+
+          const rightCrop = newCrop
+            .getRegion(new cv.Rect(firstTie.x + 10, 0, Math.min(65, newCrop.cols - firstTie.x - 10), newCrop.rows))
+            .copy();
 
           const tieMatch = getMatchedTemplates(rightCrop, noteTemplates);
           const extraDuration = getDuration(tieMatch);
 
           if (j === 0) {
             tieLeftBar = extraDuration;
-            augmentedNoteX = cropOffset + bothTieMatch.tieRight.x + 10;
+            augmentedNoteX = cropOffset + firstTie.x + 10;
           }
 
           if (j === 1) {
             tieRightBar = extraDuration;
-            augmentedNoteX = cropOffset + bothTieMatch.tieRight.x + 10;
+            augmentedNoteX = cropOffset + firstTie.x + 10;
           }
         }
 
-        if (bothTieMatch.tieLeft) {
+        if (bothTieMatch.tieLeft[0] && Math.abs(bothTieMatch.tieRight[0].x - bothTieMatch.tieLeft[0].x) < 100) {
           // if (DEBUG) cv.imshow('window', matchMat);
           // if (DEBUG) cv.waitKey();
-          xPos += bothTieMatch.tieLeft.x + 40;
+
+          xPos += bothTieMatch.tieLeft[0].x + 40;
           moreTies = true;
         }
       }
@@ -361,8 +376,8 @@ async function parseSong(song) {
   const augmentedNotes = [];
 
   // Iterate through each note to get durations and add in missing tied notes
-  // for (let i = 0; i < notes.length; i++) {
-  for (let i = 0; i < 16; i++) {
+  for (let i = 0; i < notes.length; i++) {
+    // for (let i = 0; i < 16; i++) {
     const cropped = mat.getRegion(new cv.Rect(notes[i].x * 2 - 15, 0, 65, mat.rows)).copy();
 
     const leftBar = cropped.getRegion(new cv.Rect(0, halfHeight, cropped.cols, halfHeight));
