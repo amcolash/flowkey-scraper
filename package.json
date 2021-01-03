@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node src/index.js",
     "dev": "nodemon --exec 'npm start' 'test/input/test1.json' '.'",
-    "test": "echo Set These Up!"
+    "test": "node test/test.js"
   },
   "author": "Andrew McOlash",
   "license": "MIT",
