@@ -9,11 +9,9 @@ const DEBUG = true;
 
 const templates = {
   dot: { mat: loadImage('./templates/dot.png'), thresh: 0.25 },
-  halfBar: { mat: loadImage('./templates/half-bar.png'), thresh: 0.25 },
-  halfBlank: { mat: loadImage('./templates/half-blank.png'), thresh: 0.25 },
+  half: { mat: [loadImage('./templates/half-bar.png'), loadImage('./templates/half-blank.png')], thresh: 0.25 },
   quarter: { mat: loadImage('./templates/quarter.png'), thresh: 0.25 },
-  wholeBar: { mat: loadImage('./templates/whole-bar.png'), thresh: 0.25 },
-  wholeBlank: { mat: loadImage('./templates/whole-blank.png'), thresh: 0.25 },
+  whole: { mat: [loadImage('./templates/whole-bar.png'), loadImage('./templates/whole-blank.png')], thresh: 0.25 },
   eighth: { mat: loadImage('./templates/eighth.png'), thresh: 0.2 },
 };
 
@@ -34,8 +32,8 @@ function loadImage(p) {
 
 function getDuration(matches) {
   let duration = 'eighth';
-  if (matches.wholeBar || matches.wholeBlank) duration = 'whole';
-  if (matches.halfBar || matches.halfBlank) duration = 'half';
+  if (matches.whole) duration = 'whole';
+  if (matches.half) duration = 'half';
   if (matches.quarter) duration = 'quarter';
   if (matches.eighth) duration = 'eighth';
 
@@ -99,42 +97,39 @@ function getMatchedTemplates(mat, templates, multi) {
   Object.entries(templates).forEach((t) => {
     const name = t[0];
     const value = t[1];
-    const template = value.mat;
 
-    const match = mat.matchTemplate(template, cv.TM_CCOEFF_NORMED);
+    const templates = Array.isArray(value.mat) ? value.mat : [value.mat];
 
-    if (!multi) {
-      const minMax = match.minMaxLoc();
-      // if (DEBUG) console.log(name, minMax);
+    templates.forEach((t) => {
+      const match = mat.matchTemplate(t, cv.TM_CCOEFF_NORMED);
 
-      if (minMax.maxVal > 1 - value.thresh) {
-        matches[name] = { x: minMax.maxLoc.x, y: minMax.maxLoc.y };
-
+      if (!multi) {
+        const minMax = match.minMaxLoc();
         // if (DEBUG) console.log(name, minMax);
-        if (DEBUG)
-          mat.drawRectangle(
-            new cv.Rect(minMax.maxLoc.x, minMax.maxLoc.y, template.cols, template.rows),
-            new cv.Vec3(0, 0, 255),
-            2,
-            cv.LINE_8
-          );
-      }
-    } else {
-      const dataList = match.getDataAsArray();
-      matches[name] = [];
 
-      for (let y = 0; y < dataList.length; y++) {
-        for (let x = 0; x < dataList[y].length; x++) {
-          if (dataList[y][x] > 1 - value.thresh) {
-            matches[name].push({ x, y });
-            if (DEBUG) {
-              // console.log(name, x, y, dataList[y][x]);
-              mat.drawRectangle(new cv.Rect(x, y, template.cols, template.rows), new cv.Vec3(0, 0, 255), 2, cv.LINE_8);
+        if (minMax.maxVal > 1 - value.thresh) {
+          matches[name] = { x: minMax.maxLoc.x, y: minMax.maxLoc.y };
+
+          // if (DEBUG) console.log(name, minMax);
+          if (DEBUG) mat.drawRectangle(new cv.Rect(minMax.maxLoc.x, minMax.maxLoc.y, t.cols, t.rows), new cv.Vec3(0, 0, 255), 2, cv.LINE_8);
+        }
+      } else {
+        const dataList = match.getDataAsArray();
+        matches[name] = [];
+
+        for (let y = 0; y < dataList.length; y++) {
+          for (let x = 0; x < dataList[y].length; x++) {
+            if (dataList[y][x] > 1 - value.thresh) {
+              matches[name].push({ x, y });
+              if (DEBUG) {
+                // console.log(name, x, y, dataList[y][x]);
+                mat.drawRectangle(new cv.Rect(x, y, t.cols, t.rows), new cv.Vec3(0, 0, 255), 2, cv.LINE_8);
+              }
             }
           }
         }
       }
-    }
+    });
   });
 
   return matches;
@@ -269,7 +264,7 @@ async function parseSong(song) {
   const augmentedNotes = [];
 
   // for (let i = 0; i < notes.length; i++) {
-  for (let i = 0; i < 7; i++) {
+  for (let i = 0; i < 14; i++) {
     const cropped = mat.getRegion(new cv.Rect(notes[i].x * 2 - 15, 0, 65, mat.rows)).copy();
 
     const leftBar = cropped.getRegion(new cv.Rect(0, halfHeight, cropped.cols, halfHeight));
