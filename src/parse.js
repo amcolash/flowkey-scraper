@@ -21,6 +21,10 @@ const notesNoExtrasTemplates = {
     ],
     thresh: 0.2,
   },
+  sixteenth: {
+    mat: [loadImage('./templates/notes/sixteenth/sixteenth.png')],
+    thresh: 0.25,
+  },
 };
 
 const noteTemplates = {
@@ -102,6 +106,10 @@ function getDuration(matches) {
   if (matches.eighth) {
     duration = 'eighth';
     y = matches.eighth.y;
+  }
+  if (matches.sixteenth) {
+    duration = 'sixteenth';
+    y = matches.sixteenth.y;
   }
 
   // Fix a bug where two quarter notes tied look like an eightbeam
@@ -382,7 +390,8 @@ function addRests(mat, augmentedNotes) {
 function getMeasures(mat, notes) {
   console.log('Generating Measures');
 
-  const measureMatch = getMatchedTemplates(mat.copy(), { measure: measureTemplate }, true);
+  const measureMat = mat.copy();
+  const measureMatch = getMatchedTemplates(measureMat, { measure: measureTemplate }, true);
 
   // Add first measure
   measureMatch.measure.push({ x: 0, y: measureMatch.measure[0].y });
@@ -430,7 +439,7 @@ async function parseSong(song, output) {
   console.log('Adding Note Durations');
 
   for (let i = 0; i < notes.length; i++) {
-    // for (let i = 75; i < 95; i++) {
+    // for (let i = 0; i < 21; i++) {
     const cropped = mat.getRegion(new cv.Rect(notes[i].x * 2 - 15, 0, 85, mat.rows)).copy();
 
     const leftBar = cropped.getRegion(new cv.Rect(0, halfHeight, cropped.cols, halfHeight));

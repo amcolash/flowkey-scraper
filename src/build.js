@@ -45,28 +45,34 @@ function noteToMusicXMLObject(note, continuesChord, staff) {
   }
 
   let duration = 16;
-  switch (note.duration.duration) {
-    case 'eighth':
+  let durationName = note.duration.duration;
+
+  switch (durationName) {
+    case 'sixteenth':
       duration = 1;
+      durationName = '16th';
       break;
-    case 'quarter':
+    case 'eighth':
       duration = 2;
       break;
-    case 'half':
+    case 'quarter':
       duration = 4;
       break;
-    case 'whole':
+    case 'half':
       duration = 8;
+      break;
+    case 'whole':
+      duration = 16;
       break;
   }
 
   if (note.duration.dot) {
     obj['dot'] = {};
-    duration++;
+    duration += duration / 2;
   }
 
   obj['duration'] = duration;
-  obj['type'] = note.duration.duration;
+  obj['type'] = durationName;
   obj['staff'] = staff;
 
   return obj;
@@ -115,6 +121,7 @@ function addMeasure(parent, model) {
       });
     });
 
+    // if (i === 0) measure.ele({ backup: { duration: { '#text': 16 } } });
     if (i === 0) measure.ele({ backup: { duration: { '#text': duration } } });
   });
 }
