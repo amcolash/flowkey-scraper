@@ -1,40 +1,38 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { ipcRenderer } from 'electron';
+import React, { useState } from 'react';
+
+import { Webview } from './Webview';
+
+const sampleData = {
+  images: [
+    'https://flowkeycdn.com/sheets/5SbNyQhdXTR8gGkLJ/300/0.png',
+    'https://flowkeycdn.com/sheets/5SbNyQhdXTR8gGkLJ/300/1.png',
+    'https://flowkeycdn.com/sheets/5SbNyQhdXTR8gGkLJ/300/2.png',
+    'https://flowkeycdn.com/sheets/5SbNyQhdXTR8gGkLJ/300/3.png',
+    'https://flowkeycdn.com/sheets/5SbNyQhdXTR8gGkLJ/300/4.png',
+    'https://flowkeycdn.com/sheets/5SbNyQhdXTR8gGkLJ/300/5.png',
+    'https://flowkeycdn.com/sheets/5SbNyQhdXTR8gGkLJ/300/6.png',
+    'https://flowkeycdn.com/sheets/5SbNyQhdXTR8gGkLJ/300/7.png',
+    'https://flowkeycdn.com/sheets/5SbNyQhdXTR8gGkLJ/300/8.png',
+    'https://flowkeycdn.com/sheets/5SbNyQhdXTR8gGkLJ/300/9.png',
+    'https://flowkeycdn.com/sheets/5SbNyQhdXTR8gGkLJ/300/10.png',
+    'https://flowkeycdn.com/sheets/5SbNyQhdXTR8gGkLJ/300/11.png',
+    'https://flowkeycdn.com/sheets/5SbNyQhdXTR8gGkLJ/300/12.png',
+    'https://flowkeycdn.com/sheets/5SbNyQhdXTR8gGkLJ/300/13.png',
+    'https://flowkeycdn.com/sheets/5SbNyQhdXTR8gGkLJ/300/14.png',
+    'https://flowkeycdn.com/sheets/5SbNyQhdXTR8gGkLJ/300/15.png',
+  ],
+  id: 'Se9khytc6bnMnGC87',
+  title: 'Hallelujah',
+  artist: 'Leonard Cohen',
+};
 
 export const App = () => {
-  const webview = useRef();
-  const [preload, setPreload] = useState();
-
-  useEffect(() => {
-    // Ask for preload path from main, then set state and inform webview about it
-    ipcRenderer.send('preload-main');
-    ipcRenderer.on('preload-render', (event, arg) => setPreload(arg));
-
-    if (!webview.current) return;
-
-    webview.current.addEventListener('did-navigate-in-page', (e) => {
-      if (e.url.indexOf('/player') !== -1) webview.current.executeJavaScript('window.addButton();');
-    });
-
-    if (process.env.NODE_ENV !== 'production') {
-      webview.current.addEventListener('dom-ready', () => {
-        webview.current.openDevTools();
-      });
-    }
-
-    webview.current.addEventListener('ipc-message', (event) => {
-      if (event.channel === 'data') {
-        console.log(event.args[0]);
-      }
-    });
-  });
+  const [data, setData] = useState(sampleData);
 
   return (
     <div style={{ width: '100vw', height: '100vh' }}>
-      {/* Only show webview once we know the path to the preload script */}
-      {preload && (
-        <webview src="https://app.flowkey.com/" style={{ width: '100%', height: '100%' }} ref={webview} preload={'file:///' + preload} />
-      )}
+      {!data && <Webview updateData={(data) => setData(data)} />}
+      {data && <h1>Ready to Download</h1>}
     </div>
   );
 };

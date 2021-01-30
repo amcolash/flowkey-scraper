@@ -19,6 +19,7 @@
     "opencv4nodejs": "^5.6.0",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
+    "react-feather": "^2.0.9",
     "rimraf": "^3.0.2",
     "source-map-support": "^0.5.16"
   },
