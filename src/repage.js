@@ -3,7 +3,6 @@ const path = require('path');
 const cv = require('opencv4nodejs');
 const axios = require('axios');
 const im = require('imagemagick');
-const { imshow } = require('opencv4nodejs');
 const { exec } = require('child_process');
 const expandHomeDir = require('expand-home-dir');
 const rimraf = require('rimraf').sync;
