@@ -88,6 +88,11 @@ function loadImage(p) {
   return cv.imread(path.join(__dirname, p));
 }
 
+function showImage(mat) {
+  if (DEBUG) cv.imshow('window', mat);
+  if (DEBUG) cv.waitKey();
+}
+
 function getDuration(matches) {
   let duration = 'eighth';
   let y = -1;
@@ -183,6 +188,16 @@ async function downloadImages(song) {
       resolve();
     });
   });
+
+  // await new Promise((resolve, reject) => {
+  //   im.convert([combined, '+repage', '-crop', '250x351', '+adjoin', `${song.id}_tiles_%02d.png`], (err, stdout) => {
+  //     if (err) reject(err);
+  //     resolve();
+  //   });
+  // });
+
+  // convert 326RfDNdyPR3yXL6j_output.png +repage -crop 2500x351 +adjoin tiles_%02d.png
+  // convert -append tiles_*.png combined.png
 }
 
 const colors = [
@@ -296,8 +311,7 @@ function addTiedNotes(mat, notes, augmentedNotes) {
     });
     const sorted = combined.sort((a, b) => a.x - b.x);
 
-    // if (DEBUG) cv.imshow('window', barMatch);
-    // if (DEBUG) cv.waitKey();
+    // showImage(barMatch);
 
     sorted.forEach((m) => {
       let insertPoint = -1;
@@ -321,6 +335,8 @@ function addTiedNotes(mat, notes, augmentedNotes) {
         });
         const duration = getDuration(noteMatch);
 
+        showImage(cropped);
+
         let previousNote = -1;
         const barNotes = i === 0 ? leftNotes : rightNotes;
         for (let j = 0; j < barNotes.length - 1; j++) {
@@ -328,8 +344,7 @@ function addTiedNotes(mat, notes, augmentedNotes) {
         }
         if (n.x > barNotes[barNotes.length - 1].x) previousNote = barNotes.length - 1;
 
-        // if (DEBUG) cv.imshow('window', cropped);
-        // if (DEBUG) cv.waitKey();
+        // showImage(cropped);
 
         // console.log(barNotes.length, previousNote);
 
@@ -457,8 +472,7 @@ async function parseSong(song, output) {
     // console.log(rightBarDuration);
 
     // if (i > 94) {
-    // if (DEBUG) cv.imshow('window', rightBar);
-    // if (DEBUG) cv.waitKey();
+    // showImage(rightBar);
     // }
 
     augmentedNotes.push(notes[i]);
