@@ -18,8 +18,6 @@ export function audiverisDownload() {
     if (existsSync(sourceZip)) {
       resolve();
     } else {
-      if (platform() === 'win32') url = windowsUrl;
-
       axios
         .get(sourceUrl, { responseType: 'arraybuffer' })
         .then((response) => {
@@ -38,6 +36,7 @@ export function audiverisBuild() {
   return new Promise(async (resolve, reject) => {
     if (existsSync(toolPath)) {
       resolve();
+      return;
     }
 
     await extract(sourceZip, { dir: tmpPath });
@@ -49,6 +48,7 @@ export function audiverisBuild() {
       // ERROR OUT IF NO JAVA
       console.error(err);
       reject(err);
+      return;
     }
 
     await runCommand(platform === 'win32' ? 'gradlew.bat build' : './gradlew build', { cwd: sourceDir });

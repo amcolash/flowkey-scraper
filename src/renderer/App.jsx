@@ -36,7 +36,7 @@ export const App = () => {
       {!data && <Webview updateData={(data) => setData(data)} />}
       {data && (
         <>
-          <button onClick={() => setData(undefined)}>
+          <button onClick={() => setData(undefined)} style={{ margin: 10 }}>
             <Home />
           </button>
           <Status data={data} />
