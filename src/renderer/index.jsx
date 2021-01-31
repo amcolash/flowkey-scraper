@@ -11,6 +11,7 @@ cssRule('body', {
   color: '#222',
   fontSize: 24,
   fontFamily: 'sans-serif',
+  overflow: 'hidden',
 });
 
 cssRule('button', {
@@ -21,6 +22,7 @@ cssRule('button', {
   border: `2px solid ${Colors.Grey}`,
   background: 'rgba(0,0,0,0)',
   transition: 'all 0.5s',
+  cursor: 'pointer',
 
   $nest: {
     '&:hover': {

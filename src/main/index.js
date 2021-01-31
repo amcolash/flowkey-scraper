@@ -14,6 +14,8 @@ function createMainWindow() {
     webPreferences: { nodeIntegration: true, webviewTag: true, webSecurity: false },
   });
 
+  window.setMenuBarVisibility(false);
+
   if (isDevelopment) {
     const { default: installExtension, REACT_DEVELOPER_TOOLS } = require('electron-devtools-installer');
     installExtension(REACT_DEVELOPER_TOOLS)

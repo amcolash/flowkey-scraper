@@ -6,6 +6,7 @@ export const Colors = {
   Green: '#36ad47',
   LightGrey: '#bbb',
   Grey: '#777',
+  Charcoal: '#333',
 };
 
 export const appPath = remote.app.getAppPath();

@@ -4,6 +4,7 @@ import { SpinnerCircularFixed } from 'spinners-react';
 
 import { Colors } from '../constants';
 import { runStages, Stage } from '../stages/stages';
+import { Log } from './Log';
 
 export const Status = (props) => {
   const [stage, setStage] = useState(Stage.None);
@@ -18,10 +19,11 @@ export const Status = (props) => {
     <div
       style={{
         display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
         width: '100%',
         height: '100%',
-        alignItems: 'center',
-        justifyContent: 'center',
+        marginTop: 100,
       }}
     >
       <div>
@@ -54,7 +56,7 @@ export const Status = (props) => {
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
           <button
             style={{
-              marginTop: 20,
+              margin: 20,
               opacity: stage === Stage.Complete ? 1 : 0,
             }}
           >
@@ -63,6 +65,7 @@ export const Status = (props) => {
           </button>
         </div>
       </div>
+      <Log />
     </div>
   );
 };

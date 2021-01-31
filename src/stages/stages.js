@@ -1,3 +1,4 @@
+import { appendLog } from '../renderer/Log';
 import { audiverisBuild, audiverisDownload } from './audiveris';
 
 export const Stage = Object.freeze({
@@ -13,32 +14,30 @@ export const Stage = Object.freeze({
   Complete: 9,
 });
 
-const delay = 100;
+const delayTime = 250;
+async function delay() {
+  await new Promise((resolve, reject) => setTimeout(() => resolve(), delayTime));
+}
+
+async function runStage(data, stage, setStage, cb) {
+  setStage(stage);
+  appendLog({ key: Math.random(), value: '-------------------------------------------------' });
+  appendLog(`Stage ${stage}: ${Object.keys(Stage)[stage]}`);
+  await cb(data);
+}
 
 export async function runStages(data, setStage) {
-  setStage(Stage.AudiverisDownload);
-  await audiverisDownload();
+  await delay(); // slight delay since log hasn't mounted - there definitely has to be a better route
 
-  setStage(Stage.AudiverisBuild);
-  await audiverisBuild();
+  await runStage(data, Stage.AudiverisDownload, setStage, audiverisDownload);
+  await runStage(data, Stage.AudiverisBuild, setStage, audiverisBuild);
 
-  setStage(Stage.ImageDownload);
-  await new Promise((resolve, reject) => setTimeout(() => resolve(), delay));
-
-  setStage(Stage.MatchImages);
-  await new Promise((resolve, reject) => setTimeout(() => resolve(), delay));
-
-  setStage(Stage.GenerateRows);
-  await new Promise((resolve, reject) => setTimeout(() => resolve(), delay));
-
-  setStage(Stage.MakeFinalImage);
-  await new Promise((resolve, reject) => setTimeout(() => resolve(), delay));
-
-  setStage(Stage.AudiverisOMR);
-  await new Promise((resolve, reject) => setTimeout(() => resolve(), delay));
-
-  setStage(Stage.GenerateXML);
-  await new Promise((resolve, reject) => setTimeout(() => resolve(), delay));
+  await runStage(data, Stage.ImageDownload, setStage, delay);
+  await runStage(data, Stage.MatchImages, setStage, delay);
+  await runStage(data, Stage.GenerateRows, setStage, delay);
+  await runStage(data, Stage.MakeFinalImage, setStage, delay);
+  await runStage(data, Stage.AudiverisOMR, setStage, delay);
+  await runStage(data, Stage.GenerateXML, setStage, delay);
 
   setStage(Stage.Complete);
 }
