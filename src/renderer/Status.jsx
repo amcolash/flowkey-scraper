@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { CheckCircle, FileText, Watch } from 'react-feather';
 import { SpinnerCircularFixed } from 'spinners-react';
 
-import { Green, Grey, LightGrey } from '../constants';
+import { Colors } from '../constants';
 import { runStages, Stage } from '../stages/stages';
 
 export const Status = (props) => {
@@ -35,15 +35,17 @@ export const Status = (props) => {
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  color: stage < Stage[s] ? Grey : Green,
+                  color: stage < Stage[s] ? Colors.Grey : Colors.Green,
                   marginRight: 10,
                 }}
               >
-                {stage === Stage[s] && <SpinnerCircularFixed size={22} thickness={200} color={Green} secondaryColor={LightGrey} />}
+                {stage === Stage[s] && (
+                  <SpinnerCircularFixed size={22} thickness={200} color={Colors.Green} secondaryColor={Colors.LightGrey} />
+                )}
                 {stage > Stage[s] && <CheckCircle />}
                 {stage < Stage[s] && <Watch />}
               </div>
-              <div style={{ color: stage < Stage[s] ? LightGrey : undefined, transition: 'color 0.5s' }}>
+              <div style={{ color: stage < Stage[s] ? Colors.LightGrey : undefined, transition: 'color 0.5s' }}>
                 {s.replace(/([a-z])([A-Z])/g, '$1 $2')}
               </div>
             </div>

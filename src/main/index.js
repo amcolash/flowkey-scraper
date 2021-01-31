@@ -11,7 +11,7 @@ let mainWindow;
 
 function createMainWindow() {
   const window = new BrowserWindow({
-    webPreferences: { nodeIntegration: true, webviewTag: true },
+    webPreferences: { nodeIntegration: true, webviewTag: true, webSecurity: false },
   });
 
   if (isDevelopment) {

@@ -1,3 +1,5 @@
+import { audiverisBuild, audiverisDownload } from './audiveris';
+
 export const Stage = Object.freeze({
   None: 0,
   AudiverisDownload: 1,
@@ -15,10 +17,10 @@ const delay = 100;
 
 export async function runStages(data, setStage) {
   setStage(Stage.AudiverisDownload);
-  await new Promise((resolve, reject) => setTimeout(() => resolve(), delay));
+  await audiverisDownload();
 
   setStage(Stage.AudiverisBuild);
-  await new Promise((resolve, reject) => setTimeout(() => resolve(), delay));
+  await audiverisBuild();
 
   setStage(Stage.ImageDownload);
   await new Promise((resolve, reject) => setTimeout(() => resolve(), delay));

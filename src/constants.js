@@ -1,3 +1,14 @@
-export const Green = '#36ad47';
-export const LightGrey = '#bbb';
-export const Grey = '#777';
+import { remote } from 'electron';
+import { existsSync, mkdirSync } from 'fs';
+import { join } from 'path';
+
+export const Colors = {
+  Green: '#36ad47',
+  LightGrey: '#bbb',
+  Grey: '#777',
+};
+
+export const appPath = remote.app.getAppPath();
+export const tmpPath = join(remote.app.getAppPath(), 'tmp');
+
+if (!existsSync(tmpPath)) mkdirSync(tmpPath);
