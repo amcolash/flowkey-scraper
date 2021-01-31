@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Download } from './Download';
+import { Status } from './Status';
 
 import { Webview } from './Webview';
 
@@ -33,7 +33,7 @@ export const App = () => {
   return (
     <div style={{ width: '100vw', height: '100vh', overflow: 'hidden' }}>
       {!data && <Webview updateData={(data) => setData(data)} />}
-      {data && <Download data={data} />}
+      {data && <Status data={data} />}
     </div>
   );
 };
