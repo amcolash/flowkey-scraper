@@ -1,6 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { ipcRenderer } from 'electron';
 
+const DEBUG = false;
+
 export const Webview = (props) => {
   const webview = useRef();
   const [preload, setPreload] = useState();
@@ -16,11 +18,9 @@ export const Webview = (props) => {
       if (e.url.indexOf('/player') !== -1) webview.current.executeJavaScript('window.addButton();');
     });
 
-    if (process.env.NODE_ENV !== 'production') {
-      webview.current.addEventListener('dom-ready', () => {
-        webview.current.openDevTools();
-      });
-    }
+    webview.current.addEventListener('dom-ready', () => {
+      if (DEBUG) webview.current.openDevTools();
+    });
 
     webview.current.addEventListener('ipc-message', (event) => {
       if (event.channel === 'data') {
