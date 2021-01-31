@@ -4,7 +4,7 @@ import { existsSync, writeFileSync } from 'fs';
 import { platform } from 'os';
 import { join } from 'path';
 
-import { appendLog } from '../renderer/Log';
+import { error, log } from '../../renderer/Log';
 import { tmpPath } from '../constants';
 import { runCommand } from '../util';
 
@@ -17,7 +17,7 @@ const toolPath = join(tmpPath, `Audiveris/bin/Audiveris${platform() === 'win32' 
 export function audiverisDownload() {
   return new Promise((resolve, reject) => {
     if (existsSync(sourceZip)) {
-      appendLog('Audiveris already downloaded, skipping stage');
+      log('Audiveris already downloaded, skipping stage');
       resolve();
     } else {
       axios
@@ -37,7 +37,7 @@ export function audiverisDownload() {
 export function audiverisBuild() {
   return new Promise(async (resolve, reject) => {
     if (existsSync(toolPath)) {
-      appendLog('Audiveris already built, skipping stage');
+      log('Audiveris already built, skipping stage');
       resolve();
       return;
     }
@@ -50,7 +50,7 @@ export function audiverisBuild() {
     } catch (err) {
       // ERROR OUT IF NO JAVA
       console.error(err);
-      appendLog({ value: err, error: true });
+      error({ value: err, error: true });
       reject(err);
 
       return;

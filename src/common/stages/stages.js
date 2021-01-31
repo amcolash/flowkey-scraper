@@ -1,4 +1,4 @@
-import { appendLog } from '../renderer/Log';
+import { log } from '../../renderer/Log';
 import { audiverisBuild, audiverisDownload } from './audiveris';
 
 export const Stage = Object.freeze({
@@ -21,14 +21,12 @@ async function delay() {
 
 async function runStage(data, stage, setStage, cb) {
   setStage(stage);
-  appendLog({ key: Math.random(), value: '-------------------------------------------------' });
-  appendLog(`Stage ${stage}: ${Object.keys(Stage)[stage]}`);
+  log({ key: Math.random(), value: '-------------------------------------------------' });
+  log(`Stage ${stage}: ${Object.keys(Stage)[stage]}`);
   await cb(data);
 }
 
 export async function runStages(data, setStage) {
-  await delay(); // slight delay since log hasn't mounted - there definitely has to be a better route
-
   await runStage(data, Stage.AudiverisDownload, setStage, audiverisDownload);
   await runStage(data, Stage.AudiverisBuild, setStage, audiverisBuild);
 

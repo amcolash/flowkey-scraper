@@ -2,21 +2,31 @@ import React, { useEffect, useState } from 'react';
 import { Terminal } from 'react-feather';
 import { style } from 'typestyle';
 
-import { Colors } from '../constants';
+import { Colors } from '../common/constants';
 
-export const appendLog = (item) => updateLog(item);
-let updateLog;
+let logValues = [];
+
+export const log = (item) => {
+  logValues = [...logValues, item];
+  console.log(item.value || item);
+};
+
+export const error = (item) => {
+  logValues = [...logValues, { value: item, error: true }];
+  console.error(item);
+};
 
 const errorText = style({
   color: 'red',
 });
 
 export const Log = () => {
-  const [log, setLog] = useState([]);
   const [expanded, setExpanded] = useState(false);
+  const [logState, setLogState] = useState([]);
 
-  // Not safe if multiple are mounted
-  updateLog = (item) => setLog([...log, item]);
+  useEffect(() => {
+    setLogState(logValues);
+  }, [logValues]);
 
   return (
     <div
@@ -49,8 +59,17 @@ export const Log = () => {
       >
         <Terminal width={16} height={16} />
       </button>
-      <div style={{ overflowY: 'auto', padding: 10, height: 'calc(100% - 20px)', overflowWrap: 'break-word' }}>
-        {log.map((l) => (
+      <div
+        style={{
+          overflowY: 'auto',
+          padding: 10,
+          height: 'calc(100% - 20px)',
+          overflowWrap: 'break-word',
+          display: 'flex',
+          flexDirection: 'column-reverse',
+        }}
+      >
+        {[...logState].reverse().map((l) => (
           <div key={l.key || l.value || l} className={l.error ? errorText : undefined}>
             {l.value || l}
           </div>

@@ -1,7 +1,7 @@
 import React from 'react';
 import { render } from 'react-dom';
 import { cssRule } from 'typestyle';
-import { Colors } from '../constants.js';
+import { Colors } from '../common/constants';
 
 import { App } from './App.jsx';
 

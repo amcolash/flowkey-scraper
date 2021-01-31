@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { CheckCircle, FileText, Watch } from 'react-feather';
 import { SpinnerCircularFixed } from 'spinners-react';
 
-import { Colors } from '../constants';
-import { runStages, Stage } from '../stages/stages';
+import { Colors } from '../common/constants';
+import { runStages, Stage } from '../common/stages/stages';
 import { Log } from './Log';
 
 export const Status = (props) => {

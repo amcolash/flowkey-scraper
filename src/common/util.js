@@ -1,5 +1,5 @@
 import { exec } from 'child_process';
-import { appendLog } from './renderer/Log';
+import { error, log } from '../renderer/Log';
 
 export function runCommand(command, options) {
   return new Promise((resolve, reject) => {
@@ -9,15 +9,13 @@ export function runCommand(command, options) {
     let stderr = '';
     proc.stdout.on('data', (data) => {
       const d = data.toString().trim();
-      // console.log(d);
       stdout += d;
-      appendLog(d);
+      log(d);
     });
     proc.stderr.on('data', (data) => {
       const d = data.toString().trim();
-      console.error(d);
       stderr += d;
-      appendLog({ value: d, error: true });
+      error(d);
     });
     proc.on('exit', (code) => {
       // console.log(`Child exited with code ${code}`);
