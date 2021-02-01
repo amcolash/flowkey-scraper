@@ -19,7 +19,8 @@ export function runCommand(command, options) {
     });
     proc.on('exit', (code) => {
       // console.log(`Child exited with code ${code}`);
-      resolve({ stdout, stderr });
+      if (code === 0) resolve({ stdout, stderr, code });
+      else reject({ stdout, stderr, code });
     });
   });
 }

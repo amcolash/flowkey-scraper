@@ -1,5 +1,6 @@
-import { log } from '../../renderer/Log';
+import { error, log } from '../../renderer/Log';
 import { audiverisBuild, audiverisDownload } from './audiveris';
+import { downloadImages, finalImage, generateRows, matchImages } from './images';
 
 export const Stage = Object.freeze({
   None: 0,
@@ -19,23 +20,38 @@ async function delay() {
   await new Promise((resolve, reject) => setTimeout(() => resolve(), delayTime));
 }
 
+let hasError = false;
+
 async function runStage(data, stage, setStage, cb) {
+  if (hasError) return;
+
   setStage(stage);
   log({ key: Math.random(), value: '-------------------------------------------------' });
   log(`Stage ${stage}: ${Object.keys(Stage)[stage]}`);
-  await cb(data);
+
+  try {
+    await cb(data);
+  } catch (err) {
+    hasError = true;
+    console.log(JSON.stringify(err));
+    const errorMessage = err.message || err;
+    if (typeof errorMessage === 'string') error(errorMessage);
+    setStage({ error: true });
+  }
 }
 
 export async function runStages(data, setStage) {
+  hasError = false;
+
   await runStage(data, Stage.AudiverisDownload, setStage, audiverisDownload);
   await runStage(data, Stage.AudiverisBuild, setStage, audiverisBuild);
 
-  await runStage(data, Stage.ImageDownload, setStage, delay);
-  await runStage(data, Stage.MatchImages, setStage, delay);
-  await runStage(data, Stage.GenerateRows, setStage, delay);
-  await runStage(data, Stage.MakeFinalImage, setStage, delay);
+  await runStage(data, Stage.ImageDownload, setStage, downloadImages);
+  await runStage(data, Stage.MatchImages, setStage, matchImages);
+  await runStage(data, Stage.GenerateRows, setStage, generateRows);
+  await runStage(data, Stage.MakeFinalImage, setStage, finalImage);
   await runStage(data, Stage.AudiverisOMR, setStage, delay);
   await runStage(data, Stage.GenerateXML, setStage, delay);
 
-  setStage(Stage.Complete);
+  if (!hasError) setStage(Stage.Complete);
 }

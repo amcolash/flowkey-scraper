@@ -1,0 +1,109 @@
+import cv from 'opencv4nodejs';
+import { join } from 'path';
+
+export const measureTemplate = {
+  mat: [
+    loadImage(join(__static, 'templates/measure/measure-1.png')),
+    scale(loadImage(join(__static, 'templates/measure/measure-1.png')), 0.9),
+    scale(loadImage(join(__static, 'templates/measure/measure-1.png')), 0.95),
+    scale(loadImage(join(__static, 'templates/measure/measure-1.png')), 1.05),
+    scale(loadImage(join(__static, 'templates/measure/measure-1.png')), 1.1),
+
+    loadImage(join(__static, 'templates/measure/measure-2.png')),
+    scale(loadImage(join(__static, 'templates/measure/measure-2.png')), 0.9),
+    scale(loadImage(join(__static, 'templates/measure/measure-2.png')), 0.95),
+    scale(loadImage(join(__static, 'templates/measure/measure-2.png')), 1.05),
+    scale(loadImage(join(__static, 'templates/measure/measure-2.png')), 1.1),
+  ],
+  thresh: 0.25,
+};
+
+export const timeSignatures = {
+  time_3_4: { mat: loadImage(join(__static, 'templates/time-sig/3-4.png')), thresh: 0.2 },
+  time_4_4: { mat: loadImage(join(__static, 'templates/time-sig/4-4.png')), thresh: 0.2 },
+  time_6_8: { mat: loadImage(join(__static, 'templates/time-sig/6-8.png')), thresh: 0.2 },
+};
+
+export function scale(m, sx, sy) {
+  return m.copy().resize(Math.floor(m.rows * sx), Math.floor(m.cols * (sy || sx)));
+}
+
+export function loadImage(p) {
+  return cv.imread(p);
+}
+
+const DEBUG = false;
+export function showImage(mat) {
+  if (DEBUG) cv.imshow('window', mat);
+  if (DEBUG) cv.waitKey();
+}
+
+export function emptyMat(rows, cols) {
+  const mat = new cv.Mat(rows, cols, cv.CV_8UC3);
+  mat.drawRectangle(new cv.Rect(0, 0, cols, rows), new cv.Vec3(255, 255, 255), -1);
+
+  return mat;
+}
+
+export function getMatchedTemplates(mat, templates, multi) {
+  const matches = {};
+  const pristine = mat.copy();
+
+  Object.entries(templates).forEach((template, i) => {
+    const name = template[0];
+    const value = template[1];
+
+    const templates = Array.isArray(value.mat) ? value.mat : [value.mat];
+
+    templates.forEach((t, j) => {
+      const match = pristine.matchTemplate(t, cv.TM_CCOEFF_NORMED);
+
+      if (!multi) {
+        const minMax = match.minMaxLoc();
+        // if (DEBUG) console.log(name, minMax);
+
+        if (minMax.maxVal > 1 - value.thresh) {
+          matches[name] = { x: minMax.maxLoc.x, y: minMax.maxLoc.y };
+
+          if (DEBUG) {
+            // console.log(name, minMax);
+            mat.drawRectangle(new cv.Rect(minMax.maxLoc.x, minMax.maxLoc.y, t.cols, t.rows), new cv.Vec3(255, 0, 0), 2, cv.LINE_8);
+          }
+        }
+      } else {
+        const dataList = match.getDataAsArray();
+        if (!matches[name]) matches[name] = [];
+
+        const tmpMatches = [];
+        for (let y = 0; y < dataList.length; y++) {
+          for (let x = 0; x < dataList[y].length; x++) {
+            if (dataList[y][x] > 1 - value.thresh) {
+              tmpMatches.push({ x, y });
+            }
+          }
+        }
+
+        // Filter out duplicates
+        const filteredResults = [...matches[name]];
+        tmpMatches.forEach((m) => {
+          let duplicate = false;
+          filteredResults.forEach((f) => {
+            if (Math.abs(m.x - f.x) < 50) duplicate = true;
+          });
+          if (!duplicate) {
+            filteredResults.push(m);
+
+            if (DEBUG) {
+              // console.log(name, m);
+              mat.drawRectangle(new cv.Rect(m.x, m.y, t.cols, t.rows), new cv.Vec3(color[0], color[1], color[2]), 2, cv.LINE_8);
+            }
+          }
+        });
+
+        matches[name] = filteredResults;
+      }
+    });
+  });
+
+  return matches;
+}
