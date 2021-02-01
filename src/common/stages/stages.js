@@ -1,5 +1,5 @@
 import { error, log } from '../../renderer/Log';
-import { audiverisBuild, audiverisDownload } from './audiveris';
+import { audiverisBuild, audiverisDownload, audiverisOmr } from './audiveris';
 import { downloadImages, finalImage, generateRows, matchImages } from './images';
 
 export const Stage = Object.freeze({
@@ -11,8 +11,7 @@ export const Stage = Object.freeze({
   GenerateRows: 5,
   MakeFinalImage: 6,
   AudiverisOMR: 7,
-  GenerateXML: 8,
-  Complete: 9,
+  Complete: 8,
 });
 
 const delayTime = 250;
@@ -50,8 +49,7 @@ export async function runStages(data, setStage) {
   await runStage(data, Stage.MatchImages, setStage, matchImages);
   await runStage(data, Stage.GenerateRows, setStage, generateRows);
   await runStage(data, Stage.MakeFinalImage, setStage, finalImage);
-  await runStage(data, Stage.AudiverisOMR, setStage, delay);
-  await runStage(data, Stage.GenerateXML, setStage, delay);
+  await runStage(data, Stage.AudiverisOMR, setStage, audiverisOmr);
 
   if (!hasError) setStage(Stage.Complete);
 }

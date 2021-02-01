@@ -9,7 +9,7 @@ import { error, log } from '../../renderer/Log';
 import { tmpPath } from '../constants';
 import { emptyMat, getMatchedTemplates, loadImage, measureTemplate, timeSignatures } from '../opencv';
 
-const imageDir = join(tmpPath, 'images');
+export const imageDir = join(tmpPath, 'images');
 
 export function downloadImages(data) {
   return new Promise(async (resolveMain, rejectMain) => {
@@ -80,8 +80,8 @@ export function matchImages(data) {
       combined = loadImage(join(imageDir, `${data.id}_output.png`));
 
       const match = combined.copy();
-      const matchedMeasures = getMatchedTemplates(match, { measure: measureTemplate }, true);
-      const timeSigMatch = getMatchedTemplates(match, timeSignatures);
+      const matchedMeasures = await getMatchedTemplates(match, { measure: measureTemplate }, true);
+      const timeSigMatch = await getMatchedTemplates(match, timeSignatures);
 
       if (Object.entries(timeSigMatch).length === 0) throw 'Could not find time signature';
 
@@ -111,11 +111,11 @@ export function matchImages(data) {
 export function generateRows(data) {
   return new Promise(async (resolveMain, rejectMain) => {
     try {
-      const makeCurrent = (addTimeSig) => {
+      const makeCurrent = async (addTimeSig) => {
         let current = emptyMat(combined.rows, maxWidth);
 
         if (addTimeSig) {
-          timeSigMat.copyTo(current.getRegion(new cv.Rect(0, 0, timeSigMat.cols, current.rows)));
+          await timeSigMat.copyToAsync(current.getRegion(new cv.Rect(0, 0, timeSigMat.cols, current.rows)));
           width += timeSigMat.cols;
         }
 
@@ -124,7 +124,7 @@ export function generateRows(data) {
 
       let width = 0;
       rows = [];
-      let current = makeCurrent();
+      let current = await makeCurrent();
 
       for (let i = 0; i < measures.length; i++) {
         const measure = measures[i];
@@ -132,11 +132,11 @@ export function generateRows(data) {
           rows.push(current);
 
           width = 0;
-          current = makeCurrent(true);
+          current = await makeCurrent(true);
         }
 
         // console.log(i, 'copying', width, rows.length);
-        measure.copyTo(current.getRegion(new cv.Rect(width, 0, measure.cols, current.rows)));
+        await measure.copyToAsync(current.getRegion(new cv.Rect(width, 0, measure.cols, current.rows)));
         width += measure.cols;
       }
       rows.push(current);
@@ -146,6 +146,10 @@ export function generateRows(data) {
       rejectMain(err);
     }
   });
+}
+
+export function getTitle(data) {
+  return data.title.replace(/[^\x00-\x7F]/g, '');
 }
 
 export function finalImage(data) {
@@ -158,14 +162,12 @@ export function finalImage(data) {
       for (let i = 0; i < rows.length; i++) {
         const rect = new cv.Rect(0, i * rowHeight, maxWidth, combined.rows);
         // console.log(final.cols, final.rows, rect);
-        rows[i].copyTo(final.getRegion(rect));
+        await rows[i].copyToAsync(final.getRegion(rect));
       }
 
-      // TODO: Replace all non-standard ascii chars
-      const title = data.title.replace(/[^\x00-\x7F]/g, '');
-
+      const title = getTitle(data);
       const finalFile = join(imageDir, `${title}.png`);
-      cv.imwrite(finalFile, final);
+      cv.imwriteAsync(finalFile, final);
 
       resolveMain();
     } catch (err) {

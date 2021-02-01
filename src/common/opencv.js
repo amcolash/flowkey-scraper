@@ -1,6 +1,8 @@
 import cv from 'opencv4nodejs';
 import { join } from 'path';
 
+const DEBUG = false;
+
 export const measureTemplate = {
   mat: [
     loadImage(join(__static, 'templates/measure/measure-1.png')),
@@ -32,7 +34,6 @@ export function loadImage(p) {
   return cv.imread(p);
 }
 
-const DEBUG = false;
 export function showImage(mat) {
   if (DEBUG) cv.imshow('window', mat);
   if (DEBUG) cv.waitKey();
@@ -46,64 +47,66 @@ export function emptyMat(rows, cols) {
 }
 
 export function getMatchedTemplates(mat, templates, multi) {
-  const matches = {};
-  const pristine = mat.copy();
+  return new Promise(async (resolve, reject) => {
+    const matches = {};
+    const pristine = mat.copy();
 
-  Object.entries(templates).forEach((template, i) => {
-    const name = template[0];
-    const value = template[1];
+    for (const template of Object.entries(templates)) {
+      const name = template[0];
+      const value = template[1];
 
-    const templates = Array.isArray(value.mat) ? value.mat : [value.mat];
+      const templates = Array.isArray(value.mat) ? value.mat : [value.mat];
 
-    templates.forEach((t, j) => {
-      const match = pristine.matchTemplate(t, cv.TM_CCOEFF_NORMED);
+      for (const t of templates) {
+        const match = await pristine.matchTemplateAsync(t, cv.TM_CCOEFF_NORMED);
 
-      if (!multi) {
-        const minMax = match.minMaxLoc();
-        // if (DEBUG) console.log(name, minMax);
+        if (!multi) {
+          const minMax = match.minMaxLoc();
+          // if (DEBUG) console.log(name, minMax);
 
-        if (minMax.maxVal > 1 - value.thresh) {
-          matches[name] = { x: minMax.maxLoc.x, y: minMax.maxLoc.y };
-
-          if (DEBUG) {
-            // console.log(name, minMax);
-            mat.drawRectangle(new cv.Rect(minMax.maxLoc.x, minMax.maxLoc.y, t.cols, t.rows), new cv.Vec3(255, 0, 0), 2, cv.LINE_8);
-          }
-        }
-      } else {
-        const dataList = match.getDataAsArray();
-        if (!matches[name]) matches[name] = [];
-
-        const tmpMatches = [];
-        for (let y = 0; y < dataList.length; y++) {
-          for (let x = 0; x < dataList[y].length; x++) {
-            if (dataList[y][x] > 1 - value.thresh) {
-              tmpMatches.push({ x, y });
-            }
-          }
-        }
-
-        // Filter out duplicates
-        const filteredResults = [...matches[name]];
-        tmpMatches.forEach((m) => {
-          let duplicate = false;
-          filteredResults.forEach((f) => {
-            if (Math.abs(m.x - f.x) < 50) duplicate = true;
-          });
-          if (!duplicate) {
-            filteredResults.push(m);
+          if (minMax.maxVal > 1 - value.thresh) {
+            matches[name] = { x: minMax.maxLoc.x, y: minMax.maxLoc.y };
 
             if (DEBUG) {
-              // console.log(name, m);
-              mat.drawRectangle(new cv.Rect(m.x, m.y, t.cols, t.rows), new cv.Vec3(color[0], color[1], color[2]), 2, cv.LINE_8);
+              // console.log(name, minMax);
+              mat.drawRectangle(new cv.Rect(minMax.maxLoc.x, minMax.maxLoc.y, t.cols, t.rows), new cv.Vec3(255, 0, 0), 2, cv.LINE_8);
             }
           }
-        });
+        } else {
+          const dataList = match.getDataAsArray();
+          if (!matches[name]) matches[name] = [];
 
-        matches[name] = filteredResults;
+          const tmpMatches = [];
+          for (let y = 0; y < dataList.length; y++) {
+            for (let x = 0; x < dataList[y].length; x++) {
+              if (dataList[y][x] > 1 - value.thresh) {
+                tmpMatches.push({ x, y });
+              }
+            }
+          }
+
+          // Filter out duplicates
+          const filteredResults = [...matches[name]];
+          tmpMatches.forEach((m) => {
+            let duplicate = false;
+            filteredResults.forEach((f) => {
+              if (Math.abs(m.x - f.x) < 50) duplicate = true;
+            });
+            if (!duplicate) {
+              filteredResults.push(m);
+
+              if (DEBUG) {
+                // console.log(name, m);
+                mat.drawRectangle(new cv.Rect(m.x, m.y, t.cols, t.rows), new cv.Vec3(color[0], color[1], color[2]), 2, cv.LINE_8);
+              }
+            }
+          });
+
+          matches[name] = filteredResults;
+        }
       }
-    });
-  });
+    }
 
-  return matches;
+    resolve(matches);
+  });
 }

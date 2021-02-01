@@ -1,12 +1,14 @@
 import axios from 'axios';
 import * as extract from 'extract-zip';
-import { existsSync, writeFileSync } from 'fs';
+import { existsSync, readFileSync, writeFileSync } from 'fs';
 import { platform } from 'os';
 import { join } from 'path';
+import rimraf from 'rimraf';
 
 import { log } from '../../renderer/Log';
 import { tmpPath } from '../constants';
 import { runCommand } from '../util';
+import { getTitle, imageDir } from './images';
 
 const sourceUrl = 'https://github.com/Audiveris/audiveris/archive/development.zip';
 const sourceZip = join(tmpPath, 'audiveris.zip');
@@ -54,6 +56,41 @@ export function audiverisBuild() {
 
       await runCommand(platform === 'win32' ? 'gradlew.bat build' : './gradlew build', { cwd: sourceDir });
       await extract(buildZip, { dir: tmpPath });
+
+      resolveMain();
+    } catch (err) {
+      rejectMain(err);
+    }
+  });
+}
+
+export function audiverisOmr(data) {
+  return new Promise(async (resolveMain, rejectMain) => {
+    try {
+      const title = getTitle(data);
+      const finalFile = join(imageDir, `${title}.png`);
+
+      // Remove old files if they are hanging around still
+      const transcribedDir = join(tmpPath, `${title}`);
+      rimraf.sync(transcribedDir);
+
+      // Actually run the OMR
+      await runCommand(`"${toolPath}" -batch -export -output "${tmpPath}" "${finalFile}"`);
+
+      // Unzip the mxl
+      const mxlPath = join(transcribedDir, `${title}.mxl`);
+      await extract(mxlPath, { dir: transcribedDir });
+
+      // Copy xml to final path
+      const srcXml = join(transcribedDir, `${title}.xml`);
+
+      let xml = readFileSync(srcXml).toString();
+
+      xml = xml.replace(
+        '<identification>',
+        `<work>\n<work-title>${title}</work-title>\n</work>\n<identification><creator type="composer">${data.artist}</creator>`
+      );
+      writeFileSync(srcXml, xml);
 
       resolveMain();
     } catch (err) {
