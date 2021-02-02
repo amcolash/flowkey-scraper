@@ -1,4 +1,4 @@
-import { fstat, readFileSync, writeFileSync } from 'fs';
+import { readFileSync, writeFileSync } from 'fs';
 import { remote } from 'electron';
 import { basename } from 'path';
 import React, { useEffect, useState } from 'react';
@@ -38,7 +38,7 @@ export const Status = (props) => {
       NFClient.init(function (info) {
         score = new NFClient.ScoreView('sheetMusic', 'c79be75c793c3b185365c241a04045e7df05d238', {
           width: '90%',
-          height: '90%',
+          height: '80%',
           viewParams: {
             displayMode: 'paginated',
             hideFullWindow: true,
