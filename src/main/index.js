@@ -1,6 +1,6 @@
 'use strict';
 
-import { app, BrowserWindow, ipcMain } from 'electron';
+import { app, BrowserWindow, ipcMain, webContents } from 'electron';
 import * as path from 'path';
 import { format as formatUrl } from 'url';
 
@@ -11,7 +11,7 @@ let mainWindow;
 
 function createMainWindow() {
   const window = new BrowserWindow({
-    webPreferences: { nodeIntegration: true, webviewTag: true, webSecurity: false, allowRunningInsecureContent: true },
+    webPreferences: { nodeIntegration: true, webviewTag: true, webSecurity: false },
   });
 
   window.setMenuBarVisibility(false);

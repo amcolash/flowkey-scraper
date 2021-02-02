@@ -7,12 +7,12 @@ import { Colors } from '../common/constants';
 let logValues = [];
 
 export const log = (item) => {
-  logValues = [...logValues, item];
+  logValues = [...logValues, { time: new Date(), random: Math.random(), value: item.value || item }];
   console.log(item.value || item);
 };
 
 export const error = (item) => {
-  logValues = [...logValues, { value: item, error: true }];
+  logValues = [...logValues, { time: new Date(), random: Math.random(), value: item, error: true }];
   console.error(item);
 };
 
@@ -70,8 +70,8 @@ export const Log = () => {
         }}
       >
         {[...logState].reverse().map((l) => (
-          <div key={l.key || l.value || l} className={l.error ? errorText : undefined}>
-            {l.value || l}
+          <div key={l.time + l.value + l.random} className={l.error ? errorText : undefined}>
+            {l.value}
           </div>
         ))}
       </div>

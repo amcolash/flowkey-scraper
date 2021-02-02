@@ -1,21 +1,23 @@
+import { fstat, readFileSync, writeFileSync } from 'fs';
+import { remote } from 'electron';
+import { basename } from 'path';
 import React, { useEffect, useState } from 'react';
-import { AlertTriangle, CheckCircle, FileText, Watch } from 'react-feather';
+import { AlertTriangle, CheckCircle, Code, FileText, Watch } from 'react-feather';
 import { SpinnerCircularFixed } from 'spinners-react';
 
 import NFClient from '../common/nfclient';
-
 import { Colors } from '../common/constants';
 import { runStages, Stage } from '../common/stages/stages';
+
 import { Log } from './Log';
-import { readFileSync } from 'fs';
 
 let score;
-let loaded = false;
 
 export const Status = (props) => {
   const [stage, setStage] = useState(Stage.None);
   const [error, setError] = useState(false);
   const [xmlFile, setXmlFile] = useState();
+  const [loaded, setLoaded] = useState(false);
 
   useEffect(async () => {
     if (stage === Stage.None) {
@@ -44,15 +46,18 @@ export const Status = (props) => {
         });
 
         score.addEventListener('any', (e) => {
-          // console.log(e);
+          console.log(e);
           if (e.type === 'scoreReady' && !loaded) {
-            loaded = true;
-            score.loadMusicXML(readFileSync(xmlFile).toString());
+            setLoaded(true);
           }
         });
       });
     }
   }, [stage, xmlFile]);
+
+  useEffect(() => {
+    if (score && loaded) score.loadMusicXML(readFileSync(xmlFile).toString());
+  }, [loaded]);
 
   return (
     <div
@@ -95,17 +100,25 @@ export const Status = (props) => {
                 </div>
               </div>
             ))}
-
-          {/* {stage === Stage.Complete && (
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', opacity: stage === Stage.Complete ? 1 : 0 }}>
-            <button style={{ margin: 20 }}>
-              Save PDF
-              <FileText style={{ marginLeft: 8 }} />
-            </button>
-          </div>
-        )} */}
         </div>
       )}
+      {/* {stage === Stage.Complete && loaded && ( */}
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', opacity: stage === Stage.Complete && loaded ? 1 : 0 }}>
+        <button style={{ margin: 20 }} onClick={() => score.printScore({ usePrinter: false })}>
+          Save PDF
+          <FileText style={{ marginLeft: 8 }} />
+        </button>
+        <button
+          style={{ margin: 20 }}
+          onClick={async () => {
+            const file = remote.dialog.showSaveDialogSync({ defaultPath: basename(xmlFile) });
+            if (file) writeFileSync(file, readFileSync(xmlFile).toString());
+          }}
+        >
+          Save MusicXML
+          <Code style={{ marginLeft: 8 }} />
+        </button>
+      </div>
       <div id="sheetMusic" />
       <Log />
     </div>

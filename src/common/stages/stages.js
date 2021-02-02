@@ -25,7 +25,7 @@ async function runStage(data, stage, setStage, cb) {
   if (hasError) return;
 
   setStage(stage);
-  log({ key: Math.random(), value: '-------------------------------------------------' });
+  log('-------------------------------------------------');
   log(`Stage ${stage}: ${Object.keys(Stage)[stage]}`);
 
   try {
