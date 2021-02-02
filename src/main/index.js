@@ -11,7 +11,7 @@ let mainWindow;
 
 function createMainWindow() {
   const window = new BrowserWindow({
-    webPreferences: { nodeIntegration: true, webviewTag: true, webSecurity: false },
+    webPreferences: { nodeIntegration: true, webviewTag: true, webSecurity: false, allowRunningInsecureContent: true },
   });
 
   window.setMenuBarVisibility(false);

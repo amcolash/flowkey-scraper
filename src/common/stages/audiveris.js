@@ -71,7 +71,7 @@ export function audiverisOmr(data) {
       const finalFile = join(imageDir, `${title}.png`);
 
       // Remove old files if they are hanging around still
-      const transcribedDir = join(tmpPath, `${title}`);
+      const transcribedDir = join(tmpPath, title);
       rimraf.sync(transcribedDir);
 
       // Actually run the OMR
@@ -82,17 +82,21 @@ export function audiverisOmr(data) {
       await extract(mxlPath, { dir: transcribedDir });
 
       // Copy xml to final path
-      const srcXml = join(transcribedDir, `${title}.xml`);
+      const xmlFile = join(transcribedDir, `${title}.xml`);
 
-      let xml = readFileSync(srcXml).toString();
+      let xml = readFileSync(xmlFile).toString();
 
-      xml = xml.replace(
-        '<identification>',
-        `<work>\n<work-title>${title}</work-title>\n</work>\n<identification><creator type="composer">${data.artist}</creator>`
-      );
-      writeFileSync(srcXml, xml);
+      xml = xml
+        .replace(
+          '<identification>',
+          `<work>\n<work-title>${title}</work-title>\n</work>\n<identification>\n<creator type="composer">${data.artist}</creator>`
+        )
+        .replace(/<direction-type>.+?<\/direction-type>/gs, '')
+        .replace(/<direction>.+?<\/direction>/gs, '');
 
-      resolveMain();
+      writeFileSync(xmlFile, xml);
+
+      resolveMain(xmlFile);
     } catch (err) {
       rejectMain(err);
     }
