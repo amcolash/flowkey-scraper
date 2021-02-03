@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Home } from 'react-feather';
+import { isDevelopment } from '../common/constants';
 import { Status } from './Status';
 
 import { Webview } from './Webview';
@@ -29,8 +30,8 @@ const sampleData = {
 };
 
 export const App = () => {
-  // const [data, setData] = useState(sampleData);
-  const [data, setData] = useState();
+  const [data, setData] = useState(isDevelopment ? sampleData : undefined);
+  // const [data, setData] = useState();
 
   return (
     <div style={{ width: '100vw', height: '100vh', overflow: 'hidden' }}>

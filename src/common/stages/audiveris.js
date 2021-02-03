@@ -50,10 +50,17 @@ export function audiverisBuild() {
 
       await extract(sourceZip, { dir: tmpPath });
 
+      // Fix build.gradle file so that it doesn't need git
+      const buildGradle = join(sourceDir, 'build.gradle');
+      let build = readFileSync(buildGradle).toString();
+      build = build.replace('dependsOn: git_build', '') + `\next.programBuild = 'GitCustom'`;
+      writeFileSync(buildGradle, build);
+
       log('Checking Java Version');
       const { stdout } = await runCommand('java --version');
       if (stdout.indexOf('JDK') === -1) throw 'No JDK installed, please install JDK 11 and retry';
 
+      console.log(sourceDir);
       await runCommand(platform === 'win32' ? 'gradlew.bat build' : './gradlew build', { cwd: sourceDir });
       await extract(buildZip, { dir: tmpPath });
 

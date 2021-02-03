@@ -12,3 +12,5 @@ export const Colors = {
 export const tmpPath = join(remote.app.getPath('userData'), 'tmp');
 console.log('tmpPath', tmpPath);
 if (!existsSync(tmpPath)) mkdirSync(tmpPath);
+
+export const isDevelopment = process.env.NODE_ENV !== 'production';

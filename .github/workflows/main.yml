@@ -13,6 +13,10 @@ jobs:
         with:
           node-version: '12'
 
+      # Install special tools for windows only
+      - run: npm install --global windows-build-tools
+        if: matrix.os == 'windows-latest'
+
       - run: npm install
       - run: npm run dist
 
