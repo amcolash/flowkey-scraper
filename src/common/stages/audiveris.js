@@ -53,7 +53,7 @@ export function audiverisBuild() {
       // Fix build.gradle file so that it doesn't need git
       const buildGradle = join(sourceDir, 'build.gradle');
       let build = readFileSync(buildGradle).toString();
-      build = build.replace('dependsOn: git_build', '') + `\next.programBuild = 'GitCustom'`;
+      build = build.replace('dependsOn: git_build', '') + `\next.programBuild = '${new Date().toLocaleString()}'`;
       writeFileSync(buildGradle, build);
 
       log('Checking Java Version');
