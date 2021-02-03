@@ -51,13 +51,13 @@ export const Log = () => {
         onClick={() => setExpanded(!expanded)}
         style={{
           position: 'absolute',
-          top: -44,
+          top: -50,
           right: 10,
           color: Colors.LightGrey,
           background: Colors.Charcoal,
         }}
       >
-        <Terminal width={16} height={16} />
+        <Terminal />
       </button>
       <div
         style={{

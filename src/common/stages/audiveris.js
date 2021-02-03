@@ -99,7 +99,8 @@ export function audiverisOmr(data) {
           `<work>\n<work-title>${title}</work-title>\n</work>\n<identification>\n<creator type="composer">${data.artist}</creator>`
         )
         .replace(/<direction-type>.+?<\/direction-type>/gs, '')
-        .replace(/<direction>.+?<\/direction>/gs, '');
+        .replace(/<direction>.+?<\/direction>/gs, '')
+        .replace(/<part-name>.+?<\/part-name>/gs, '');
 
       writeFileSync(xmlFile, xml);
 

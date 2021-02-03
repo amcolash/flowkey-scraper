@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import { AlertTriangle, CheckCircle, Home, Watch } from 'react-feather';
+import { AlertTriangle, CheckCircle, Home, Trash, Watch } from 'react-feather';
 import { SpinnerCircularFixed } from 'spinners-react';
 
-import { Colors } from '../common/constants';
+import { Colors, tmpPath } from '../common/constants';
 import { runStages, Stage } from '../common/stages/stages';
 
 import { Score } from './Score';
 import { Log } from './Log';
+import { remote } from 'electron';
+import rimraf from 'rimraf';
 
 export const Status = (props) => {
   const [stage, setStage] = useState(Stage.None);
@@ -74,6 +76,18 @@ export const Status = (props) => {
         </div>
       )}
       <Score xmlFile={xmlFile} />
+      <button
+        onClick={() => {
+          const option = remote.dialog.showMessageBoxSync({
+            buttons: ['Cancel', 'Ok'],
+            message: 'Are you sure you want to clear temp cache?',
+          });
+          if (option === 1) rimraf.sync(tmpPath);
+        }}
+        style={{ position: 'absolute', bottom: 10, right: 60 }}
+      >
+        <Trash />
+      </button>
       <Log />
     </div>
   );

@@ -18,7 +18,7 @@ cssRule('button', {
   display: 'flex',
   alignItems: 'center',
   borderRadius: 6,
-  padding: 8,
+  padding: 6,
   border: `2px solid ${Colors.Grey}`,
   background: 'rgba(0,0,0,0)',
   transition: 'all 0.5s',
