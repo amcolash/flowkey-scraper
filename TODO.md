@@ -6,7 +6,7 @@
 - [ ] Docs
 - [ ] Home button to really clear state and stop things running
 - [x] Bug where 2nd time opening sheet music doesn't show - probably need to wipe the noteflight container, skip NF re-init
-- [ ] Adjust bpm ui
+- [x] Adjust bpm ui
 - [ ] Remove named part "Piano"
 - [ ] Import into noteflight (via launch api)
 - [ ] Cache deps for github ci
