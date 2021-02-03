@@ -9,7 +9,6 @@ export const Colors = {
   Charcoal: '#333',
 };
 
-export const appPath = remote.app.getAppPath();
-export const tmpPath = join(remote.app.getAppPath(), 'tmp');
-
+export const tmpPath = join(remote.app.getPath('userData'), 'tmp');
+console.log('tmpPath', tmpPath);
 if (!existsSync(tmpPath)) mkdirSync(tmpPath);

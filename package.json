@@ -1,5 +1,9 @@
 {
   "name": "flowkey-scraper",
+  "description": "An electron app which scrapes sheet music from the service flowkey",
+  "author": {
+    "name": "Andrew McOlash"
+  },
   "version": "0.0.1",
   "license": "MIT",
   "scripts": {

@@ -1,11 +1,9 @@
 import axios from 'axios';
-import { resolve } from 'bluebird';
 import { existsSync, mkdirSync, readdirSync, unlinkSync, writeFileSync } from 'fs';
 import { convert } from 'imagemagick';
 import cv from 'opencv4nodejs';
 import { basename, join } from 'path';
 
-import { error, log } from '../../renderer/Log';
 import { tmpPath } from '../constants';
 import { emptyMat, getMatchedTemplates, loadImage, measureTemplate, timeSignatures } from '../opencv';
 
