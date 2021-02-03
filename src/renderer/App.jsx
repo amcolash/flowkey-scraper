@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
-import { Home } from 'react-feather';
+
 import { isDevelopment } from '../common/constants';
 import { Status } from './Status';
-
 import { Webview } from './Webview';
 
 const sampleData = {
@@ -36,14 +35,7 @@ export const App = () => {
   return (
     <div style={{ width: '100vw', height: '100vh', overflow: 'hidden' }}>
       {!data && <Webview updateData={(data) => setData(data)} />}
-      {data && (
-        <>
-          <button onClick={() => setData(undefined)} style={{ position: 'absolute', top: 10, left: 10 }}>
-            <Home />
-          </button>
-          <Status data={data} />
-        </>
-      )}
+      {data && <Status data={data} setData={(data) => setData(data)} />}
     </div>
   );
 };

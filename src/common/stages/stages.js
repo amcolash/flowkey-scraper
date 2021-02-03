@@ -1,4 +1,7 @@
+import { join } from 'path';
+
 import { error, log } from '../../renderer/Log';
+import { isDevelopment, tmpPath } from '../constants';
 import { audiverisBuild, audiverisDownload, audiverisOmr } from './audiveris';
 import { downloadImages, finalImage, generateRows, matchImages } from './images';
 
@@ -39,6 +42,8 @@ async function runStage(data, stage, setStage, cb) {
   }
 }
 
+const skipStages = true && isDevelopment;
+
 export async function runStages(data, setStage) {
   hasError = false;
 
@@ -47,11 +52,16 @@ export async function runStages(data, setStage) {
 
   // await delay(1500);
 
-  await runStage(data, Stage.ImageDownload, setStage, downloadImages);
-  await runStage(data, Stage.MatchImages, setStage, matchImages);
-  await runStage(data, Stage.GenerateRows, setStage, generateRows);
-  await runStage(data, Stage.MakeFinalImage, setStage, finalImage);
-  const xmlFile = await runStage(data, Stage.AudiverisOMR, setStage, audiverisOmr);
+  let xmlFile;
+  if (skipStages) {
+    xmlFile = join(tmpPath, 'Hallelujah/Hallelujah.xml');
+  } else {
+    await runStage(data, Stage.ImageDownload, setStage, downloadImages);
+    await runStage(data, Stage.MatchImages, setStage, matchImages);
+    await runStage(data, Stage.GenerateRows, setStage, generateRows);
+    await runStage(data, Stage.MakeFinalImage, setStage, finalImage);
+    xmlFile = await runStage(data, Stage.AudiverisOMR, setStage, audiverisOmr);
+  }
 
   if (!hasError) setStage(Stage.Complete);
 

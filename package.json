@@ -38,6 +38,9 @@
     "electron-webpack": "^2.8.2",
     "webpack": "~4.42.1"
   },
+  "build": {
+    "npmRebuild": "false"
+  },
   "electronWebpack": {
     "main": {
       "extraEntries": [
