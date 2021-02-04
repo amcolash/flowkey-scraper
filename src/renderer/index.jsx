@@ -22,12 +22,15 @@ cssRule('button', {
   border: `2px solid ${Colors.Grey}`,
   background: 'rgba(0,0,0,0)',
   transition: 'all 0.5s',
-  cursor: 'pointer',
 
   $nest: {
-    '&:hover': {
+    '&:not([disabled]):hover': {
       borderColor: Colors.Green,
       color: Colors.Green,
+      cursor: 'pointer',
+    },
+    '&:disabled': {
+      filter: 'brightness(1.5)',
     },
   },
 });

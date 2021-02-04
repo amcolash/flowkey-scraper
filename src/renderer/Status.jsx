@@ -40,7 +40,11 @@ export const Status = (props) => {
         marginTop: stage !== Stage.Complete ? 100 : undefined,
       }}
     >
-      <button onClick={() => props.setData(undefined)} style={{ position: 'absolute', top: 10, left: 10 }}>
+      <button
+        disabled={stage !== Stage.Complete && !error}
+        onClick={() => props.setData(undefined)}
+        style={{ position: 'absolute', top: 10, left: 10 }}
+      >
         <Home />
       </button>
       {stage !== Stage.Complete && (
