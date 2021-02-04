@@ -1,8 +1,9 @@
 'use strict';
 
-import { app, BrowserWindow, ipcMain, webContents } from 'electron';
-import * as path from 'path';
+import { app, BrowserWindow, ipcMain } from 'electron';
+import { join } from 'path';
 import { format as formatUrl } from 'url';
+import { port } from '../common/shared_constants';
 
 const isDevelopment = process.env.NODE_ENV !== 'production';
 
@@ -75,4 +76,24 @@ app.on('activate', () => {
 // create main BrowserWindow when electron is ready
 app.on('ready', () => {
   mainWindow = createMainWindow();
+
+  const tmpPath = join(app.getPath('userData'), 'tmp');
+  const nodeStatic = require('node-static');
+  const file = new nodeStatic.Server(tmpPath, {
+    headers: {
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Methods': 'GET',
+      'Access-Control-Allow-Headers': 'Content-Type',
+    },
+  });
+
+  require('http')
+    .createServer(function (request, response) {
+      request
+        .addListener('end', function () {
+          file.serve(request, response);
+        })
+        .resume();
+    })
+    .listen(port);
 });
