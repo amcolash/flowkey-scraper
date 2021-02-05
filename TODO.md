@@ -16,5 +16,5 @@
 ## Post Release?
 
 - [ ] Home button to stop things running
-- [ ] Cache deps for github ci
+- [x] Cache deps for github ci
 - [x] Replace `node-static` with `serve` or something without vulns

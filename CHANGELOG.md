@@ -6,6 +6,7 @@
 
 - Github deploy
 - App Icon
+- Github actions cache
 
 ### Fixed
 
