@@ -39,6 +39,9 @@
     "electron-webpack": "^2.8.2",
     "webpack": "~4.42.1"
   },
+  "opencv4nodejs": {
+    "autoBuildFlags": "-DBUILD_LIST=core,highgui,imgcodecs,imgproc,videoio"
+  },
   "build": {
     "appId": "com.amcolash.flowkey-scraper",
     "productName": "Flowkey Scraper",
