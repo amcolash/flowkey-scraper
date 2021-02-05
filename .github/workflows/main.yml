@@ -28,15 +28,15 @@ jobs:
         uses: actions/cache@v2
         with:
           path: ${{ steps.npm-cache.outputs.dir }}
-          key: ${{ runner.os }}-node-${{ steps.get-node-version.outputs.version }}
+          key: ${{ matrix.os }}-node-${{ steps.get-node-version.outputs.version }}
 
       - name: cache node_modules
         uses: actions/cache@v2
         with:
           path: node_modules
-          key: node-modules-${{ hashFiles('package-lock.json') }}
+          key: ${{ matrix.os }}-node-modules-${{ hashFiles('package-lock.json') }}
           restore-keys: |
-            node-modules-
+            ${{ matrix.os }}-node-modules-
 
       - run: npm install
       - run: npm run dist
