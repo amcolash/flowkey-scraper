@@ -1,5 +1,6 @@
 import { remote } from 'electron';
-import { existsSync, mkdirSync } from 'fs';
+import { existsSync, mkdirSync, writeFile } from 'fs';
+import { promisify } from 'util';
 import { join } from 'path';
 
 export const Colors = {
@@ -14,3 +15,5 @@ console.log('tmpPath', tmpPath);
 if (!existsSync(tmpPath)) mkdirSync(tmpPath);
 
 export const isDevelopment = process.env.NODE_ENV !== 'production';
+
+export const writeFileAsync = promisify(writeFile);

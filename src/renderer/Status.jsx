@@ -81,6 +81,7 @@ export const Status = (props) => {
       )}
       <Score xmlFile={xmlFile} />
       <button
+        disabled={stage !== Stage.Complete && !error}
         onClick={() => {
           const option = remote.dialog.showMessageBoxSync({
             buttons: ['Cancel', 'Ok'],

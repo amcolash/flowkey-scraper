@@ -1,11 +1,10 @@
 import axios from 'axios';
-import { existsSync, mkdirSync, readdirSync, unlinkSync, writeFileSync } from 'fs';
-import { convert } from 'imagemagick';
+import { existsSync, mkdirSync, readdirSync, unlinkSync } from 'fs';
 import cv from 'opencv4nodejs';
 import { basename, join } from 'path';
 
-import { tmpPath } from '../constants';
-import { emptyMat, getMatchedTemplates, loadImage, measureTemplate, timeSignatures } from '../opencv';
+import { tmpPath, writeFileAsync } from '../constants';
+import { emptyMat, flatten, getMatchedTemplates, loadImage, loadImageAsync, measureTemplate, timeSignatures } from '../opencv';
 
 export const imageDir = join(tmpPath, 'images');
 
@@ -14,24 +13,25 @@ export function downloadImages(data) {
     try {
       if (!existsSync(imageDir)) mkdirSync(imageDir);
 
-      const imgs = data.images.map((i) => {
+      // Download each image from the data
+      const imgs = data.images.map((image, i) => {
         return new Promise((resolve, reject) => {
-          const file = join(imageDir, `${data.id}_${basename(i)}`);
+          const file = join(imageDir, `${data.id}_${basename(image)}`);
           if (existsSync(file)) {
             resolve();
             return;
           }
 
           axios
-            .get(i, { responseType: 'arraybuffer' })
-            .then((res) => {
-              writeFileSync(file, Buffer.from(res.data));
+            .get(image, { responseType: 'arraybuffer' })
+            .then(async (res) => {
+              await writeFileAsync(file, Buffer.from(res.data));
 
-              const args = [file, '-background', 'white', '-flatten', file];
-              convert(args, (err, stdout) => {
-                if (err) rejectMain(err);
-                resolve();
-              });
+              const img = await loadImageAsync(file, true);
+              const flat = flatten(img);
+
+              await cv.imwriteAsync(file, flat);
+              resolve();
             })
             .catch((err) => {
               rejectMain(err);
@@ -39,8 +39,10 @@ export function downloadImages(data) {
         });
       });
 
+      // Wait to download all images
       await Promise.all(imgs);
 
+      // Combine all images into a single long strip
       const combined = join(imageDir, `${data.id}_output.png`);
       if (existsSync(combined)) unlinkSync(combined);
       const files = readdirSync(imageDir)
@@ -55,12 +57,26 @@ export function downloadImages(data) {
         .map((f) => join(imageDir, f))
         .sort((a, b) => a.localeCompare(b, 'en', { numeric: true }));
 
-      await new Promise((resolve, reject) => {
-        convert([...files, '+append', combined], (err, stdout) => {
-          if (err) rejectMain(err);
-          resolve();
-        });
+      // Load all images and compute end size
+      let maxHeight = 0;
+      let width = 0;
+      const mats = files.map((f) => {
+        const img = loadImage(f);
+        width += img.cols;
+        maxHeight = Math.max(img.rows, maxHeight);
+        return img;
       });
+
+      // Combine and save file
+      const combinedMat = emptyMat(maxHeight, width);
+
+      let w = 0;
+      for (let i = 0; i < mats.length; i++) {
+        await mats[i].copyToAsync(combinedMat.getRegion(new cv.Rect(w, 0, mats[i].cols, mats[i].rows)));
+        w += mats[i].cols;
+      }
+
+      await cv.imwriteAsync(combined, combinedMat);
 
       resolveMain();
     } catch (err) {

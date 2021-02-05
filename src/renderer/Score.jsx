@@ -77,7 +77,7 @@ export const Score = (props) => {
         >
           Open in Noteflight
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 67.733 67.733" style={{ marginLeft: 8 }}>
-            <path d="M4.154 19.6v42.388L63.58 48.132V5.745z" fill="none" stroke="currentColor" stroke-width="4" strokeLinejoin="round" />
+            <path d="M4.154 19.6v42.388L63.58 48.132V5.745z" fill="none" stroke="currentColor" strokeWidth="4" strokeLinejoin="round" />
             <ellipse ry="12.202" rx="20.372" cy="33.867" cx="33.867" fill="none" stroke="currentColor" strokeWidth="4" />
             <ellipse
               transform="matrix(.94342 -.3316 .31277 .94983 0 0)"

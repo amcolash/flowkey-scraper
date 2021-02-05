@@ -30,8 +30,14 @@ export function scale(m, sx, sy) {
   return m.copy().resize(Math.floor(m.rows * sx), Math.floor(m.cols * (sy || sx)));
 }
 
-export function loadImage(p) {
-  return cv.imread(p);
+export function loadImage(p, alpha) {
+  if (alpha) return cv.imread(p, -1);
+  else return cv.imread(p);
+}
+
+export function loadImageAsync(p, alpha) {
+  if (alpha) return cv.imreadAsync(p, -1);
+  else return cv.imreadAsync(p);
 }
 
 export function showImage(mat) {
@@ -44,6 +50,33 @@ export function emptyMat(rows, cols) {
   mat.drawRectangle(new cv.Rect(0, 0, cols, rows), new cv.Vec3(255, 255, 255), -1);
 
   return mat;
+}
+
+export function flatten(mat) {
+  const imageData = mat.getData();
+  const transformedImageData = Array.from(new Array(mat.rows), () => []);
+
+  // Handle fully transparent image oddity (only 1 channel instead of 4)
+  let increment = imageData.length === mat.rows * mat.cols ? 1 : 4;
+
+  for (let i = 0; i < imageData.length; i += increment) {
+    const row = Math.floor(i / increment / mat.cols);
+
+    if (increment === 1) transformedImageData[row].push([255, 255, 255]);
+    else {
+      // "Standard" blending of alpha against white background
+      const floatAlpha = imageData[i + 3] / 255;
+      const oneMinus = 1 - floatAlpha;
+
+      transformedImageData[row].push([
+        Math.floor(imageData[i] * floatAlpha + oneMinus * 255),
+        Math.floor(imageData[i + 1] * floatAlpha + oneMinus * 255),
+        Math.floor(imageData[i + 2] * floatAlpha + oneMinus * 255),
+      ]);
+    }
+  }
+
+  return new cv.Mat(transformedImageData, cv.CV_8UC3);
 }
 
 export function getMatchedTemplates(mat, templates, multi) {

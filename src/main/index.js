@@ -13,6 +13,7 @@ let mainWindow;
 function createMainWindow() {
   const window = new BrowserWindow({
     webPreferences: { nodeIntegration: true, webviewTag: true, webSecurity: false },
+    ...(isDevelopment ? { width: 800, height: 800, x: 1920 - 850, y: 150 } : {}),
   });
 
   window.setMenuBarVisibility(false);
