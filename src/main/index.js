@@ -3,6 +3,9 @@
 import { app, BrowserWindow, ipcMain } from 'electron';
 import { join, resolve } from 'path';
 import { format as formatUrl } from 'url';
+import { serve } from 'serve-handler';
+import { createServer } from 'http';
+
 import { port } from '../common/shared_constants';
 
 const isDevelopment = process.env.NODE_ENV !== 'production';
@@ -79,22 +82,15 @@ app.on('ready', () => {
   mainWindow = createMainWindow();
 
   const tmpPath = join(app.getPath('userData'), 'tmp');
-  const nodeStatic = require('node-static');
-  const file = new nodeStatic.Server(tmpPath, {
-    headers: {
-      'Access-Control-Allow-Origin': '*',
-      'Access-Control-Allow-Methods': 'GET',
-      'Access-Control-Allow-Headers': 'Content-Type',
-    },
-  });
 
-  require('http')
-    .createServer(function (request, response) {
-      request
-        .addListener('end', function () {
-          file.serve(request, response);
-        })
-        .resume();
-    })
-    .listen(port);
+  const server = createServer((request, response) => {
+    return serve(request, response, {
+      public: tmpPath,
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': 'GET',
+        'Access-Control-Allow-Headers': 'Content-Type',
+      },
+    });
+  }).listen(port, () => console.log(`Running at http://localhost:${port}`));
 });

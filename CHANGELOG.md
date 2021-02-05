@@ -11,6 +11,10 @@
 
 - Fix bug in `main/index.js` on boot
 
+### Updated
+
+- Replace `node-static` with `serve` which is updated and no security vulnerabilities
+
 ## 0.2.0 (2021-02-05)
 
 ### Removed

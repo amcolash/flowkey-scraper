@@ -9,7 +9,7 @@
 - [x] Import into noteflight (via launch api)
 - [x] Home button disabled when parsing
 - [x] Remove imagemagick dependency (preferably replace with pure opencv)
-- [ ] Icon
+- [x] Icon
 - [ ] Test on all platforms
 - [ ] Docs / Blog Post
 
@@ -17,4 +17,4 @@
 
 - [ ] Home button to stop things running
 - [ ] Cache deps for github ci
-- [ ] Replace `node-static` with `serve` or something without vulns
+- [x] Replace `node-static` with `serve` or something without vulns
