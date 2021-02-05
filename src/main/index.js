@@ -1,7 +1,7 @@
 'use strict';
 
 import { app, BrowserWindow, ipcMain } from 'electron';
-import { join } from 'path';
+import { join, resolve } from 'path';
 import { format as formatUrl } from 'url';
 import { port } from '../common/shared_constants';
 
@@ -13,7 +13,7 @@ let mainWindow;
 function createMainWindow() {
   const window = new BrowserWindow({
     webPreferences: { nodeIntegration: true, webviewTag: true, webSecurity: false },
-    ...(isDevelopment ? { width: 800, height: 800, x: 1920 - 850, y: 150 } : {}),
+    ...(isDevelopment ? { width: 800, height: 800, x: 1920 - 850, y: 150 } : { width: 1200, height: 900 }),
   });
 
   window.setMenuBarVisibility(false);
@@ -33,7 +33,7 @@ function createMainWindow() {
   } else {
     window.loadURL(
       formatUrl({
-        pathname: path.join(__dirname, 'index.html'),
+        pathname: join(__dirname, 'index.html'),
         protocol: 'file',
         slashes: true,
       })
@@ -41,7 +41,7 @@ function createMainWindow() {
   }
 
   ipcMain.on('preload-main', (e) => {
-    const preloadPath = path.resolve(path.join(__dirname, 'preload.js'));
+    const preloadPath = resolve(join(__dirname, 'preload.js'));
     e.reply('preload-render', preloadPath);
   });
 

@@ -6,6 +6,10 @@
   },
   "version": "0.2.0",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/amcolash/flowkey-scraper.git"
+  },
   "scripts": {
     "postinstall": "electron-builder install-app-deps",
     "dev": "electron-webpack dev",
@@ -18,7 +22,6 @@
   },
   "dependencies": {
     "axios": "^0.21.1",
-    "expand-home-dir": "0.0.3",
     "extract-zip": "^2.0.1",
     "node-static": "^0.7.11",
     "opencv4nodejs": "^5.6.0",
@@ -44,7 +47,13 @@
   "build": {
     "appId": "com.amcolash.flowkey-scraper",
     "productName": "Flowkey Scraper",
-    "npmRebuild": "false"
+    "npmRebuild": "false",
+    "publish": [
+      "github"
+    ],
+    "linux": {
+      "category": "Audio"
+    }
   },
   "electronWebpack": {
     "main": {

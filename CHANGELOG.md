@@ -1,5 +1,16 @@
 # Changelog
 
+## 0.3.0 (2021-02-05)
+
+### Added
+
+- Github deploy
+- App Icon
+
+### Fixed
+
+- Fix bug in `main/index.js` on boot
+
 ## 0.2.0 (2021-02-05)
 
 ### Removed
