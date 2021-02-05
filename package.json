@@ -4,7 +4,7 @@
   "author": {
     "name": "Andrew McOlash"
   },
-  "version": "0.0.1",
+  "version": "0.1.0",
   "license": "MIT",
   "scripts": {
     "postinstall": "electron-builder install-app-deps",
