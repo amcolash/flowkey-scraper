@@ -18,7 +18,8 @@
     "dist:dir": "npm run dist --dir -c.compression=store -c.mac.identity=null",
     "dist:linux": "electron-builder build --linux",
     "dist:mac": "electron-builder build --mac",
-    "dist:win": "electron-builder build --win"
+    "dist:win": "electron-builder build --win",
+    "release": "npm run dist"
   },
   "dependencies": {
     "axios": "^0.21.1",
@@ -39,7 +40,6 @@
     "electron-builder": "^22.4.1",
     "electron-devtools-installer": "^3.1.1",
     "electron-webpack": "^2.8.2",
-    "node-gyp-cache": "^0.2.1",
     "webpack": "~4.42.1"
   },
   "opencv4nodejs": {
@@ -48,12 +48,14 @@
   "build": {
     "appId": "com.amcolash.flowkey-scraper",
     "productName": "Flowkey Scraper",
-    "npmRebuild": "false",
     "publish": [
       "github"
     ],
     "linux": {
-      "category": "Audio"
+      "category": "Audio",
+      "target": [
+        "AppImage"
+      ]
     },
     "win": {
       "target": [
