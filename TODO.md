@@ -11,6 +11,9 @@
 - [x] Remove imagemagick dependency (preferably replace with pure opencv)
 - [x] Icon
 - [ ] Test on all platforms
+  - [x] Linux
+  - [ ] Mac
+  - [ ] Windows
 - [ ] Docs / Blog Post
 
 ## Post Release?
