@@ -54,6 +54,12 @@
     ],
     "linux": {
       "category": "Audio"
+    },
+    "win": {
+      "target": [
+        "nsis",
+        "portable"
+      ]
     }
   },
   "electronWebpack": {
