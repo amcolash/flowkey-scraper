@@ -9,7 +9,9 @@ jobs:
       GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
       - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2-beta
+
+      - name: Set up Node 12
+        uses: actions/setup-node@v2-beta
         with:
           node-version: '12'
 
@@ -28,6 +30,12 @@ jobs:
 
       - run: npm install
       - run: npm run release
+
+      - name: Save artifacts
+        uses: actions/upload-artifact@v2
+      with:
+        name: artifacts
+        path: dist/
 
     strategy:
       matrix:
