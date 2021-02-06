@@ -34,8 +34,14 @@ jobs:
       - name: Save artifacts
         uses: actions/upload-artifact@v2
         with:
-          name: artifacts
-          path: dist/
+          name: ${{ matrix.os }}-artifacts
+          path: |
+            - dist/*.AppImage
+            - dist/*.dmg
+            - dist/*.exe
+            - dist/*.zip
+            - dist/*.yml
+            - dist/*.blockmap
 
     strategy:
       matrix:

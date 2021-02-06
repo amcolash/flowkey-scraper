@@ -48,10 +48,7 @@
   "build": {
     "appId": "com.amcolash.flowkey-scraper",
     "productName": "Flowkey Scraper",
-    "asarUnpack": [
-      "node_modules/opencv-build",
-      "node_modules/opencv4nodejs"
-    ],
+    "asar": false,
     "linux": {
       "category": "Audio",
       "target": [
