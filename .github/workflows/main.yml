@@ -33,9 +33,9 @@ jobs:
 
       - name: Save artifacts
         uses: actions/upload-artifact@v2
-      with:
-        name: artifacts
-        path: dist/
+        with:
+          name: artifacts
+          path: dist/
 
     strategy:
       matrix:
