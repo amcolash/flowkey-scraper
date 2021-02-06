@@ -17,19 +17,6 @@ jobs:
       - run: npm install --global windows-build-tools
         if: matrix.os == 'windows-latest'
 
-      - name: Get npm cache directory
-        id: npm-cache
-        run: |
-          echo "::set-output name=dir::$(npm config get cache)"
-      - name: Get node exact version
-        id: get-node-version
-        run: echo "::set-output name=version::$(node --version)"
-      - name: Cache node-gyp builds
-        uses: actions/cache@v2
-        with:
-          path: ${{ steps.npm-cache.outputs.dir }}
-          key: ${{ matrix.os }}-node-${{ steps.get-node-version.outputs.version }}
-
       - name: cache node_modules
         uses: actions/cache@v2
         with:
