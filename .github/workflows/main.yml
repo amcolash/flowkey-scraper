@@ -26,7 +26,7 @@ jobs:
             ${{ matrix.os }}-node-modules-
 
       - run: npm install
-      - run: npm run dist
+      - run: npm run release
 
     strategy:
       matrix:
