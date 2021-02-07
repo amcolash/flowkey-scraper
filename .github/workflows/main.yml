@@ -36,12 +36,12 @@ jobs:
         with:
           name: ${{ matrix.os }}-artifacts
           path: |
-            - dist/**/*.AppImage
-            - dist/**/*.dmg
-            - dist/**/*.exe
-            - dist/**/*.zip
-            - dist/**/*.yml
-            - dist/**/*.blockmap
+            dist/*.AppImage
+            dist/*.dmg
+            dist/*.exe
+            dist/*.zip
+            dist/*.yml
+            dist/*.blockmap
 
     strategy:
       matrix:
