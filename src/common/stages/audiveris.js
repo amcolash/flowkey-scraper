@@ -56,6 +56,15 @@ export function audiverisBuild() {
       build = build.replace('dependsOn: git_build', '') + `\next.programBuild = '${new Date().toLocaleString()}'`;
       writeFileSync(buildGradle, build);
 
+      // Upgrade gradle wrapper to 6.8.2 so it supports jdk 15
+      const gradleProperties = join(sourceDir, 'gradle/wrapper/gradle-wrapper.properties');
+      let properties = readFileSync(gradleProperties).toString();
+      properties = properties.replace(
+        /distributionUrl=.*/,
+        'distributionUrl=https\\://services.gradle.org/distributions/gradle-6.8.2-bin.zip'
+      );
+      writeFileSync(gradleProperties, properties);
+
       log('Checking Java Version');
       const { stdout } = await runCommand('java --version');
       if (stdout.indexOf('JDK') === -1) throw 'No JDK installed, please install JDK 11 and retry';
