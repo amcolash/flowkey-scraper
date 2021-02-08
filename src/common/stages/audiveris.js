@@ -39,6 +39,13 @@ export function audiverisDownload() {
   });
 }
 
+async function checkJava() {
+  log('Checking Java Version');
+  const { stdout } = await runCommand('java --version');
+  if (stdout.indexOf('JDK') === -1 || stdout.split('\n')[0].split(' ')[1].indexOf('11') === -1)
+    throw `Invalid version of JDK\nPlease install JDK 11 and retry`;
+}
+
 export function audiverisBuild() {
   return new Promise(async (resolveMain, rejectMain) => {
     try {
@@ -49,6 +56,7 @@ export function audiverisBuild() {
       }
 
       await extract(sourceZip, { dir: tmpPath });
+      await checkJava();
 
       // Fix build.gradle file so that it doesn't need git
       const buildGradle = join(sourceDir, 'build.gradle');
@@ -56,20 +64,13 @@ export function audiverisBuild() {
       build = build.replace('dependsOn: git_build', '') + `\next.programBuild = '${new Date().toLocaleString()}'`;
       writeFileSync(buildGradle, build);
 
-      // Upgrade gradle wrapper to 6.8.2 so it supports jdk 15
-      const gradleProperties = join(sourceDir, 'gradle/wrapper/gradle-wrapper.properties');
-      let properties = readFileSync(gradleProperties).toString();
-      properties = properties.replace(
-        /distributionUrl=.*/,
-        'distributionUrl=https\\://services.gradle.org/distributions/gradle-6.8.2-bin.zip'
-      );
-      writeFileSync(gradleProperties, properties);
+      // Disable tesseract OCR
+      const tesseractOCR = join(sourceDir, 'src/main/org/audiveris/omr/text/tesseract/TesseractOCR.java');
+      let tesseract = readFileSync(tesseractOCR).toString();
+      tesseract = tesseract.replace(/useOCR = new Constant.Boolean\(\s*true/, 'useOCR = new Constant.Boolean(\nfalse');
+      writeFileSync(tesseractOCR, tesseract);
 
-      log('Checking Java Version');
-      const { stdout } = await runCommand('java --version');
-      if (stdout.indexOf('JDK') === -1) throw 'No JDK installed, please install JDK 11 and retry';
-
-      console.log(sourceDir);
+      console.log('Building audiveris', sourceDir);
       await runCommand(platform === 'win32' ? 'gradlew.bat build' : './gradlew build', { cwd: sourceDir });
       await extract(buildZip, { dir: tmpPath });
 
@@ -90,8 +91,15 @@ export function audiverisOmr(data) {
       const transcribedDir = join(tmpPath, title);
       rimraf.sync(transcribedDir);
 
+      await checkJava();
+
       // Actually run the OMR
-      await runCommand(`"${toolPath}" -batch -export -output "${tmpPath}" "${finalFile}"`);
+      const { stdin } = await runCommand(`"${toolPath}" -batch -export -output "${tmpPath}" "${finalFile}"`);
+
+      if (typeof stdin === 'string' && stdin.indexOf('Exception') !== -1) {
+        rejectMain();
+        return;
+      }
 
       // Unzip the mxl
       const mxlPath = join(transcribedDir, `${title}.mxl`);

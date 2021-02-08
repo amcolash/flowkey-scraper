@@ -42,7 +42,10 @@ export const Status = (props) => {
     >
       <button
         disabled={stage !== Stage.Complete && !error}
-        onClick={() => props.setData(undefined)}
+        onClick={() => {
+          const current = remote.getCurrentWindow();
+          if (current) current.reload();
+        }}
         style={{ position: 'absolute', top: 10, left: 10 }}
       >
         <Home />
@@ -87,7 +90,11 @@ export const Status = (props) => {
             buttons: ['Cancel', 'Ok'],
             message: 'Are you sure you want to clear temp cache?',
           });
-          if (option === 1) rimraf.sync(tmpPath);
+          if (option === 1) {
+            rimraf.sync(tmpPath);
+            const current = remote.getCurrentWindow();
+            if (current) current.reload();
+          }
         }}
         style={{ position: 'absolute', bottom: 10, right: 60 }}
       >
