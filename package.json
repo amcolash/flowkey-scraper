@@ -24,7 +24,8 @@
   "dependencies": {
     "axios": "^0.21.1",
     "extract-zip": "^2.0.1",
-    "opencv4nodejs": "^5.6.0",
+    "jimp": "^0.16.1",
+    "opencv4js": "^3.4.3",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-feather": "^2.0.9",
@@ -40,7 +41,8 @@
     "electron-builder": "^22.4.1",
     "electron-devtools-installer": "^3.1.1",
     "electron-webpack": "^2.8.2",
-    "webpack": "~4.42.1"
+    "webpack": "~4.42.1",
+    "webpack-build-notifier": "^2.1.1"
   },
   "opencv4nodejs": {
     "autoBuildFlags": "-DBUILD_LIST=core,highgui,imgcodecs,imgproc,videoio"

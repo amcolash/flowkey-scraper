@@ -56,11 +56,13 @@ export async function runStages(data, setStage) {
   if (skipStages) {
     xmlFile = join(tmpPath, 'Hallelujah/Hallelujah.xml');
   } else {
-    await runStage(data, Stage.MatchImages, setStage, matchImages);
-    await runStage(data, Stage.GenerateRows, setStage, generateRows);
-    await runStage(data, Stage.MakeFinalImage, setStage, finalImage);
-    xmlFile = await runStage(data, Stage.AudiverisOMR, setStage, audiverisOmr);
+    // await runStage(data, Stage.MatchImages, setStage, matchImages);
+    // await runStage(data, Stage.GenerateRows, setStage, generateRows);
+    // await runStage(data, Stage.MakeFinalImage, setStage, finalImage);
+    // xmlFile = await runStage(data, Stage.AudiverisOMR, setStage, audiverisOmr);
   }
+
+  return;
 
   if (!hasError) {
     setStage(Stage.Complete);
