@@ -1,25 +1,20 @@
 import Jimp from 'jimp';
 import { join } from 'path';
 import cv from 'opencv4js';
+import { isDevelopment } from './constants';
 
-const DEBUG = false;
+const DEBUG = true && isDevelopment;
 
 export let measureTemplate = {};
 export let timeSignatures = {};
 
+const measureSizes = [0.9, 0.95, 1, 1.05, 1.1];
+
 export async function initTemplates() {
   measureTemplate = {
     mat: [
-      await loadImage(join(__static, 'templates/measure/measure-1.png')),
-      scale(await loadImage(join(__static, 'templates/measure/measure-1.png')), 0.9),
-      scale(await loadImage(join(__static, 'templates/measure/measure-1.png')), 0.95),
-      scale(await loadImage(join(__static, 'templates/measure/measure-1.png')), 1.05),
-      scale(await loadImage(join(__static, 'templates/measure/measure-1.png')), 1.1),
-      await loadImage(join(__static, 'templates/measure/measure-2.png')),
-      scale(await loadImage(join(__static, 'templates/measure/measure-2.png')), 0.9),
-      scale(await loadImage(join(__static, 'templates/measure/measure-2.png')), 0.95),
-      scale(await loadImage(join(__static, 'templates/measure/measure-2.png')), 1.05),
-      scale(await loadImage(join(__static, 'templates/measure/measure-2.png')), 1.1),
+      ...(await generateVariations(join(__static, 'templates/measure/measure-1.png'), measureSizes)),
+      ...(await generateVariations(join(__static, 'templates/measure/measure-2.png'), measureSizes)),
     ],
     thresh: 0.25,
   };
@@ -30,14 +25,24 @@ export async function initTemplates() {
     time_6_8: { mat: await loadImage(join(__static, 'templates/time-sig/6-8.png')), thresh: 0.2 },
   };
 }
+export async function generateVariations(path, sizes) {
+  const img = await Jimp.read(path);
+  const variations = [];
+
+  for (const s of sizes) {
+    const resized = img.clone().scale(s);
+    variations.push(cv.matFromImageData(resized.bitmap));
+  }
+
+  return variations;
+}
 
 export function scale(m, sx, sy) {
-  return m.clone().resize(Math.floor(m.rows * sx), Math.floor(m.cols * (sy || sx)));
+  return m.resize(Math.floor(m.rows * sx), Math.floor(m.cols * (sy || sx)));
 }
 
 export async function loadImage(p, alpha) {
-  var img = await Jimp.read(p);
-
+  const img = await Jimp.read(p);
   return cv.matFromImageData(img.bitmap);
 }
 
