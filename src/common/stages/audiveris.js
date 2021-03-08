@@ -43,12 +43,12 @@ async function checkJava() {
   log('Checking Java Version');
   const javaVersion = await runCommand('java -version');
   const javaVersionCombined = javaVersion.stdout + '\n' + javaVersion.stderr;
-  if (javaVersionCombined.indexOf('11.') === -1 && javaVersionCombined.indexOf('1.8') === -1)
+  if (javaVersionCombined.indexOf('11.') === -1)
     throw `Invalid version of JDK (java -version)\nPlease install JDK 11 and retry`;
 
   const javacVersion = await runCommand('javac -version');
   const javacVersionCombined = javacVersion.stdout + '\n' + javacVersion.stderr;
-  if (javacVersionCombined.indexOf('11.') === -1 && javacVersionCombined.indexOf('1.8') === -1)
+  if (javacVersionCombined.indexOf('11.') === -1)
     throw `Invalid version of JDK (javac -version)\nPlease install JDK 11 and retry`;
 }
 
