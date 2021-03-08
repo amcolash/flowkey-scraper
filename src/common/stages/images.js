@@ -70,22 +70,22 @@ export function downloadImages(data) {
       const mats = [];
       const regions = [];
 
-      let w = 0;
       for (const f of files) {
         let img = await loadImage(f);
+        mats.push(img);
+
+        regions.push(new cv.Rect(width, 0, img.cols, img.rows));
 
         width += img.cols;
         maxHeight = Math.max(img.rows, maxHeight);
-
-        mats.push(img);
-        regions.push(new cv.Rect(w, 0, img.cols, img.rows));
-
-        w += img.cols;
       }
 
       // Combine and save file
       let combinedMat = emptyMat(maxHeight, width);
-      combinedMat = await copyRegions(mats, combinedMat, regions);
+
+      for (let i = 0; i < mats.length; i++) {
+        mats[i].copyTo(combinedMat.roi(regions[i]));
+      }
 
       await new Jimp({
         width: combinedMat.cols,

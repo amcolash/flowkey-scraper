@@ -92,43 +92,6 @@ export function flatten(mat) {
   return new cv.matFromArray(mat.rows, mat.cols, cv.CV_8UC4, transformedImageData);
 }
 
-export async function copyRegions(srcs, dst, regions) {
-  if (dst.type() !== cv.CV_8UC4) throw 'copyRegions only works with 4 channels';
-
-  // Copy each region to the dst array (this array seems to be a clone of the data and so we need to make a new Mat at the end)
-
-  let counter = 0;
-  for (let i = 0; i < regions.length; i++) {
-    if (srcs[i].type() !== cv.CV_8UC4) throw 'copyRegions only works with 4 channels';
-
-    const src = srcs[i];
-    const r = regions[i];
-
-    for (let y = 0; y < r.height; y++) {
-      for (let x = 0; x < r.width; x++) {
-        counter++;
-        if (counter === 100000) {
-          counter = 0;
-          // Make this feel a bit more async (the loading spinner doesn't freeze)
-          await new Promise((resolve, reject) => setTimeout(resolve, 0));
-        }
-
-        const dstIndex = x + r.x + (y + r.y) * dst.cols;
-        const srcIndex = x + y * src.cols;
-
-        dst.data[dstIndex * 4] = src.data[srcIndex * 4];
-        dst.data[dstIndex * 4 + 1] = src.data[srcIndex * 4 + 1];
-        dst.data[dstIndex * 4 + 2] = src.data[srcIndex * 4 + 2];
-
-        // For now ignoring the alpha channel (since it isn't being used anyways)
-        // dst.data[dstIndex * 4 + 3] = src.data[srcIndex * 4 + 3];
-      }
-    }
-  }
-
-  return new cv.matFromArray(dst.rows, dst.cols, cv.CV_8UC4, dst.data);
-}
-
 export function getMatchedTemplates_OLDCODE(mat, templates, multi) {
   return new Promise(async (resolve, reject) => {
     const matches = {};
