@@ -4,7 +4,7 @@ import Jimp from 'jimp';
 import cv from 'opencv4js';
 import { basename, join } from 'path';
 
-import { tmpPath, writeFileAsync } from '../constants';
+import { isDevelopment, tmpPath, writeFileAsync } from '../constants';
 import { copyRegions, emptyMat, flatten, getMatchedTemplates, initTemplates, loadImage, measureTemplate, timeSignatures } from '../opencv';
 
 export const imageDir = join(tmpPath, 'images');
@@ -106,28 +106,41 @@ const maxWidth = 3500;
 export function matchImages(data) {
   return new Promise(async (resolveMain, rejectMain) => {
     try {
-      await initTemplates();
-
       combined = await loadImage(join(imageDir, `${data.id}_output.png`));
+      const result = combined.clone();
 
-      const match = combined.clone();
-      const matchedMeasures = await getMatchedTemplates(match, { measure: measureTemplate }, true);
-      const timeSigMatch = await getMatchedTemplates(match, timeSignatures);
+      // Find the time signature
+      const timeSigRoi = combined.roi(new cv.Rect(0, 0, 300, combined.rows));
+      const timeSigMatches = await getMatchedTemplates(timeSigRoi, timeSignatures, result);
 
-      if (Object.entries(timeSigMatch).length === 0) throw 'Could not find time signature';
+      let timeRect;
+      Object.entries(timeSigMatches).forEach((e) => {
+        const key = e[0];
+        const matches = e[1];
+        if (!timeRect && matches.length > 0) timeRect = new cv.Rect(0, 0, matches[0].x + timeSignatures[key].mat.cols, combined.rows);
+      });
 
-      const timeSig = Object.entries(timeSigMatch)[0];
-      const rect = new cv.Rect(0, 0, timeSig[1].x + timeSignatures[timeSig[0]].mat.cols, combined.rows);
-      timeSigMat = combined.roi(rect).clone();
+      if (!timeRect) throw 'Could not find time signature';
+      timeSigMat = combined.roi(timeRect).clone();
 
-      const matched = matchedMeasures.measure.sort((a, b) => a.x - b.x);
+      // Find the measures in the combined image
+      const matchedMeasures = await getMatchedTemplates(combined, { measure: measureTemplate }, result);
+
+      // Sort measures and generate matrix regions to use in generateRows
+      const sorted = matchedMeasures.measure.sort((a, b) => a.x - b.x);
       measures = [];
-      for (let i = 1; i < matched.length; i++) {
-        const left = i === 1 ? 0 : matched[i - 1].x;
-        const right = i === matched.length - 1 ? combined.cols : matched[i].x;
+      for (let i = 1; i < sorted.length; i++) {
+        const left = i === 1 ? 0 : sorted[i - 1].x;
+        const right = i === sorted.length - 1 ? combined.cols : sorted[i].x;
 
         const m = combined.roi(new cv.Rect(left, 0, right - left, combined.rows));
         measures.push(m);
+      }
+
+      if (isDevelopment && false) {
+        cv.imshow('test', result);
+        console.log(matchedMeasures);
+        console.log(measures);
       }
 
       if (measures.length === 0) throw 'Could not find measures';
@@ -171,6 +184,8 @@ export function generateRows(data) {
         width += measure.cols;
       }
       rows.push(current);
+
+      cv.imshow('test', rows[1]);
 
       resolveMain();
     } catch (err) {

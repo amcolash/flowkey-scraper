@@ -52,7 +52,9 @@ export const Status = (props) => {
       </button>
       {stage !== Stage.Complete && (
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-          {isDevelopment && <canvas id="test" width="500" height="500" style={{ border: '1px solid black', transform: 'scale(0.1)' }} />}
+          <div style={{ overflowX: 'auto', maxWidth: '95vw' }}>
+            {isDevelopment && <canvas id="test" width="0" height="0" style={{ border: '1px solid black' }} />}
+          </div>
           <div>
             {Object.keys(Stage)
               .filter((s) => Stage[s] !== Stage.None && Stage[s] != Stage.Complete)

@@ -2,6 +2,7 @@ import React from 'react';
 import { render } from 'react-dom';
 import { cssRule } from 'typestyle';
 import { Colors } from '../common/constants';
+import { initTemplates } from '../common/opencv';
 
 import { App } from './App.jsx';
 
@@ -35,4 +36,12 @@ cssRule('button', {
   },
 });
 
-render(<App />, document.getElementById('app'));
+async function init() {
+  // Load templates for matching, only load once on initial app load
+  await initTemplates();
+
+  // After we have loaded templates, then start things up
+  render(<App />, document.getElementById('app'));
+}
+
+init();

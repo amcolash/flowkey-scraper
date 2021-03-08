@@ -50,14 +50,14 @@ export async function runStages(data, setStage) {
   await runStage(data, Stage.AudiverisDownload, setStage, audiverisDownload);
   await runStage(data, Stage.AudiverisBuild, setStage, audiverisBuild);
 
-  await runStage(data, Stage.ImageDownload, setStage, downloadImages);
+  // await runStage(data, Stage.ImageDownload, setStage, downloadImages);
 
   let xmlFile;
   if (skipStages) {
     xmlFile = join(tmpPath, 'Hallelujah/Hallelujah.xml');
   } else {
-    // await runStage(data, Stage.MatchImages, setStage, matchImages);
-    // await runStage(data, Stage.GenerateRows, setStage, generateRows);
+    await runStage(data, Stage.MatchImages, setStage, matchImages);
+    await runStage(data, Stage.GenerateRows, setStage, generateRows);
     // await runStage(data, Stage.MakeFinalImage, setStage, finalImage);
     // xmlFile = await runStage(data, Stage.AudiverisOMR, setStage, audiverisOmr);
   }

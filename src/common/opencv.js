@@ -8,13 +8,24 @@ const DEBUG = true && isDevelopment;
 export let measureTemplate = {};
 export let timeSignatures = {};
 
-const measureSizes = [0.9, 0.95, 1, 1.05, 1.1];
+const measureSizes = [0.93, 1, 1.07];
+
+const colors = [
+  [255, 0, 0],
+  [0, 255, 0],
+  [0, 0, 255],
+  [255, 0, 255],
+  [0, 255, 255],
+  [255, 255, 0],
+];
 
 export async function initTemplates() {
   measureTemplate = {
     mat: [
-      ...(await generateVariations(join(__static, 'templates/measure/measure-1.png'), measureSizes)),
-      ...(await generateVariations(join(__static, 'templates/measure/measure-2.png'), measureSizes)),
+      // ...(await generateVariations(join(__static, 'templates/measure/measure-1.png'), measureSizes)),
+      // ...(await generateVariations(join(__static, 'templates/measure/measure-2.png'), measureSizes)),
+      await loadImage(join(__static, 'templates/measure/measure-1.png')),
+      await loadImage(join(__static, 'templates/measure/measure-2.png')),
     ],
     thresh: 0.25,
   };
@@ -118,23 +129,32 @@ export async function copyRegions(srcs, dst, regions) {
   return new cv.matFromArray(dst.rows, dst.cols, cv.CV_8UC4, dst.data);
 }
 
-export function getMatchedTemplates(mat, templates, multi) {
+export function getMatchedTemplates_OLDCODE(mat, templates, multi) {
   return new Promise(async (resolve, reject) => {
     const matches = {};
     const pristine = mat.clone();
+
+    console.log(templates);
 
     for (const template of Object.entries(templates)) {
       const name = template[0];
       const value = template[1];
 
+      console.log(name);
+
       const templates = Array.isArray(value.mat) ? value.mat : [value.mat];
 
+      const match = new cv.Mat(mat.rows, mat.cols);
       for (const t of templates) {
-        const match = await pristine.matchTemplateAsync(t, cv.TM_CCOEFF_NORMED);
+        console.log(t);
+
+        cv.matchTemplate(pristine, t, match, cv.TM_CCOEFF_NORMED);
+
+        console.log(t, 'done matching');
 
         if (!multi) {
-          const minMax = match.minMaxLoc();
-          // if (DEBUG) console.log(name, minMax);
+          const minMax = cv.minMaxLoc(match);
+          if (DEBUG) console.log(name, minMax);
 
           if (minMax.maxVal > 1 - value.thresh) {
             matches[name] = { x: minMax.maxLoc.x, y: minMax.maxLoc.y };
@@ -152,15 +172,22 @@ export function getMatchedTemplates(mat, templates, multi) {
             }
           }
         } else {
-          const dataList = match.getDataAsArray();
           if (!matches[name]) matches[name] = [];
 
           const tmpMatches = [];
-          for (let y = 0; y < dataList.length; y++) {
-            for (let x = 0; x < dataList[y].length; x++) {
-              if (dataList[y][x] > 1 - value.thresh) {
-                tmpMatches.push({ x, y });
-              }
+
+          // const thresh = new cv.Mat();
+          // cv.threshold(match, thresh, 255 * (1 - value.thresh), 255, cv.THRESH_BINARY);
+
+          console.log(match.type(), match.cols, match.rows, match.data.length);
+
+          // Only consider matches in the top 1/3 of the image (we always look for top left corner of match)
+          for (let i = 0; i < match.data.length / 3; i += 4) {
+            if (match.data[i] > 1 - value.thresh) {
+              const x = i % match.cols;
+              const y = Math.floor(i / match.rows);
+
+              tmpMatches.push({ x, y });
             }
           }
 
@@ -175,7 +202,7 @@ export function getMatchedTemplates(mat, templates, multi) {
               filteredResults.push(m);
 
               if (DEBUG) {
-                // console.log(name, m);
+                console.log(name, m);
                 cv.rectangle(
                   mat,
                   new cv.Point(m.x, m.y),
@@ -188,10 +215,84 @@ export function getMatchedTemplates(mat, templates, multi) {
             }
           });
 
+          cv.imshow('test', mat);
+          debugger;
+
           matches[name] = filteredResults;
         }
       }
     }
+
+    console.log(matches);
+
+    resolve(matches);
+  });
+}
+
+// NEW TEMPLATE CODE
+export function getMatchedTemplates(src, templates, result) {
+  return new Promise(async (resolve, reject) => {
+    const matches = {};
+    let colorIndex = 0;
+
+    for (const template of Object.entries(templates)) {
+      const name = template[0];
+      const value = template[1];
+
+      const templates = Array.isArray(value.mat) ? value.mat : [value.mat];
+
+      for (const temp of templates) {
+        colorIndex++;
+
+        if (!matches[name]) matches[name] = [];
+
+        // Find matches with template matching
+        const matched = new cv.Mat();
+        cv.matchTemplate(src, temp, matched, cv.TM_CCOEFF_NORMED);
+
+        // Find matched areas above the threshold
+        cv.threshold(matched, matched, 1 - value.thresh, 1, cv.THRESH_BINARY);
+        matched.convertTo(matched, cv.CV_8UC1);
+
+        // Find the coordinates of matched areas
+        let contours = new cv.MatVector();
+        let hierarchy = new cv.Mat();
+        cv.findContours(matched, contours, hierarchy, cv.RETR_EXTERNAL, cv.CHAIN_APPROX_SIMPLE);
+
+        // Filter out duplicates
+        const filtered = [...matches[name]];
+        for (let i = 0; i < contours.size(); i++) {
+          const contour = contours.get(i).data32S; // Contains the points
+
+          let duplicate = false;
+          filtered.forEach((f) => {
+            if (Math.abs(contour[0] - f.x) < 50) duplicate = true;
+          });
+
+          if (!duplicate) filtered.push({ x: contour[0], y: contour[1] });
+        }
+
+        console.log(name, filtered);
+
+        // Optionally draw results
+        if (result) {
+          for (let i = 0; i < filtered.length; i++) {
+            let x = filtered[i].x;
+            let y = filtered[i].y;
+
+            const c = colors[(colorIndex || 0) % colors.length];
+            let color = new cv.Scalar(c[0], c[1], c[2], 255);
+            let pointA = new cv.Point(x, y);
+            let pointB = new cv.Point(x + temp.cols, y + temp.rows);
+            cv.rectangle(result, pointA, pointB, color, 2, cv.LINE_8, 0);
+          }
+        }
+
+        matches[name] = filtered;
+      }
+    }
+
+    console.log(matches);
 
     resolve(matches);
   });
