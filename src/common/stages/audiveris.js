@@ -41,9 +41,15 @@ export function audiverisDownload() {
 
 async function checkJava() {
   log('Checking Java Version');
-  const { stdout } = await runCommand('java --version');
-  if (stdout.indexOf('JDK') === -1 || stdout.split('\n')[0].split(' ')[1].indexOf('11') === -1)
-    throw `Invalid version of JDK\nPlease install JDK 11 and retry`;
+  const javaVersion = await runCommand('java -version');
+  const javaVersionCombined = javaVersion.stdout + '\n' + javaVersion.stderr;
+  if (javaVersionCombined.indexOf('11.') === -1 && javaVersionCombined.indexOf('1.8') === -1)
+    throw `Invalid version of JDK (java -version)\nPlease install JDK 11 and retry`;
+
+  const javacVersion = await runCommand('javac -version');
+  const javacVersionCombined = javacVersion.stdout + '\n' + javacVersion.stderr;
+  if (javacVersionCombined.indexOf('11.') === -1 && javacVersionCombined.indexOf('1.8') === -1)
+    throw `Invalid version of JDK (javac -version)\nPlease install JDK 11 and retry`;
 }
 
 export function audiverisBuild() {

@@ -10,17 +10,18 @@
 - [x] Home button disabled when parsing
 - [x] Remove imagemagick dependency (preferably replace with pure opencv)
 - [x] Icon
-- [ ] Redo with opencv.js
-- [ ] Navigation for webview (and a home button to go back to noteflight main page)
+- [x] Redo with opencv.js
+- [ ] Navigation for webview (add home/forward/back buttons)
 - [ ] Test on all platforms
-  - [ ] Linux
-  - [ ] Mac
+  - [x] Linux
+  - [x] Mac
   - [ ] Windows
-- [ ] Docs / Blog Post
+- [ ] Docs / Screenshots
+- [ ] Blog Post (Discuss v1, v2, v3 - full opencv + using song json data to try and correlate things, using opencv native, using opencvjs)
 
 ## Post Release?
 
 - [ ] Home button to stop things running
 - [x] Cache deps for github ci
 - [x] Replace `node-static` with `serve` or something without vulns
-- [ ] Fix updating console when opened
+- [ ] Fix updating console when opened and new lines appear
