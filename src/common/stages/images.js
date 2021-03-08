@@ -185,7 +185,7 @@ export function generateRows(data) {
       }
       rows.push(current);
 
-      cv.imshow('test', rows[1]);
+      if (isDevelopment && false) rows.forEach((r, i) => cv.imshow(`test${i}`, r));
 
       resolveMain();
     } catch (err) {

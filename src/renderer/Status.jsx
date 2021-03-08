@@ -53,7 +53,22 @@ export const Status = (props) => {
       {stage !== Stage.Complete && (
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
           <div style={{ overflowX: 'auto', maxWidth: '95vw' }}>
-            {isDevelopment && <canvas id="test" width="0" height="0" style={{ border: '1px solid black' }} />}
+            {isDevelopment && (
+              <div>
+                {/* Lots of test divs for checking rows */}
+                <canvas id="test" width="0" height="0" style={{ border: '1px solid black' }} />
+                <canvas id="test0" width="0" height="0" style={{ border: '1px solid black' }} />
+                <canvas id="test1" width="0" height="0" style={{ border: '1px solid black' }} />
+                <canvas id="test2" width="0" height="0" style={{ border: '1px solid black' }} />
+                <canvas id="test3" width="0" height="0" style={{ border: '1px solid black' }} />
+                <canvas id="test4" width="0" height="0" style={{ border: '1px solid black' }} />
+                <canvas id="test5" width="0" height="0" style={{ border: '1px solid black' }} />
+                <canvas id="test6" width="0" height="0" style={{ border: '1px solid black' }} />
+                <canvas id="test7" width="0" height="0" style={{ border: '1px solid black' }} />
+                <canvas id="test8" width="0" height="0" style={{ border: '1px solid black' }} />
+                <canvas id="test9" width="0" height="0" style={{ border: '1px solid black' }} />
+              </div>
+            )}
           </div>
           <div>
             {Object.keys(Stage)

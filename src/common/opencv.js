@@ -27,7 +27,7 @@ export async function initTemplates() {
       await loadImage(join(__static, 'templates/measure/measure-1.png')),
       await loadImage(join(__static, 'templates/measure/measure-2.png')),
     ],
-    thresh: 0.25,
+    thresh: 0.225,
   };
 
   timeSignatures = {
