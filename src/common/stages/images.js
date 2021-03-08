@@ -201,19 +201,25 @@ export function getTitle(data) {
 export function finalImage(data) {
   return new Promise(async (resolveMain, rejectMain) => {
     try {
+      const margin = 100;
       const rowHeight = combined.rows + 100;
       const height = rows.length * rowHeight;
-      const final = emptyMat(height, maxWidth);
+      const final = emptyMat(height + margin, maxWidth + margin);
 
       for (let i = 0; i < rows.length; i++) {
-        const rect = new cv.Rect(0, i * rowHeight, maxWidth, combined.rows);
+        const rect = new cv.Rect(0, i * rowHeight + margin, maxWidth, combined.rows);
         // console.log(final.cols, final.rows, rect);
         rows[i].copyTo(final.roi(rect));
       }
 
       const title = getTitle(data);
       const finalFile = join(imageDir, `${title}.png`);
-      cv.imwriteAsync(finalFile, final);
+
+      await new Jimp({
+        width: final.cols,
+        height: final.rows,
+        data: Buffer.from(final.data),
+      }).writeAsync(finalFile);
 
       resolveMain();
     } catch (err) {
