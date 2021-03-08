@@ -15,11 +15,6 @@ jobs:
         with:
           node-version: '12'
 
-      # Install special tools for windows only
-      - name: Install Windows Build Tools
-        run: npm install --global windows-build-tools
-        if: matrix.os == 'windows-latest'
-
       - name: Cache node_modules
         uses: actions/cache@v2
         with:
