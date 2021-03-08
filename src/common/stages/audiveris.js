@@ -43,13 +43,10 @@ async function checkJava() {
   log('Checking Java Version');
   const javaVersion = await runCommand('java -version');
   const javaVersionCombined = javaVersion.stdout + '\n' + javaVersion.stderr;
-  if (javaVersionCombined.indexOf('11.') === -1)
-    throw `Invalid version of JDK (java -version)\nPlease install JDK 11 and retry`;
+  if (javaVersionCombined.indexOf('11.') === -1) throw `Invalid version of JDK (java -version)\nPlease install JDK 11 and retry`;
 
-  const javacVersion = await runCommand('javac -version');
-  const javacVersionCombined = javacVersion.stdout + '\n' + javacVersion.stderr;
-  if (javacVersionCombined.indexOf('11.') === -1)
-    throw `Invalid version of JDK (javac -version)\nPlease install JDK 11 and retry`;
+  // Make sure there is a java compiler, can't seem to always get the proper version reliably on all platforms so just make sure it exists
+  await runCommand('javac -version');
 }
 
 export function audiverisBuild() {
@@ -76,7 +73,7 @@ export function audiverisBuild() {
       tesseract = tesseract.replace(/useOCR = new Constant.Boolean\(\s*true/, 'useOCR = new Constant.Boolean(\nfalse');
       writeFileSync(tesseractOCR, tesseract);
 
-      console.log('Building audiveris', sourceDir);
+      log('Building audiveris', sourceDir);
       await runCommand(platform() === 'win32' ? 'gradlew.bat build' : './gradlew build', { cwd: sourceDir });
       await extract(buildZip, { dir: tmpPath });
 

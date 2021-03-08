@@ -3,6 +3,8 @@ import { error, log } from '../renderer/Log';
 
 export function runCommand(command, options) {
   return new Promise((resolve, reject) => {
+    log(command);
+
     const proc = exec(command, options);
 
     let stdout = '';

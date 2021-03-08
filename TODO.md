@@ -11,17 +11,20 @@
 - [x] Remove imagemagick dependency (preferably replace with pure opencv)
 - [x] Icon
 - [x] Redo with opencv.js
-- [ ] Navigation for webview (add home/forward/back buttons)
-- [ ] Test on all platforms
+- [ ] Navigation for webview (add home/forward/back buttons + urlbar that is disabled)
+- [x] Test on all platforms
   - [x] Linux
   - [x] Mac
-  - [ ] Windows
+  - [x] Windows
+- [ ] Add shadow to icon
+  - [ ] Make sure icon shows up w/ linux AppImage once installed
+- [ ] Update checking? (Maybe not for 1st release)
 - [ ] Docs / Screenshots
 - [ ] Blog Post (Discuss v1, v2, v3 - full opencv + using song json data to try and correlate things, using opencv native, using opencvjs)
 
 ## Post Release?
 
-- [ ] Home button to stop things running
+- [ ] Home button to stop things running - right now it is just disabled
 - [x] Cache deps for github ci
 - [x] Replace `node-static` with `serve` or something without vulns
 - [ ] Fix updating console when opened and new lines appear
