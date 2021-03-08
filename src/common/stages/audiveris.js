@@ -77,7 +77,7 @@ export function audiverisBuild() {
       writeFileSync(tesseractOCR, tesseract);
 
       console.log('Building audiveris', sourceDir);
-      await runCommand(platform === 'win32' ? 'gradlew.bat build' : './gradlew build', { cwd: sourceDir });
+      await runCommand(platform() === 'win32' ? 'gradlew.bat build' : './gradlew build', { cwd: sourceDir });
       await extract(buildZip, { dir: tmpPath });
 
       resolveMain();
