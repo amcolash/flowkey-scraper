@@ -5,7 +5,8 @@ import cv from 'opencv4js';
 import { basename, join } from 'path';
 
 import { isDevelopment, tmpPath, writeFileAsync } from '../constants';
-import { copyRegions, emptyMat, flatten, getMatchedTemplates, initTemplates, loadImage, measureTemplate, timeSignatures } from '../opencv';
+import { emptyMat, flatten, getMatchedTemplates, loadImage, measureTemplate, timeSignatures } from '../opencv';
+import { getTitle } from '../util';
 
 export const imageDir = join(tmpPath, 'images');
 
@@ -192,10 +193,6 @@ export function generateRows(data) {
       rejectMain(err);
     }
   });
-}
-
-export function getTitle(data) {
-  return data.title.replace(/[^\x00-\x7F]/g, '');
 }
 
 export function finalImage(data) {

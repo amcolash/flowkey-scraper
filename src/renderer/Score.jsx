@@ -1,12 +1,19 @@
 import { remote } from 'electron';
-import { readFileSync } from 'fs';
-import { relative } from 'path';
+import { copyFileSync, readFileSync } from 'fs';
+import { join, relative } from 'path';
 import React, { useEffect, useState } from 'react';
-import { Code, FileText } from 'react-feather';
+import { Code, FileText, Image } from 'react-feather';
+import { cssRule } from 'typestyle';
 
 import { isDevelopment, tmpPath } from '../common/constants';
 import NFClient from '../common/nfclient';
 import { port } from '../common/shared_constants';
+import { imageDir } from '../common/stages/images';
+import { getTitle } from '../common/util';
+
+cssRule('#sheetMusic', {
+  border: '1px solid #aaa !important',
+});
 
 export const Score = (props) => {
   if (!props.xmlFile) return null;
@@ -22,6 +29,7 @@ export const Score = (props) => {
           width: '90%',
           height: '80%',
           viewParams: {
+            scale: window.innerWidth > 1450 ? 2 : 1.5,
             displayMode: 'paginated',
             hideFullWindow: true,
           },
@@ -51,14 +59,14 @@ export const Score = (props) => {
 
   return (
     <div style={{ marginTop: 50, width: '100%', height: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: 20 }}>
         <button style={{ margin }} onClick={() => score.printScore({ usePrinter: false })}>
           Save PDF
           <FileText style={{ marginLeft: 8 }} />
         </button>
         <button
           style={{ margin }}
-          onClick={async () => {
+          onClick={() => {
             const file = remote.dialog.showSaveDialogSync({ defaultPath: basename(xmlFile) });
             if (file) writeFileSync(file, readFileSync(xmlFile).toString());
           }}
@@ -91,10 +99,31 @@ export const Score = (props) => {
             />
           </svg>
         </button>
-        <div style={{ display: 'flex', flexDirection: 'column', fontSize: 14, margin }}>
-          <label>BPM</label>
-          <input type="number" onChange={(e) => setBpm(e.target.value)} min={0} max={200} value={bpm} />
+        <div style={{ display: 'flex', flexDirection: 'column', fontSize: 14, margin: `${margin}px 20px` }}>
+          <label style={{ marginBottom: 6, textAlign: 'center' }}>BPM</label>
+          <input
+            type="number"
+            onChange={(e) => setBpm(e.target.value)}
+            min={0}
+            max={200}
+            value={bpm}
+            style={{ width: 45, textAlign: 'right' }}
+          />
         </div>
+
+        <button
+          style={{ margin }}
+          onClick={() => {
+            const title = getTitle(props.data);
+            const finalFile = join(imageDir, `${title}.png`);
+
+            const file = remote.dialog.showSaveDialogSync({ defaultPath: `${title}.png` });
+            if (file) copyFileSync(finalFile, file);
+          }}
+        >
+          Save Intermediate Image
+          <Image style={{ marginLeft: 8 }} />
+        </button>
       </div>
       <div id="sheetMusic" />
     </div>

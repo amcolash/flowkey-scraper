@@ -10,8 +10,10 @@
 - [x] Home button disabled when parsing
 - [x] Remove imagemagick dependency (preferably replace with pure opencv)
 - [x] Icon
+- [ ] Redo with opencv.js
+- [ ] Navigation for webview (and a home button to go back to noteflight main page)
 - [ ] Test on all platforms
-  - [x] Linux
+  - [ ] Linux
   - [ ] Mac
   - [ ] Windows
 - [ ] Docs / Blog Post
@@ -21,3 +23,4 @@
 - [ ] Home button to stop things running
 - [x] Cache deps for github ci
 - [x] Replace `node-static` with `serve` or something without vulns
+- [ ] Fix updating console when opened

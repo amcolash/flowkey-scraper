@@ -24,3 +24,7 @@ export function runCommand(command, options) {
     });
   });
 }
+
+export function getTitle(data) {
+  return data.title.replace(/[^\x00-\x7F]/g, '');
+}

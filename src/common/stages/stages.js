@@ -32,6 +32,9 @@ async function runStage(data, stage, setStage, cb) {
   log(`Stage ${stage}: ${Object.keys(Stage)[stage]}`);
 
   try {
+    // Wait just a moment to get some animation for each stage
+    await new Promise((resolve) => setTimeout(resolve, 100));
+
     return await cb(data);
   } catch (err) {
     hasError = true;

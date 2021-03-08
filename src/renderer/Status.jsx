@@ -102,7 +102,7 @@ export const Status = (props) => {
           </div>
         </div>
       )}
-      <Score xmlFile={xmlFile} />
+      <Score xmlFile={xmlFile} data={props.data} />
       <button
         disabled={stage !== Stage.Complete && !error}
         onClick={() => {

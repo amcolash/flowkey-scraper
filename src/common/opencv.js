@@ -69,23 +69,25 @@ export function emptyMat(rows, cols, color) {
 export function flatten(mat) {
   const imageData = mat.data;
 
-  // For some reason I can't make the entire array at once - dumb js
+  // For some reason I can't initialize the entire array - dumb js
   const transformedImageData = [];
 
   for (let i = 0; i < mat.rows * mat.cols; i++) {
     // Handle fully transparent image oddity (only 1 channel instead of 4)
     if (imageData.length === mat.rows * mat.cols) {
-      transformedImageData[i * 3 + 0] = 255;
-      transformedImageData[i * 3 + 1] = 255;
-      transformedImageData[i * 3 + 2] = 255;
+      transformedImageData[i * 4 + 0] = 255;
+      transformedImageData[i * 4 + 1] = 255;
+      transformedImageData[i * 4 + 2] = 255;
+      transformedImageData[i * 4 + 3] = 255;
     } else {
       // "Standard" blending of alpha against white background
       const floatAlpha = imageData[i * 4 + 3] / 255;
       const oneMinus = 1 - floatAlpha;
 
-      transformedImageData[i * 3] = imageData[i * 4] * floatAlpha + oneMinus * 255;
-      transformedImageData[i * 3 + 1] = imageData[i * 4 + 1] * floatAlpha + oneMinus * 255;
-      transformedImageData[i * 3 + 2] = imageData[i * 4 + 2] * floatAlpha + oneMinus * 255;
+      transformedImageData[i * 4] = imageData[i * 4] * floatAlpha + oneMinus * 255;
+      transformedImageData[i * 4 + 1] = imageData[i * 4 + 1] * floatAlpha + oneMinus * 255;
+      transformedImageData[i * 4 + 2] = imageData[i * 4 + 2] * floatAlpha + oneMinus * 255;
+      transformedImageData[i * 4 + 3] = 255;
     }
   }
 

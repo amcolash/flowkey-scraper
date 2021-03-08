@@ -7,8 +7,8 @@ import rimraf from 'rimraf';
 
 import { log } from '../../renderer/Log';
 import { tmpPath } from '../constants';
-import { runCommand } from '../util';
-import { getTitle, imageDir } from './images';
+import { getTitle, runCommand } from '../util';
+import { imageDir } from './images';
 
 const sourceUrl = 'https://github.com/Audiveris/audiveris/archive/development.zip';
 const sourceZip = join(tmpPath, 'audiveris.zip');
