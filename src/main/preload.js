@@ -5,8 +5,12 @@ window.sendMessage = (data) => ipcRenderer.sendToHost('data', data);
 window.addButton = function () {
   const buttons = document.getElementById('mic-and-settings');
 
+  const existing = document.getElementById('flowkeyScrape');
+  if (existing) existing.remove();
+
   if (buttons) {
     const button = document.createElement('button');
+    button.id = 'flowkeyScrape';
     button.onclick = () => {
       const urlParams = new URLSearchParams(window.location.search);
       window.sendMessage({

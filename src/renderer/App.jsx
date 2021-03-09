@@ -28,9 +28,10 @@ const sampleData = {
   artist: 'Leonard Cohen',
 };
 
+const useSampleData = false;
+
 export const App = () => {
-  const [data, setData] = useState(isDevelopment ? sampleData : undefined);
-  // const [data, setData] = useState();
+  const [data, setData] = useState(isDevelopment && useSampleData ? sampleData : undefined);
 
   return (
     <div style={{ width: '100vw', height: '100vh', overflow: 'hidden' }}>
