@@ -11,12 +11,12 @@
 - [x] Remove imagemagick dependency (preferably replace with pure opencv)
 - [x] Icon
 - [x] Redo with opencv.js
-- [ ] Navigation for webview (add home/forward/back buttons + urlbar that is disabled)
+- [x] Navigation for webview (add home/forward/back buttons + urlbar that is disabled)
 - [x] Test on all platforms
   - [x] Linux
   - [x] Mac
   - [x] Windows
-- [ ] Add shadow to icon
+- [x] Add shadow to icon
   - [ ] Make sure icon shows up w/ linux AppImage once installed
 - [ ] Update checking? (Maybe not for 1st release)
 - [ ] Docs / Screenshots
