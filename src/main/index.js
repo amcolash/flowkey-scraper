@@ -18,6 +18,7 @@ function createMainWindow() {
   const window = new BrowserWindow({
     webPreferences: { nodeIntegration: true, webviewTag: true, webSecurity: false },
     ...(isDevelopment ? { width: 800, height: 1000 } : { width: 1200, height: 900 }),
+    title: isDevelopment ? undefined : `${app.getName()} (${app.getVersion()})`,
   });
 
   window.setMenuBarVisibility(false);
