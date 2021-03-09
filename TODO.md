@@ -17,8 +17,8 @@
   - [x] Mac
   - [x] Windows
 - [x] Add shadow to icon
-  - [ ] Make sure icon shows up w/ linux AppImage once installed
-- [ ] Update checking? (Maybe not for 1st release)
+  - [x] Make sure icon shows up w/ linux AppImage once installed
+- [x] Update checking
 - [ ] Docs / Screenshots
 - [ ] Blog Post (Discuss v1, v2, v3 - full opencv + using song json data to try and correlate things, using opencv native, using opencvjs)
 
@@ -27,4 +27,4 @@
 - [ ] Home button to stop things running - right now it is just disabled
 - [x] Cache deps for github ci
 - [x] Replace `node-static` with `serve` or something without vulns
-- [ ] Fix updating console when opened and new lines appear
+- [?] Fix updating console when opened and new lines appear, kinda works

@@ -1,6 +1,6 @@
 {
   "name": "flowkey-scraper",
-  "description": "An electron app which scrapes sheet music from the service flowkey",
+  "description": "Scrape sheet music from the service flowkey",
   "author": {
     "name": "Andrew McOlash"
   },
@@ -51,6 +51,7 @@
   "build": {
     "appId": "com.amcolash.flowkey-scraper",
     "productName": "Flowkey Scraper",
+    "artifactName": "FlowkeyScraper-${version}.${ext}",
     "linux": {
       "category": "AudioVideo",
       "target": [

@@ -7,12 +7,12 @@ import { Colors } from '../common/constants';
 let logValues = [];
 
 export const log = (item) => {
-  logValues = [...logValues, { time: new Date(), random: Math.random(), value: item.value || item }];
+  logValues.push({ time: new Date(), random: Math.random(), value: item.value || item });
   console.log(item.value || item);
 };
 
 export const error = (item) => {
-  logValues = [...logValues, { time: new Date(), random: Math.random(), value: item, error: true }];
+  logValues.push({ time: new Date(), random: Math.random(), value: item, error: true });
   console.error(item);
 };
 

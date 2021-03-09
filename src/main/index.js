@@ -17,7 +17,7 @@ let mainWindow;
 function createMainWindow() {
   const window = new BrowserWindow({
     webPreferences: { nodeIntegration: true, webviewTag: true, webSecurity: false },
-    ...(isDevelopment ? { width: 800, height: 800, x: 1920 - 850, y: 150 } : { width: 1200, height: 900 }),
+    ...(isDevelopment ? { width: 800, height: 1000 } : { width: 1200, height: 900 }),
   });
 
   window.setMenuBarVisibility(false);
@@ -82,6 +82,7 @@ app.on('activate', () => {
 app.on('ready', () => {
   mainWindow = createMainWindow();
 
+  // check for updates and update as needed - such a slick setup w/ github releases
   autoUpdater.checkForUpdatesAndNotify();
 
   const tmpPath = join(app.getPath('userData'), 'tmp');
