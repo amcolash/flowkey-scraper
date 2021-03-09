@@ -1,6 +1,7 @@
 'use strict';
 
 import { app, BrowserWindow, ipcMain } from 'electron';
+import { autoUpdater } from 'electron-updater';
 import { join, resolve } from 'path';
 import { format as formatUrl } from 'url';
 import { serve } from 'serve-handler';
@@ -80,6 +81,8 @@ app.on('activate', () => {
 // create main BrowserWindow when electron is ready
 app.on('ready', () => {
   mainWindow = createMainWindow();
+
+  autoUpdater.checkForUpdatesAndNotify();
 
   const tmpPath = join(app.getPath('userData'), 'tmp');
 
