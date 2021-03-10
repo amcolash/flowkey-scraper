@@ -1,5 +1,46 @@
 # Changelog
 
+## 0.6.0 (2021-03-10)
+
+### Added
+
+- Version now shown in title bar
+
+### Fixed
+
+- "Open in Noteflight" now actually works
+- License in `packag.json` matches repo license
+
+### Updated
+
+- Remove `.zip` version of mac app
+- README now has info about usage
+
+## 0.5.0 (2021-03-09)
+
+### Added
+
+- Navigation in the flowkey webview
+- Automatic Updates
+
+### Fixed
+
+- Linux AppImage and icon
+
+## 0.4.0 (2021-03-09) - First Public Release!
+
+### Updated
+
+- Move from `opencv4nodejs` to `opencv4js` (one is native, one is WASM)
+
+### Fixed
+
+- Fix cross-platform builds and tools for all 3 platforms
+
+### Removed
+
+- Remove `opencv4nodejs` in favor of the pure WASM version
+
 ## 0.3.0 (2021-02-05)
 
 ### Added
