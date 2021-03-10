@@ -10,11 +10,13 @@
 
 - "Open in Noteflight" now actually works
 - License in `packag.json` matches repo license
+- Windows portable/installer binaries with Github Actions
 
 ### Updated
 
 - Remove `.zip` version of mac app
 - README now has info about usage
+- Update some dependencies
 
 ## 0.5.0 (2021-03-09)
 

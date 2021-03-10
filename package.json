@@ -31,14 +31,14 @@
     "react-dom": "^17.0.1",
     "react-feather": "^2.0.9",
     "rimraf": "^3.0.2",
-    "source-map-support": "^0.5.16",
+    "source-map-support": "^0.5.19",
     "spinners-react": "^1.0.4",
     "typestyle": "^2.1.0"
   },
   "devDependencies": {
-    "@babel/preset-react": "^7.12.10",
+    "@babel/preset-react": "^7.12.13",
     "electron": "8.2.0",
-    "electron-builder": "^22.4.1",
+    "electron-builder": "^22.10.5",
     "electron-devtools-installer": "^3.1.1",
     "electron-webpack": "^2.8.2",
     "webpack": "~4.42.1",
@@ -50,7 +50,6 @@
   "build": {
     "appId": "com.amcolash.flowkey-scraper",
     "productName": "Flowkey Scraper",
-    "artifactName": "FlowkeyScraper-${version}.${ext}",
     "linux": {
       "category": "AudioVideo",
       "target": [
