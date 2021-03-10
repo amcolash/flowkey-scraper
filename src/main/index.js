@@ -2,10 +2,10 @@
 
 import { app, BrowserWindow, ipcMain } from 'electron';
 import { autoUpdater } from 'electron-updater';
+import { readFile } from 'fs';
+import { createServer } from 'http';
 import { join, resolve } from 'path';
 import { format as formatUrl } from 'url';
-import { serve } from 'serve-handler';
-import { createServer } from 'http';
 
 import { port } from '../common/shared_constants';
 
@@ -88,14 +88,20 @@ app.on('ready', () => {
 
   const tmpPath = join(app.getPath('userData'), 'tmp');
 
-  const server = createServer((request, response) => {
-    return serve(request, response, {
-      public: tmpPath,
-      headers: {
-        'Access-Control-Allow-Origin': '*',
-        'Access-Control-Allow-Methods': 'GET',
-        'Access-Control-Allow-Headers': 'Content-Type',
-      },
+  createServer((req, res) => {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+
+    // Parse file path. For some reason, the %20 is being converted to a space, so fix that
+    const filePath = join(tmpPath, decodeURIComponent(req.url).replace(/\+/g, ' '));
+    readFile(filePath, function (err, data) {
+      if (err) {
+        res.writeHead(404);
+        res.end('Could not find file for the url', req.url);
+        return;
+      }
+
+      res.writeHead(200);
+      res.end(data);
     });
-  }).listen(port, () => console.log(`Running at http://localhost:${port}`));
+  }).listen(port, () => console.log(`Running at http://localhost:${port}, serving ${tmpPath}`));
 });

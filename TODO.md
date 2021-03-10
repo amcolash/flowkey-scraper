@@ -19,7 +19,7 @@
 - [x] Add shadow to icon
   - [x] Make sure icon shows up w/ linux AppImage once installed
 - [x] Update checking
-- [ ] Docs / Screenshots
+- [x] Docs / Screenshots
 - [ ] Blog Post (Discuss v1, v2, v3 - full opencv + using song json data to try and correlate things, using opencv native, using opencvjs)
 
 ## Post Release?

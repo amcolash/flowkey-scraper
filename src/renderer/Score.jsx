@@ -80,7 +80,10 @@ export const Score = (props) => {
           }}
           onClick={() => {
             const url = `http://localhost:${port}/${relative(tmpPath, props.xmlFile)}`;
-            remote.shell.openExternal(`https://www.noteflight.com/scores/create?scoreTemplateURL=${url}`);
+            const noteFlightUrl = `https://www.noteflight.com/scores/create?scoreTemplateURL=${encodeURIComponent(url)}`;
+
+            console.log('Opening', url, noteFlightUrl);
+            remote.shell.openExternal(noteFlightUrl);
           }}
         >
           Open in Noteflight
