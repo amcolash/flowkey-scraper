@@ -30,7 +30,7 @@ It is really easy to use this tool, just download the latest version from the [R
 
 After you've downloaded the latest, just open flowkey and choose a song. There will be a new icon once you have opened a song that looks like a download icon. Just click that icon and you are all set to go.
 
-If something goes wrong, click the little terminal (`>` symbol) icon to get some useful debugging info to share with me.
+If something goes wrong, click the little terminal (`>_` symbol in the bottom right) icon to get some useful debugging info to share with me.
 
 ## Dependencies
 
