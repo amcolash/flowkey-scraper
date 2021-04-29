@@ -156,12 +156,12 @@ export function matchImages(data) {
 export function generateRows(data) {
   return new Promise(async (resolveMain, rejectMain) => {
     try {
-      const makeCurrent = async (addTimeSig) => {
+      const makeCurrent = async (timeSig) => {
         let current = emptyMat(combined.rows, maxWidth);
 
-        if (addTimeSig) {
-          timeSigMat.copyTo(current.roi(new cv.Rect(0, 0, timeSigMat.cols, current.rows)));
-          width += timeSigMat.cols;
+        if (timeSig) {
+          timeSig.copyTo(current.roi(new cv.Rect(0, 0, timeSig.cols, current.rows)));
+          width += timeSig.cols;
         }
 
         return current;
@@ -171,16 +171,70 @@ export function generateRows(data) {
       rows = [];
       let current = await makeCurrent();
 
+      let lastTimeSig = timeSigMat.clone();
+      const baseTimeSigMatches = await getMatchedTemplates(timeSigMat, timeSignatures, undefined, true);
+
       for (let i = 0; i < measures.length; i++) {
         const measure = measures[i];
         if (width + measure.cols > maxWidth) {
+          // Add row to the list to merge at the end
           rows.push(current);
 
+          // Find if the time signature changed in the current row, if so change for next row
+          const timeSigMatches = await getMatchedTemplates(current, timeSignatures);
+          let finalRowSig = { key: undefined, x: -1 };
+          Object.entries(timeSigMatches).forEach((e) => {
+            const key = e[0];
+            const matches = e[1];
+            if (matches.length > 0) {
+              matches.forEach((m) => {
+                // Only keep track of changes that are not part of the beginning of the line and take the right-most value
+                if (m.x > finalRowSig.x && m.x > lastTimeSig.cols) {
+                  finalRowSig.x = m.x;
+                  finalRowSig.key = key;
+                }
+              });
+            }
+          });
+
+          // If a time sig changed, copy it to the next row
+          if (finalRowSig.key) {
+            lastTimeSig = timeSigMat.clone();
+
+            const newSig = timeSignatures[finalRowSig.key].mat;
+
+            Object.entries(baseTimeSigMatches).forEach((e) => {
+              const matches = e[1];
+
+              matches.forEach((m) => {
+                newSig.copyTo(
+                  lastTimeSig.roi(
+                    new cv.Rect(
+                      Math.min(m.x, lastTimeSig.cols - newSig.cols),
+                      Math.min(m.y, lastTimeSig.rows - newSig.rows),
+                      newSig.cols,
+                      newSig.rows
+                    )
+                  )
+                );
+              });
+            });
+          }
+
+          // Start next row
           width = 0;
-          current = await makeCurrent(true);
+          current = await makeCurrent(lastTimeSig);
         }
 
         // console.log(i, 'copying', width, rows.length);
+
+        if (measure.cols > maxWidth) {
+          console.error(i, 'copying', width, rows.length);
+          console.error('dest', width, 0, measure.cols, current.rows);
+
+          throw 'Cannot copy region larger than maxWidth';
+        }
+
         measure.copyTo(current.roi(new cv.Rect(width, 0, measure.cols, current.rows)));
         width += measure.cols;
       }

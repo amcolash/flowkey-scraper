@@ -24,7 +24,7 @@ export async function initTemplates() {
       await loadImage(join(__static, 'templates/measure/measure-1.png')),
       await loadImage(join(__static, 'templates/measure/measure-2.png')),
     ],
-    thresh: 0.225,
+    thresh: 0.25,
   };
 
   timeSignatures = {
@@ -87,7 +87,7 @@ export function flatten(mat) {
   return new cv.matFromArray(mat.rows, mat.cols, cv.CV_8UC4, transformedImageData);
 }
 
-export function getMatchedTemplates(src, templates, result) {
+export function getMatchedTemplates(src, templates, result, checkVertical) {
   return new Promise(async (resolve, reject) => {
     const matches = {};
     let colorIndex = 0;
@@ -123,7 +123,9 @@ export function getMatchedTemplates(src, templates, result) {
 
           let duplicate = false;
           filtered.forEach((f) => {
-            if (Math.abs(contour[0] - f.x) < 50) duplicate = true;
+            if (checkVertical) {
+              if (Math.abs(contour[0] - f.x) < 50 && Math.abs(contour[1] - f.y) < 50) duplicate = true;
+            } else if (Math.abs(contour[0] - f.x) < 50) duplicate = true;
           });
 
           if (!duplicate) filtered.push({ x: contour[0], y: contour[1] });

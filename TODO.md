@@ -24,9 +24,8 @@
 
 ## Post Release?
 
-- [ ] Home button to stop things running - right now it is just disabled
 - [x] Cache deps for github ci
 - [x] Replace `node-static` with `serve` or something without vulns
 - [?] Fix updating console when opened and new lines appear, kinda works
-
-- [ ] Multiple time signatures in a piece
+- [ ] Home button to stop things running - right now it is just disabled
+- [x] Multiple time signatures in a piece (preliminary work done)
