@@ -1,9 +1,6 @@
 import Jimp from 'jimp';
 import { join } from 'path';
 import cv from 'opencv4js';
-import { isDevelopment } from './constants';
-
-const DEBUG = true && isDevelopment;
 
 export let measureTemplate = {};
 export let timeSignatures = {};
@@ -31,6 +28,7 @@ export async function initTemplates() {
   };
 
   timeSignatures = {
+    time_2_4: { mat: await loadImage(join(__static, 'templates/time-sig/2-4.png')), thresh: 0.2 },
     time_3_4: { mat: await loadImage(join(__static, 'templates/time-sig/3-4.png')), thresh: 0.2 },
     time_4_4: { mat: await loadImage(join(__static, 'templates/time-sig/4-4.png')), thresh: 0.2 },
     time_6_8: { mat: await loadImage(join(__static, 'templates/time-sig/6-8.png')), thresh: 0.2 },
@@ -55,11 +53,6 @@ export function scale(m, sx, sy) {
 export async function loadImage(p, alpha) {
   const img = await Jimp.read(p);
   return cv.matFromImageData(img.bitmap);
-}
-
-export function showImage(mat) {
-  if (DEBUG) cv.imshow('window', mat);
-  if (DEBUG) cv.waitKey();
 }
 
 export function emptyMat(rows, cols, color) {
@@ -94,107 +87,6 @@ export function flatten(mat) {
   return new cv.matFromArray(mat.rows, mat.cols, cv.CV_8UC4, transformedImageData);
 }
 
-export function getMatchedTemplates_OLDCODE(mat, templates, multi) {
-  return new Promise(async (resolve, reject) => {
-    const matches = {};
-    const pristine = mat.clone();
-
-    console.log(templates);
-
-    for (const template of Object.entries(templates)) {
-      const name = template[0];
-      const value = template[1];
-
-      console.log(name);
-
-      const templates = Array.isArray(value.mat) ? value.mat : [value.mat];
-
-      const match = new cv.Mat(mat.rows, mat.cols);
-      for (const t of templates) {
-        console.log(t);
-
-        cv.matchTemplate(pristine, t, match, cv.TM_CCOEFF_NORMED);
-
-        console.log(t, 'done matching');
-
-        if (!multi) {
-          const minMax = cv.minMaxLoc(match);
-          if (DEBUG) console.log(name, minMax);
-
-          if (minMax.maxVal > 1 - value.thresh) {
-            matches[name] = { x: minMax.maxLoc.x, y: minMax.maxLoc.y };
-
-            if (DEBUG) {
-              // console.log(name, minMax);
-              cv.rectangle(
-                mat,
-                new cv.Point(minMax.maxLoc.x, minMax.maxLoc.y),
-                new cv.Point(minMax.maxLoc.x + t.cols, minMax.maxLoc.y + t.rows),
-                new cv.Scalar(255, 0, 0, 255),
-                2,
-                cv.LINE_8
-              );
-            }
-          }
-        } else {
-          if (!matches[name]) matches[name] = [];
-
-          const tmpMatches = [];
-
-          // const thresh = new cv.Mat();
-          // cv.threshold(match, thresh, 255 * (1 - value.thresh), 255, cv.THRESH_BINARY);
-
-          console.log(match.type(), match.cols, match.rows, match.data.length);
-
-          // Only consider matches in the top 1/3 of the image (we always look for top left corner of match)
-          for (let i = 0; i < match.data.length / 3; i += 4) {
-            if (match.data[i] > 1 - value.thresh) {
-              const x = i % match.cols;
-              const y = Math.floor(i / match.rows);
-
-              tmpMatches.push({ x, y });
-            }
-          }
-
-          // Filter out duplicates
-          const filteredResults = [...matches[name]];
-          tmpMatches.forEach((m) => {
-            let duplicate = false;
-            filteredResults.forEach((f) => {
-              if (Math.abs(m.x - f.x) < 50) duplicate = true;
-            });
-            if (!duplicate) {
-              filteredResults.push(m);
-
-              if (DEBUG) {
-                console.log(name, m);
-                cv.rectangle(
-                  mat,
-                  new cv.Point(m.x, m.y),
-                  new cv.Point(m.x + t.cols, m.y + t.rows),
-                  new cv.Scalar(color[0], color[1], color[2], 255),
-                  2,
-                  cv.LINE_8
-                );
-              }
-            }
-          });
-
-          cv.imshow('test', mat);
-          debugger;
-
-          matches[name] = filteredResults;
-        }
-      }
-    }
-
-    console.log(matches);
-
-    resolve(matches);
-  });
-}
-
-// NEW TEMPLATE CODE
 export function getMatchedTemplates(src, templates, result) {
   return new Promise(async (resolve, reject) => {
     const matches = {};

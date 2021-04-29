@@ -20,7 +20,7 @@
   - [x] Make sure icon shows up w/ linux AppImage once installed
 - [x] Update checking
 - [x] Docs / Screenshots
-- [ ] Blog Post (Discuss v1, v2, v3 - full opencv + using song json data to try and correlate things, using opencv native, using opencvjs)
+- [ ] Blog Post (Discuss original gist, v1 - full opencv + using song json data to try and correlate things, v2 - using opencv native + audiveris, v3 - using opencvjs)
 
 ## Post Release?
 
@@ -28,3 +28,5 @@
 - [x] Cache deps for github ci
 - [x] Replace `node-static` with `serve` or something without vulns
 - [?] Fix updating console when opened and new lines appear, kinda works
+
+- [ ] Multiple time signatures in a piece
