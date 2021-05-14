@@ -65,7 +65,7 @@ export async function runStages(data, setStage) {
     xmlFile = await runStage(data, Stage.AudiverisOMR, setStage, audiverisOmr);
   }
 
-  if (!hasError) {
+  if (!hasError && xmlFile) {
     setStage(Stage.Complete);
     return xmlFile;
   }

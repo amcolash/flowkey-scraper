@@ -1,6 +1,6 @@
 import { remote } from 'electron';
-import { copyFileSync, readFileSync } from 'fs';
-import { join, relative } from 'path';
+import { copyFileSync, readFileSync, writeFileSync } from 'fs';
+import { basename, join, relative } from 'path';
 import React, { useEffect, useState } from 'react';
 import { Code, FileText, Image } from 'react-feather';
 import { cssRule } from 'typestyle';
@@ -67,8 +67,8 @@ export const Score = (props) => {
         <button
           style={{ margin }}
           onClick={() => {
-            const file = remote.dialog.showSaveDialogSync({ defaultPath: basename(xmlFile) });
-            if (file) writeFileSync(file, readFileSync(xmlFile).toString());
+            const file = remote.dialog.showSaveDialogSync({ defaultPath: basename(props.xmlFile) });
+            if (file) writeFileSync(file, readFileSync(props.xmlFile).toString());
           }}
         >
           Save MusicXML

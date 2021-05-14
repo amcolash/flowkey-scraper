@@ -7,7 +7,7 @@ import rimraf from 'rimraf';
 
 import { log } from '../../renderer/Log';
 import { tmpPath } from '../constants';
-import { getTitle, runCommand } from '../util';
+import { escapeXml, getTitle, runCommand } from '../util';
 import { imageDir } from './images';
 
 const sourceUrl = 'https://github.com/Audiveris/audiveris/archive/development.zip';
@@ -99,9 +99,10 @@ export function audiverisOmr(data) {
       // Actually run the OMR
       const { stdin } = await runCommand(`"${toolPath}" -batch -export -output "${tmpPath}" "${finalFile}"`);
 
+      // Warn about errors, but don't actually stop
       if (typeof stdin === 'string' && stdin.indexOf('Exception') !== -1) {
-        rejectMain();
-        return;
+        console.error('Parsing error occured!');
+        // TODO: Mark stage with "warning"
       }
 
       // Unzip the mxl
@@ -116,7 +117,9 @@ export function audiverisOmr(data) {
       xml = xml
         .replace(
           '<identification>',
-          `<work>\n<work-title>${title}</work-title>\n</work>\n<identification>\n<creator type="composer">${data.artist}</creator>`
+          `<work>\n<work-title>${escapeXml(title)}</work-title>\n</work>\n<identification>\n<creator type="composer">${escapeXml(
+            data.artist
+          )}</creator>`
         )
         .replace(/<direction-type>.+?<\/direction-type>/gs, '')
         .replace(/<direction>.+?<\/direction>/gs, '')

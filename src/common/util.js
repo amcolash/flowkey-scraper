@@ -30,3 +30,21 @@ export function runCommand(command, options) {
 export function getTitle(data) {
   return data.title.replace(/[^\x00-\x7F]/g, '');
 }
+
+// From https://stackoverflow.com/a/27979933/2303432
+export function escapeXml(unsafe) {
+  return unsafe.replace(/[<>&'"]/g, function (c) {
+    switch (c) {
+      case '<':
+        return '&lt;';
+      case '>':
+        return '&gt;';
+      case '&':
+        return '&amp;';
+      case "'":
+        return '&apos;';
+      case '"':
+        return '&quot;';
+    }
+  });
+}
