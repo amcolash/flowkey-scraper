@@ -28,7 +28,9 @@ It is really easy to use this tool, just download the latest version from the [R
 
 ![Screenshot from 2021-03-08 22-26-59](https://user-images.githubusercontent.com/8282413/110428333-f1aea300-805d-11eb-9597-50e8c08bf9b8.png)
 
-After you've downloaded the latest, just open flowkey and choose a song. There will be a new icon once you have opened a song that looks like a download icon. Just click that icon and you
+After you've downloaded the latest, just open flowkey and choose a song. There will be a new icon once you have opened a song that looks like a download icon. Just click that icon and you are all set to go.
+
+If something goes wrong, click the little terminal (`>_` symbol in the bottom right) icon to get some useful debugging info to share with me.
 
 ## Dependencies
 
