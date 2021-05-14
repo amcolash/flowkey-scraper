@@ -1,5 +1,16 @@
 # Changelog
 
+## 0.7.0 (2021-05-14)
+
+### Added
+
+- Support for changing time signatures in the middle of a song
+- `2/4` time signature
+
+### Removed
+
+- Cleaned up old parsing code
+
 ## 0.6.0 (2021-03-10)
 
 ### Added

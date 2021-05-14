@@ -131,7 +131,7 @@ export function getMatchedTemplates(src, templates, result, checkVertical) {
           if (!duplicate) filtered.push({ x: contour[0], y: contour[1] });
         }
 
-        console.log(name, filtered);
+        // console.log(name, filtered);
 
         // Optionally draw results
         if (result) {
@@ -151,7 +151,7 @@ export function getMatchedTemplates(src, templates, result, checkVertical) {
       }
     }
 
-    console.log(matches);
+    // console.log(matches);
 
     resolve(matches);
   });
