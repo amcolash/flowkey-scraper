@@ -24,7 +24,7 @@ const sampleData = {
   artist: 'Simon & Garfunkel',
 };
 
-const useSampleData = false;
+const useSampleData = true;
 
 export const App = () => {
   const [data, setData] = useState(isDevelopment && useSampleData ? sampleData : undefined);

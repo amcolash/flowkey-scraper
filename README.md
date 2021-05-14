@@ -12,13 +12,13 @@ Flowkey scraping to generate sheet music pdf / music xml for a song.
 
 Currently I have found it to work at about 95% accuracy on the beginner songs that I am learning. If there are parsing errors, your best bet is to edit the score in Noteflight as needed.
 
-Right now, only `6/8`, `3/4` and `4/4` time signatures work (as that is all of the music I have looked at so far). If you want a different one, please make an [Issue](https://github.com/amcolash/flowkey-scraper/issues) and provide clear info about the piece you are looking at.
+Right now, only `6/8`, `2/4`, `3/4` and `4/4` time signatures work (as that is all of the music I have looked at so far). If you want a different one, please make an [Issue](https://github.com/amcolash/flowkey-scraper/issues) and provide clear info about the piece you are looking at.
 
-I _WILL NOT_ provide support for erroneous parsing errors. If you are getting such errors, you will need to fix the sheet music yourself as I have not written the music parser being used here. That work is from [Audiveris](https://github.com/Audiveris/audiveris). If you are getting a crash / error before parsing, I might be able to help...
+I _WILL NOT_ provide support for most erroneous parsing errors. If you are getting such errors, you will need to fix the sheet music yourself as I have not written the music parser being used here. That work is from [Audiveris](https://github.com/Audiveris/audiveris). If you are getting a crash / error before parsing, I might be able to help, but there are no guarantees as music is very difficult to parse properly...
 
-_This tool most likely violates the flowkey TOS, so please use at your own risk and please do not absuse the tool. I have made this tool for educational purposes (as I learn piano) since it is a useful way for me to use the flowkey arrangements._
+_This tool most likely violates the flowkey TOS, so please use at your own risk and please do not abuse the tool. I have made this tool for educational purposes (as I learn piano) since it is a useful way for me to use the flowkey arrangements._
 
-I have heard that if you ask for sheet music from the flowkey support team that they usually will give it to you, so that might be a better approach if you are not tech-savy or are not sure about the risks.
+I have heard that if you ask for sheet music from the flowkey support team that they usually will give it to you, so that might be a better approach if you are not tech-savvy or are not sure about the risks.
 
 ## Getting Started
 
