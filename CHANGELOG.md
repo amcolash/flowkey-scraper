@@ -1,15 +1,26 @@
 # Changelog
 
+## 0.9.0 (2021-05-20)
+
+### Added
+
+- Audiveris parsing errors now displayed in stage progress?
+
+### Fixed
+
+- "Open In Noteflight" fixed and works without local server
+
 ## 0.8.0 (2021-05-14)
 
 ### Updated
 
-- Audiveris parsing will not necessarily crash things, handle missing xml file better
+- Audiveris parsing will not necessarily crash things
+- Handle missing xml file in stages better
 
 ### Fixed
 
 - Song titles/artists were not escaped in xml, this caused parsing errors
-- Export MusicXml now properly works
+- "Save MusicXml" now properly works
 
 ## 0.7.0 (2021-05-14)
 

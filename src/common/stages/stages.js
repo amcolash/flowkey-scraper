@@ -1,3 +1,4 @@
+import { existsSync } from 'fs';
 import { join } from 'path';
 
 import { error, log } from '../../renderer/Log';
@@ -45,23 +46,22 @@ async function runStage(data, stage, setStage, cb) {
   }
 }
 
-const skipStages = false && isDevelopment;
+const skipStages = true && isDevelopment;
 
 export async function runStages(data, setStage) {
   hasError = false;
 
-  await runStage(data, Stage.AudiverisDownload, setStage, audiverisDownload);
-  await runStage(data, Stage.AudiverisBuild, setStage, audiverisBuild);
+  let xmlFile = join(tmpPath, 'The Sound of Silence/The Sound of Silence.xml');
 
-  await runStage(data, Stage.ImageDownload, setStage, downloadImages);
+  if (!existsSync(xmlFile) || !skipStages) {
+    await runStage(data, Stage.AudiverisDownload, setStage, audiverisDownload);
+    await runStage(data, Stage.AudiverisBuild, setStage, audiverisBuild);
 
-  let xmlFile;
-  if (skipStages) {
-    xmlFile = join(tmpPath, 'Hallelujah/Hallelujah.xml');
-  } else {
+    await runStage(data, Stage.ImageDownload, setStage, downloadImages);
     await runStage(data, Stage.MatchImages, setStage, matchImages);
     await runStage(data, Stage.GenerateRows, setStage, generateRows);
     await runStage(data, Stage.MakeFinalImage, setStage, finalImage);
+
     xmlFile = await runStage(data, Stage.AudiverisOMR, setStage, audiverisOmr);
   }
 

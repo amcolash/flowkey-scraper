@@ -1,3 +1,4 @@
+import axios from 'axios';
 import { remote } from 'electron';
 import { copyFileSync, readFileSync, writeFileSync } from 'fs';
 import { basename, join, relative } from 'path';
@@ -5,9 +6,8 @@ import React, { useEffect, useState } from 'react';
 import { Code, FileText, Image } from 'react-feather';
 import { cssRule } from 'typestyle';
 
-import { isDevelopment, tmpPath } from '../common/constants';
+import { isDevelopment } from '../common/constants';
 import NFClient from '../common/nfclient';
-import { port } from '../common/shared_constants';
 import { imageDir } from '../common/stages/images';
 import { getTitle } from '../common/util';
 
@@ -79,11 +79,23 @@ export const Score = (props) => {
             margin,
           }}
           onClick={() => {
-            const url = `http://localhost:${port}/${relative(tmpPath, props.xmlFile)}`;
-            const noteFlightUrl = `https://www.noteflight.com/scores/create?scoreTemplateURL=${encodeURIComponent(url)}`;
+            // Upload to a temporary filehosting service (deleted after 48 hours) and then use a CORS proxy to open in noteflight
+            const tempHost = 'https://tmp.ninja/upload.php';
+            const proxyUrl = 'https://api.allorigins.win/raw?url=';
 
-            console.log('Opening', url, noteFlightUrl);
-            remote.shell.openExternal(noteFlightUrl);
+            const formData = new FormData();
+            formData.append('files[]', new Blob([readFileSync(props.xmlFile)], { type: 'application/xml' }), basename(props.xmlFile));
+
+            axios
+              .post(tempHost, formData, { headers: { 'content-type': 'multipart/form-data' } })
+              .then((res) => {
+                console.log(res);
+                const noteFlightUrl = `https://www.noteflight.com/scores/create?scoreTemplateURL=${proxyUrl}${res.data.files[0].url}`;
+
+                console.log('Opening', noteFlightUrl);
+                remote.shell.openExternal(noteFlightUrl);
+              })
+              .catch((err) => console.error(err));
           }}
         >
           Open in Noteflight
