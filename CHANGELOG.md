@@ -4,11 +4,19 @@
 
 ### Added
 
-- Audiveris parsing errors now displayed in stage progress?
+- Audiveris parsing warnings now reported on score view
 
 ### Fixed
 
 - "Open In Noteflight" fixed and works without local server
+- Some time signatures were accidentally cut off and failed parsing
+
+### Updated
+
+- Updated most application dependencies to latest (exceptions listed):
+  - `electron` is `11.x.x`, instead of 12
+  - `webpack` is still `4.x.x`, instead of 5
+- Internal code changes to make `Log` component a bit nicer
 
 ## 0.8.0 (2021-05-14)
 

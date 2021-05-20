@@ -8,6 +8,9 @@ export const Colors = {
   LightGrey: '#bbb',
   Grey: '#777',
   Charcoal: '#333',
+  Red: '#f00',
+  Yelow: '#ff0',
+  Orange: '#ff7f00',
 };
 
 export const tmpPath = join(remote.app.getPath('userData'), 'tmp');

@@ -1,15 +1,16 @@
 import axios from 'axios';
 import { remote } from 'electron';
 import { copyFileSync, readFileSync, writeFileSync } from 'fs';
-import { basename, join, relative } from 'path';
+import { basename, join } from 'path';
 import React, { useEffect, useState } from 'react';
-import { Code, FileText, Image } from 'react-feather';
+import { AlertCircle, Code, FileText, Image } from 'react-feather';
 import { cssRule } from 'typestyle';
 
-import { isDevelopment } from '../common/constants';
+import { Colors, isDevelopment } from '../common/constants';
 import NFClient from '../common/nfclient';
 import { imageDir } from '../common/stages/images';
 import { getTitle } from '../common/util';
+import { getLog, log, logValues } from './Log';
 
 cssRule('#sheetMusic', {
   border: '1px solid #aaa !important',
@@ -56,6 +57,11 @@ export const Score = (props) => {
   }, [bpm]);
 
   const margin = 10;
+
+  let foundErrors = 0;
+  getLog().forEach((l) => {
+    if (l.value.indexOf('Exception:') !== -1) foundErrors++;
+  });
 
   return (
     <div style={{ marginTop: 50, width: '100%', height: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
@@ -141,6 +147,11 @@ export const Score = (props) => {
         </button>
       </div>
       <div id="sheetMusic" />
+      {foundErrors > 0 && (
+        <div style={{ display: 'flex', alignItems: 'center', marginTop: margin * 2, fontSize: 18 }}>
+          <AlertCircle color={Colors.Orange} style={{ marginRight: margin }} /> Audiveris Parsing Errors Occured ({foundErrors})
+        </div>
+      )}
     </div>
   );
 };

@@ -6,7 +6,7 @@ import { Colors, isDevelopment, tmpPath } from '../common/constants';
 import { runStages, Stage } from '../common/stages/stages';
 
 import { Score } from './Score';
-import { Log } from './Log';
+import { clearLog, Log } from './Log';
 import { remote } from 'electron';
 import rimraf from 'rimraf';
 
@@ -43,6 +43,7 @@ export const Status = (props) => {
       <button
         disabled={stage !== Stage.Complete && !error}
         onClick={() => {
+          clearLog();
           const current = remote.getCurrentWindow();
           if (current) current.reload();
         }}
@@ -87,7 +88,7 @@ export const Status = (props) => {
                   >
                     {stage === Stage[s] &&
                       (error ? (
-                        <AlertTriangle style={{ color: 'red' }} />
+                        <AlertTriangle style={{ color: Colors.Red }} />
                       ) : (
                         <SpinnerCircularFixed size={22} thickness={200} color={Colors.Green} secondaryColor={Colors.LightGrey} />
                       ))}
@@ -111,6 +112,7 @@ export const Status = (props) => {
             message: 'Are you sure you want to clear temp cache?',
           });
           if (option === 1) {
+            clearLog();
             rimraf.sync(tmpPath);
             const current = remote.getCurrentWindow();
             if (current) current.reload();

@@ -16,6 +16,12 @@ export const error = (item) => {
   console.error(item);
 };
 
+export const getLog = () => logValues;
+
+export const clearLog = () => {
+  logValues = [];
+};
+
 const errorText = style({
   color: 'red',
 });
