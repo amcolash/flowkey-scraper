@@ -12,7 +12,7 @@ let mainWindow;
 
 function createMainWindow() {
   const window = new BrowserWindow({
-    webPreferences: { nodeIntegration: true, webviewTag: true, webSecurity: false },
+    webPreferences: { nodeIntegration: true, webviewTag: true, webSecurity: false, enableRemoteModule: true },
     ...(isDevelopment ? { width: 800, height: 1000 } : { width: 1200, height: 900 }),
     title: isDevelopment ? undefined : `${app.getName()} (${app.getVersion()})`,
   });
