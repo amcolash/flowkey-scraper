@@ -111,7 +111,7 @@ export function matchImages(data) {
       const result = combined.clone();
 
       // Find the time signature
-      const timeSigRoi = combined.roi(new cv.Rect(0, 0, 300, combined.rows));
+      const timeSigRoi = combined.roi(new cv.Rect(0, 0, 400, combined.rows));
       const timeSigMatches = await getMatchedTemplates(timeSigRoi, timeSignatures, result);
 
       let timeRect;
