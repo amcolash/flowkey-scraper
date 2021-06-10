@@ -3,7 +3,7 @@ import { remote } from 'electron';
 import { copyFileSync, readFileSync, writeFileSync } from 'fs';
 import { basename, join } from 'path';
 import React, { useEffect, useState } from 'react';
-import { AlertCircle, Code, FileText, Image } from 'react-feather';
+import { AlertCircle, Code, Eye, FileText, Image } from 'react-feather';
 import { cssRule } from 'typestyle';
 
 import { Colors, isDevelopment } from '../common/constants';
@@ -22,6 +22,7 @@ export const Score = (props) => {
   const [score, setScore] = useState();
   const [loaded, setLoaded] = useState(false);
   const [bpm, setBpm] = useState(120);
+  const [showIntermediate, setShowIntermediate] = useState(false);
 
   useEffect(() => {
     if (!score && props.xmlFile) {
@@ -56,12 +57,20 @@ export const Score = (props) => {
     if (score && loaded) score.setPlaybackTempo(bpm);
   }, [bpm]);
 
+  useEffect(() => {
+    document.querySelector('#sheetMusic').style.display = showIntermediate ? 'none' : 'unset';
+  }, [showIntermediate]);
+
   const margin = 10;
 
   let foundErrors = 0;
   getLog().forEach((l) => {
     if (l.value.indexOf('Exception:') !== -1) foundErrors++;
   });
+
+  const title = getTitle(props.data);
+  const finalFile = 'file://' + join(imageDir, `${title}.png`);
+  // const outputImg = readFileSync(finalFile, { encoding: 'base64' });
 
   return (
     <div style={{ marginTop: 50, width: '100%', height: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
@@ -132,6 +141,11 @@ export const Score = (props) => {
           />
         </div>
 
+        <button style={{ margin }} onClick={() => setShowIntermediate(!showIntermediate)}>
+          Show Intermediate Image
+          <Eye style={{ marginLeft: 8 }} />
+        </button>
+
         <button
           style={{ margin }}
           onClick={() => {
@@ -147,6 +161,7 @@ export const Score = (props) => {
         </button>
       </div>
       <div id="sheetMusic" />
+      <img src={finalFile} alt="" style={{ display: !showIntermediate && 'none', width: '90%' }} />
       {foundErrors > 0 && (
         <div style={{ display: 'flex', alignItems: 'center', marginTop: margin * 2, fontSize: 18 }}>
           <AlertCircle color={Colors.Orange} style={{ marginRight: margin }} /> Audiveris Parsing Errors Occured ({foundErrors})

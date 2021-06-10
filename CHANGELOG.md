@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.10.0 (2021-06-10)
+
+### Added
+
+- Show intermediate image toggle added to score view
+
 ## 0.9.0 (2021-05-20)
 
 ### Added
