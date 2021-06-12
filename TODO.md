@@ -26,6 +26,10 @@
 
 - [x] Cache deps for github ci
 - [x] Replace `node-static` with `serve` or something without vulns
-- [?] Fix updating console when opened and new lines appear, kinda works
+- [?] Fix updating console when opened and new lines appear, kinda works. 06/10/21 - v3 works better still
 - [ ] Home button to stop things running - right now it is just disabled
 - [x] Multiple time signatures in a piece (preliminary work done)
+- [ ] Multi-Page Sheet Music (Example: All of Me - John Legend)
+  - [ ] Split final images at 6 rows tall
+  - [ ] Combine images into a pdf
+  - [ ] Save pdf and then load into Audiveris

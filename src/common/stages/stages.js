@@ -46,7 +46,7 @@ async function runStage(data, stage, setStage, cb) {
   }
 }
 
-const skipStages = true && isDevelopment;
+const skipStages = false && isDevelopment;
 
 export async function runStages(data, setStage) {
   hasError = false;

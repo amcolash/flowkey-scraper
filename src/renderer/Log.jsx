@@ -32,7 +32,7 @@ export const Log = () => {
 
   useEffect(() => {
     setLogState(logValues);
-  }, [logValues]);
+  });
 
   return (
     <div
