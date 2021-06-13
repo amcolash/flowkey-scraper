@@ -45,7 +45,11 @@ export const Status = (props) => {
         onClick={() => {
           clearLog();
           const current = remote.getCurrentWindow();
-          if (current) current.reload();
+          if (current) {
+            current.reload();
+            // Even if sample data used, can still debug
+            sessionStorage.setItem('flowkey-home', true);
+          }
         }}
         style={{ position: 'absolute', top: 10, left: 10 }}
       >
