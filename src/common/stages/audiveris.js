@@ -88,7 +88,7 @@ export function audiverisOmr(data) {
   return new Promise(async (resolveMain, rejectMain) => {
     try {
       const title = getTitle(data);
-      const finalFile = join(imageDir, `${title}.png`);
+      const finalFile = join(imageDir, `${title}.pdf`);
 
       // Remove old files if they are hanging around still
       const transcribedDir = join(tmpPath, title);
@@ -102,7 +102,6 @@ export function audiverisOmr(data) {
       // Warn about errors, but don't actually stop
       if (typeof stdin === 'string' && stdin.indexOf('Exception') !== -1) {
         console.error('Parsing error occured!');
-        // TODO: Mark stage with "warning"
       }
 
       // Unzip the mxl

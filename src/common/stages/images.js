@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { existsSync, mkdirSync, readdirSync, unlinkSync } from 'fs';
 import Jimp from 'jimp';
+import { jsPDF } from 'jspdf';
 import cv from 'opencv4js';
 import { basename, join } from 'path';
 
@@ -249,32 +250,74 @@ export function generateRows(data) {
   });
 }
 
-export function finalImage(data) {
+export function finalImages(data) {
   return new Promise(async (resolveMain, rejectMain) => {
     try {
       const margin = 100;
       const rowHeight = combined.rows + 100;
-      const height = rows.length * rowHeight;
-      const final = emptyMat(height + margin, maxWidth + margin);
 
-      for (let i = 0; i < rows.length; i++) {
-        const rect = new cv.Rect(0, i * rowHeight + margin, maxWidth, combined.rows);
-        // console.log(final.cols, final.rows, rect);
-        rows[i].copyTo(final.roi(rect));
+      const pageRows = 6;
+      const pageHeight = pageRows * rowHeight;
+      const pages = Math.ceil(rows.length / pageRows);
+
+      for (let p = 0; p < pages; p++) {
+        const finalPage = emptyMat(pageHeight + margin, maxWidth + margin);
+
+        for (let i = p * pageRows; i < Math.min((p + 1) * pageRows, rows.length); i++) {
+          const rect = new cv.Rect(0, (i % pageRows) * rowHeight + margin, maxWidth, combined.rows);
+          // console.log(final.cols, final.rows, rect);
+          rows[i].copyTo(finalPage.roi(rect));
+        }
+
+        const title = getTitle(data);
+        const finalFile = join(imageDir, `${title}_${p}.png`);
+
+        await new Jimp({
+          width: finalPage.cols,
+          height: finalPage.rows,
+          data: Buffer.from(finalPage.data),
+        }).writeAsync(finalFile);
       }
-
-      const title = getTitle(data);
-      const finalFile = join(imageDir, `${title}.png`);
-
-      await new Jimp({
-        width: final.cols,
-        height: final.rows,
-        data: Buffer.from(final.data),
-      }).writeAsync(finalFile);
 
       resolveMain();
     } catch (err) {
       rejectMain(err);
     }
   });
+}
+
+export async function generateScore(data) {
+  let doc = new jsPDF({ orientation: 'p', unit: 'px', hotfixes: ['px_scaling'] });
+
+  const title = getTitle(data);
+  let p = 0;
+
+  while (true) {
+    const page = join(imageDir, `${title}_${p}.png`);
+    console.log(page);
+    if (existsSync(page)) {
+      const img = await Jimp.read(page);
+      await img.writeAsync(page.replace('.png', '.jpg'));
+
+      if (p > 0) doc.addPage();
+
+      const scale = 96 / 300; // since we are using 96dpi but audiveris thinks it is 300dpi
+      const imgWidth = img.getWidth() * scale;
+      const imgHeight = img.getHeight() * scale;
+
+      // Setting page 1 is trickier, others are ok but just keep consistent
+      doc.internal.pageSize.setWidth(imgWidth);
+      doc.internal.pageSize.setHeight(imgHeight);
+
+      doc.addImage('file://' + page.replace('.png', '.jpg'), 'JPG', 0, 0, imgWidth, imgHeight);
+    } else {
+      break;
+    }
+
+    p++;
+  }
+
+  const file = join(imageDir, `${title}.pdf`);
+  const pdf = doc.output();
+  await writeFileAsync(file, pdf, 'binary');
 }

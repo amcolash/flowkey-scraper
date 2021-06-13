@@ -4,7 +4,8 @@ import { join } from 'path';
 import { error, log } from '../../renderer/Log';
 import { isDevelopment, tmpPath } from '../constants';
 import { audiverisBuild, audiverisDownload, audiverisOmr } from './audiveris';
-import { downloadImages, finalImage, generateRows, matchImages } from './images';
+import { downloadImages, finalImages, generateScore, generateRows, matchImages } from './images';
+import { getTitle } from '../util';
 
 export const Stage = Object.freeze({
   None: 0,
@@ -13,9 +14,10 @@ export const Stage = Object.freeze({
   ImageDownload: 3,
   MatchImages: 4,
   GenerateRows: 5,
-  MakeFinalImage: 6,
-  AudiverisOMR: 7,
-  Complete: 8,
+  MakeFinalImages: 6,
+  GenerateScore: 7,
+  AudiverisOMR: 8,
+  Complete: 9,
 });
 
 const delayTime = 250;
@@ -51,7 +53,8 @@ const skipStages = false && isDevelopment;
 export async function runStages(data, setStage) {
   hasError = false;
 
-  let xmlFile = join(tmpPath, 'The Sound of Silence/The Sound of Silence.xml');
+  const title = getTitle(data);
+  let xmlFile = join(tmpPath, `${title}/${title}.xml`);
 
   if (!existsSync(xmlFile) || !skipStages) {
     await runStage(data, Stage.AudiverisDownload, setStage, audiverisDownload);
@@ -60,7 +63,8 @@ export async function runStages(data, setStage) {
     await runStage(data, Stage.ImageDownload, setStage, downloadImages);
     await runStage(data, Stage.MatchImages, setStage, matchImages);
     await runStage(data, Stage.GenerateRows, setStage, generateRows);
-    await runStage(data, Stage.MakeFinalImage, setStage, finalImage);
+    await runStage(data, Stage.MakeFinalImages, setStage, finalImages);
+    await runStage(data, Stage.GenerateScore, setStage, generateScore);
 
     xmlFile = await runStage(data, Stage.AudiverisOMR, setStage, audiverisOmr);
   }

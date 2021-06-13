@@ -1,5 +1,16 @@
 # Changelog
 
+## 0.11.0 (2021-06-12)
+
+### Added
+
+- Support for multi-page music (with pdf intermediate)
+- Nicer debugging features
+
+### Fixed
+
+- Hopefully fixed logging delays for the console viewer
+
 ## 0.10.0 (2021-06-10)
 
 ### Added

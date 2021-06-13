@@ -1,16 +1,16 @@
 import axios from 'axios';
 import { remote } from 'electron';
-import { copyFileSync, readFileSync, writeFileSync } from 'fs';
+import { readFileSync, writeFileSync } from 'fs';
 import { basename, join } from 'path';
 import React, { useEffect, useState } from 'react';
-import { AlertCircle, Code, Eye, FileText, Image } from 'react-feather';
+import { AlertCircle, Code, Eye, FileText } from 'react-feather';
 import { cssRule } from 'typestyle';
 
 import { Colors, isDevelopment } from '../common/constants';
 import NFClient from '../common/nfclient';
 import { imageDir } from '../common/stages/images';
 import { getTitle } from '../common/util';
-import { getLog, log, logValues } from './Log';
+import { getLog } from './Log';
 
 cssRule('#sheetMusic', {
   border: '1px solid #aaa !important',
@@ -69,8 +69,7 @@ export const Score = (props) => {
   });
 
   const title = getTitle(props.data);
-  const finalFile = 'file://' + join(imageDir, `${title}.png`);
-  // const outputImg = readFileSync(finalFile, { encoding: 'base64' });
+  const finalFile = 'file://' + join(imageDir, `${title}.pdf`);
 
   return (
     <div style={{ marginTop: 50, width: '100%', height: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
@@ -142,26 +141,12 @@ export const Score = (props) => {
         </div>
 
         <button style={{ margin }} onClick={() => setShowIntermediate(!showIntermediate)}>
-          View Intermediate Image
+          View Intermediate Score
           <Eye style={{ marginLeft: 8 }} />
-        </button>
-
-        <button
-          style={{ margin }}
-          onClick={() => {
-            const title = getTitle(props.data);
-            const finalFile = join(imageDir, `${title}.png`);
-
-            const file = remote.dialog.showSaveDialogSync({ defaultPath: `${title}.png` });
-            if (file) copyFileSync(finalFile, file);
-          }}
-        >
-          Save Intermediate Image
-          <Image style={{ marginLeft: 8 }} />
         </button>
       </div>
       <div id="sheetMusic" />
-      <img src={finalFile} alt="" style={{ display: !showIntermediate && 'none', width: '90%' }} />
+      {showIntermediate && <iframe src={finalFile} alt="" style={{ width: '90%', height: '80%' }} />}
       {foundErrors > 0 && (
         <div style={{ display: 'flex', alignItems: 'center', marginTop: margin * 2, fontSize: 18 }}>
           <AlertCircle color={Colors.Orange} style={{ marginRight: margin }} /> Audiveris Parsing Errors Occured ({foundErrors})
