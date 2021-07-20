@@ -31,7 +31,8 @@ window.addButton = function () {
     button.style.border = 'none';
 
     buttons.appendChild(button);
-  } else if (document.getElementsByClassName('load-progress').length) {
+  } else {
+    // } else if (document.getElementsByClassName('load-progress').length) {
     setTimeout(addButton, 250);
   }
 };
