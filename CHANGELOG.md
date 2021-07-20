@@ -4,11 +4,12 @@
 
 ### Added
 
-- Support for multi-page music (with pdf intermediate)
-- Nicer debugging features
+- Support for multi-page music (with pdf intermediate) [Resolves #1]
+- Nicer debugging features (clicking home will ignore preset data once)
 
 ### Fixed
 
+- Download button not always showing [Fixes #2]
 - Hopefully fixed logging delays for the console viewer
 
 ## 0.10.0 (2021-06-10)
