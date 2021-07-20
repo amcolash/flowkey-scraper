@@ -141,7 +141,7 @@ export const Score = (props) => {
         </div>
 
         <button style={{ margin }} onClick={() => setShowIntermediate(!showIntermediate)}>
-          View Intermediate Score
+          {`${showIntermediate ? 'Hide' : 'View'} Intermediate Score`}
           <Eye style={{ marginLeft: 8 }} />
         </button>
       </div>

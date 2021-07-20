@@ -29,6 +29,7 @@ window.addButton = function () {
     button.style.marginLeft = '10px';
     button.style.marginTop = '6px';
     button.style.border = 'none';
+    button.style.zIndex = 1;
 
     buttons.appendChild(button);
   } else {

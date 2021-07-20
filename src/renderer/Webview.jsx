@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { ipcRenderer } from 'electron';
-import { ArrowLeft, ArrowRight, Home } from 'react-feather';
+import { ArrowLeft, ArrowRight, Cpu, Home } from 'react-feather';
 import { Colors } from '../common/constants';
 
 const DEBUG = false;
@@ -71,6 +71,9 @@ export const Webview = (props) => {
         >
           {displayUrl}
         </div>
+        <button style={{ padding: 3, margin: 3 }} onClick={() => webview.current.openDevTools()}>
+          <Cpu height="20" width="20" />
+        </button>
       </div>
       <webview src={baseUrl} style={{ width: '100%', height: '100%' }} ref={webview} preload={'file:///' + preload} />
     </div>
