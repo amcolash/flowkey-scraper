@@ -287,17 +287,16 @@ export function finalImages(data) {
 }
 
 export async function generateScore(data) {
-  let doc = new jsPDF({ orientation: 'p', unit: 'px', hotfixes: ['px_scaling'] });
+  const doc = new jsPDF({ orientation: 'p', unit: 'px', hotfixes: ['px_scaling'] });
 
   const title = getTitle(data);
   let p = 0;
 
   while (true) {
     const page = join(imageDir, `${title}_${p}.png`);
-    console.log(page);
     if (existsSync(page)) {
       const img = await Jimp.read(page);
-      await img.writeAsync(page.replace('.png', '.jpg'));
+      const base64Img = await img.getBase64Async(Jimp.AUTO);
 
       if (p > 0) doc.addPage();
 
@@ -305,11 +304,13 @@ export async function generateScore(data) {
       const imgWidth = img.getWidth() * scale;
       const imgHeight = img.getHeight() * scale;
 
+      // console.log(page, imgWidth, imgHeight);
+
       // Setting page 1 is trickier, others are ok but just keep consistent
       doc.internal.pageSize.setWidth(imgWidth);
       doc.internal.pageSize.setHeight(imgHeight);
 
-      doc.addImage('file://' + page.replace('.png', '.jpg'), 'JPG', 0, 0, imgWidth, imgHeight);
+      doc.addImage(base64Img, 'PNG', 0, 0, imgWidth, imgHeight);
     } else {
       break;
     }
@@ -318,6 +319,6 @@ export async function generateScore(data) {
   }
 
   const file = join(imageDir, `${title}.pdf`);
-  const pdf = doc.output();
-  await writeFileAsync(file, pdf, 'binary');
+  const pdf = doc.output('arraybuffer');
+  await writeFileAsync(file, Buffer.from(pdf));
 }
