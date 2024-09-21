@@ -3,7 +3,7 @@ import * as extract from 'extract-zip';
 import { existsSync, readFileSync, writeFileSync } from 'fs';
 import { platform } from 'os';
 import { join } from 'path';
-import rimraf from 'rimraf';
+import { rimrafSync } from 'rimraf';
 
 import { log } from '../../renderer/Log';
 import { tmpPath } from '../constants';
@@ -92,7 +92,7 @@ export function audiverisOmr(data) {
 
       // Remove old files if they are hanging around still
       const transcribedDir = join(tmpPath, title);
-      rimraf.sync(transcribedDir);
+      rimrafSync(transcribedDir);
 
       await checkJava();
 

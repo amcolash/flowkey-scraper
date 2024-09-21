@@ -8,7 +8,7 @@ import { runStages, Stage } from '../common/stages/stages';
 import { Score } from './Score';
 import { clearLog, Log } from './Log';
 import { remote } from 'electron';
-import rimraf from 'rimraf';
+import { rimrafSync } from 'rimraf';
 
 export const Status = (props) => {
   const [stage, setStage] = useState(Stage.None);
@@ -117,7 +117,7 @@ export const Status = (props) => {
           });
           if (option === 1) {
             clearLog();
-            rimraf.sync(tmpPath);
+            rimrafSync(tmpPath);
             const current = remote.getCurrentWindow();
             if (current) current.reload();
           }
