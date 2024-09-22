@@ -19,15 +19,15 @@ function createMainWindow() {
 
   window.setMenuBarVisibility(false);
 
-  if (isDevelopment) {
-    const { default: installExtension, REACT_DEVELOPER_TOOLS } = require('electron-devtools-installer');
-    installExtension(REACT_DEVELOPER_TOOLS)
-      .then((name) => {
-        console.log(`Added Extension:  ${name}`);
-        window.webContents.openDevTools();
-      })
-      .catch((err) => console.log('An error occurred: ', err));
-  }
+  // if (isDevelopment) {
+  //   const { default: installExtension, REACT_DEVELOPER_TOOLS } = require('electron-devtools-installer');
+  //   installExtension(REACT_DEVELOPER_TOOLS)
+  //     .then((name) => {
+  //       console.log(`Added Extension:  ${name}`);
+  //       window.webContents.openDevTools();
+  //     })
+  //     .catch((err) => console.log('An error occurred: ', err));
+  // }
 
   if (isDevelopment) {
     window.loadURL(`http://localhost:${process.env.ELECTRON_WEBPACK_WDS_PORT}`);
@@ -80,5 +80,5 @@ app.on('ready', () => {
   mainWindow = createMainWindow();
 
   // check for updates and update as needed - such a slick setup w/ github releases
-  autoUpdater.checkForUpdatesAndNotify();
+  // autoUpdater.checkForUpdatesAndNotify();
 });

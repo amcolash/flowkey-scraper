@@ -22,17 +22,17 @@
     "release": "npm run dist"
   },
   "dependencies": {
-    "axios": "^0.21.1",
-    "electron-updater": "^4.3.9",
+    "axios": "^1.7.7",
+    "electron-updater": "^6.3.4",
     "extract-zip": "^2.0.1",
-    "jimp": "^0.16.1",
+    "jimp": "^1.6.0",
     "jspdf": "^2.5.2",
     "opencv4js": "^3.4.3",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-feather": "^2.0.10",
-    "rimraf": "^5.0.10",
-    "source-map-support": "^0.5.19",
+    "rimraf": "^3.0.2",
+    "source-map-support": "^0.5.21",
     "spinners-react": "^1.0.7",
     "typestyle": "^2.4.0"
   },
