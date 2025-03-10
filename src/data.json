@@ -1,0 +1,4414 @@
+{
+  "data": {
+    "song": {
+      "_id": "3Eguqi4WHdJHFPABm",
+      "artist": "Howard Shore",
+      "arrangement": null,
+      "title": "Concerning Hobbits – Lord of the Rings",
+      "songGroupId": "Bu4oeTwdG7ojtvXa2",
+      "level": 2,
+      "hasMidiSoundsData": true,
+      "lightningKeys": {
+        "xPositions": [
+          0, 1.3541666666666667, 2.604166666666667, 3.5416666666666665, 4.6875, 5.833333333333333, 6.927083333333334, 8.229166666666666,
+          9.21875, 10.3125, 11.458333333333332, 12.5, 13.645833333333332, 14.635416666666668, 15.885416666666666, 16.822916666666668,
+          17.96875, 19.114583333333332, 20.208333333333332, 21.458333333333332, 22.65625, 23.59375, 24.739583333333336, 25.78125,
+          27.083333333333332, 28.020833333333332, 29.21875, 30.260416666666668, 31.354166666666668, 32.604166666666664, 33.645833333333336,
+          34.89583333333333, 35.989583333333336, 37.03125, 38.28125, 39.32291666666667, 40.416666666666664, 41.458333333333336,
+          42.70833333333333, 43.75, 44.79166666666667, 46.09375, 47.13541666666667, 48.4375, 49.47916666666667, 50.572916666666664,
+          51.822916666666664, 52.864583333333336, 54.01041666666667, 55.052083333333336, 56.30208333333333, 57.34375000000001, 58.4375,
+          59.68750000000001, 60.729166666666664, 62.03125000000001, 63.125, 64.21875, 65.46875, 66.45833333333333, 67.70833333333334, 68.75,
+          69.84375, 70.88541666666667, 71.97916666666667, 73.22916666666667, 74.32291666666667, 75.57291666666667, 76.66666666666667,
+          77.76041666666667, 79.0625, 80, 81.14583333333333, 82.1875, 83.4375, 84.47916666666667, 85.52083333333333, 86.875,
+          87.86458333333333, 89.11458333333333, 90.20833333333333, 91.25, 92.5, 93.54166666666667, 94.63541666666667, 95.67708333333333,
+          96.92708333333333, 97.96875, 940109.9479166667
+        ],
+        "yOffset": 34.15384615384615,
+        "keyIndexRanges": {
+          "left": {
+            "lowest": 17,
+            "highest": 48,
+            "__typename": "IntRange"
+          },
+          "right": {
+            "lowest": 41,
+            "highest": 62,
+            "__typename": "IntRange"
+          },
+          "both": {
+            "lowest": 17,
+            "highest": 62,
+            "__typename": "IntRange"
+          },
+          "__typename": "LightningKeyIndexRanges"
+        },
+        "__typename": "LightningKeys"
+      },
+      "musicsheets": {
+        "horizontalSheet": {
+          "files": {
+            "png2x": [
+              "https://cdn.flowkey.com/rendered-sheets/3Eguqi4WHdJHFPABm/84912e96/horizontalSheet-4cb74182-2024-10-02T08.50.png",
+              "https://cdn.flowkey.com/rendered-sheets/3Eguqi4WHdJHFPABm/84912e96/horizontalSheet-51c79007-2024-10-02T08.50.png",
+              "https://cdn.flowkey.com/rendered-sheets/3Eguqi4WHdJHFPABm/84912e96/horizontalSheet-fb72f62b-2024-10-02T08.50.png",
+              "https://cdn.flowkey.com/rendered-sheets/3Eguqi4WHdJHFPABm/84912e96/horizontalSheet-dc9c281e-2024-10-02T08.50.png",
+              "https://cdn.flowkey.com/rendered-sheets/3Eguqi4WHdJHFPABm/84912e96/horizontalSheet-c3fa9e3f-2024-10-02T08.50.png",
+              "https://cdn.flowkey.com/rendered-sheets/3Eguqi4WHdJHFPABm/84912e96/horizontalSheet-6b0fc8d8-2024-10-02T08.50.png",
+              "https://cdn.flowkey.com/rendered-sheets/3Eguqi4WHdJHFPABm/84912e96/horizontalSheet-85541779-2024-10-02T08.50.png",
+              "https://cdn.flowkey.com/rendered-sheets/3Eguqi4WHdJHFPABm/84912e96/horizontalSheet-42f43f0b-2024-10-02T08.50.png",
+              "https://cdn.flowkey.com/rendered-sheets/3Eguqi4WHdJHFPABm/84912e96/horizontalSheet-435d1a64-2024-10-02T08.50.png",
+              "https://cdn.flowkey.com/rendered-sheets/3Eguqi4WHdJHFPABm/84912e96/horizontalSheet-171e4510-2024-10-02T08.50.png",
+              "https://cdn.flowkey.com/rendered-sheets/3Eguqi4WHdJHFPABm/84912e96/horizontalSheet-d1cd4524-2024-10-02T08.50.png",
+              "https://cdn.flowkey.com/rendered-sheets/3Eguqi4WHdJHFPABm/84912e96/horizontalSheet-a7035521-2024-10-02T08.50.png"
+            ],
+            "__typename": "MusicsheetFiles"
+          },
+          "totalWidth": 6002,
+          "totalHeight": 189,
+          "yOffset": 0,
+          "sliceWidth": 512,
+          "__typename": "HorizontalSheet"
+        },
+        "__typename": "MusicSheet"
+      },
+      "noteEvents": [
+        {
+          "t": 1323,
+          "notesL": [
+            {
+              "key": 38,
+              "name": "D",
+              "delay": 0,
+              "duration": 79,
+              "velocity": 69,
+              "isInArpeggio": false,
+              "__typename": "Note"
+            }
+          ],
+          "notesR": [],
+          "horizontalSheetX": 101,
+          "__typename": "NoteEvent"
+        },
+        {
+          "t": 2001,
+          "notesL": [
+            {
+              "key": 45,
+              "name": "A",
+              "delay": 0,
+              "duration": 64,
+              "velocity": 71,
+              "isInArpeggio": false,
+              "__typename": "Note"
+            }
+          ],
+          "notesR": [],
+          "horizontalSheetX": 143,
+          "__typename": "NoteEvent"
+        },
+        {
+          "t": 2668,
+          "notesL": [
+            {
+              "key": 50,
+              "name": "D",
+              "delay": 0,
+              "duration": 81,
+              "velocity": 82,
+              "isInArpeggio": false,
+              "__typename": "Note"
+            }
+          ],
+          "notesR": [],
+          "horizontalSheetX": 186,
+          "__typename": "NoteEvent"
+        },
+        {
+          "t": 3337,
+          "notesL": [
+            {
+              "key": 45,
+              "name": "A",
+              "delay": 0,
+              "duration": 74,
+              "velocity": 75,
+              "isInArpeggio": false,
+              "__typename": "Note"
+            }
+          ],
+          "notesR": [],
+          "horizontalSheetX": 228,
+          "__typename": "NoteEvent"
+        },
+        {
+          "t": 4019,
+          "notesL": [
+            {
+              "key": 38,
+              "name": "D",
+              "delay": 0,
+              "duration": 78,
+              "velocity": 66,
+              "isInArpeggio": false,
+              "__typename": "Note"
+            }
+          ],
+          "notesR": [],
+          "horizontalSheetX": 282,
+          "__typename": "NoteEvent"
+        },
+        {
+          "t": 4713,
+          "notesL": [
+            {
+              "key": 45,
+              "name": "A",
+              "delay": 0,
+              "duration": 71,
+              "velocity": 66,
+              "isInArpeggio": false,
+              "__typename": "Note"
+            }
+          ],
+          "notesR": [],
+          "horizontalSheetX": 328,
+          "__typename": "NoteEvent"
+        },
+        {
+          "t": 5484,
+          "notesL": [
+            {
+              "key": 50,
+              "name": "D",
+              "delay": 0,
+              "duration": 954,
+              "velocity": 50,
+              "isInArpeggio": false,
+              "__typename": "Note"
+            }
+          ],
+          "notesR": [],
+          "horizontalSheetX": 374,
+          "__typename": "NoteEvent"
+        },
+        {
+          "t": 7042,
+          "notesL": [
+            {
+              "key": 57,
+              "name": "A",
+              "delay": 19,
+              "duration": 2176,
+              "velocity": 56,
+              "isInArpeggio": false,
+              "__typename": "Note"
+            },
+            {
+              "key": 50,
+              "name": "D",
+              "delay": 40,
+              "duration": 2181,
+              "velocity": 48,
+              "isInArpeggio": false,
+              "__typename": "Note"
+            }
+          ],
+          "notesR": [
+            {
+              "key": 62,
+              "name": "D",
+              "delay": 0,
+              "duration": 177,
+              "velocity": 66,
+              "isInArpeggio": false,
+              "__typename": "Note"
+            }
+          ],
+          "horizontalSheetX": 462,
+          "__typename": "NoteEvent"
+        },
+        {
+          "t": 7193,
+          "notesL": [],
+          "notesR": [
+            {
+              "key": 64,
+              "name": "E",
+              "delay": 0,
+              "duration": 220,
+              "velocity": 62,
+              "isInArpeggio": false,
+              "__typename": "Note"
+            }
+          ],
+          "horizontalSheetX": 484,
+          "__typename": "NoteEvent"
+        },
+        {
+          "t": 7403,
+          "notesL": [],
+          "notesR": [
+            {
+              "key": 66,
+              "name": "F♯",
+              "delay": 0,
+              "duration": 755,
+              "velocity": 62,
+              "isInArpeggio": false,
+              "__typename": "Note"
+            }
+          ],
+          "horizontalSheetX": 506,
+          "__typename": "NoteEvent"
+        },
+        {
+          "t": 8092,
+          "notesL": [],
+          "notesR": [
+            {
+              "key": 69,
+              "name": "A",
+              "delay": 0,
+              "duration": 705,
+              "velocity": 65,
+              "isInArpeggio": false,
+              "__typename": "Note"
+            }
+          ],
+          "horizontalSheetX": 553,
+          "__typename": "NoteEvent"
+        },
+        {
+          "t": 8759,
+          "notesL": [],
+          "notesR": [
+            {
+              "key": 66,
+              "name": "F♯",
+              "delay": 0,
+              "duration": 615,
+              "velocity": 70,
+              "isInArpeggio": false,
+              "__typename": "Note"
+            }
+          ],
+          "horizontalSheetX": 623,
+          "__typename": "NoteEvent"
+        },
+        {
+          "t": 9417,
+          "notesL": [],
+          "notesR": [
+            {
+              "key": 64,
+              "name": "E",
+              "delay": 0,
+              "duration": 401,
+              "velocity": 70,
+              "isInArpeggio": false,
+              "__typename": "Note"
+            }
+          ],
+          "horizontalSheetX": 670,
+          "__typename": "NoteEvent"
+        },
+        {
+          "t": 9800,
+          "notesL": [
+            {
+              "key": 57,
+              "name": "A",
+              "delay": 0,
+              "duration": 1453,
+              "velocity": 45,
+              "isInArpeggio": false,
+              "__typename": "Note"
+            },
+            {
+              "key": 50,
+              "name": "D",
+              "delay": 17,
+              "duration": 1106,
+              "velocity": 46,
+              "isInArpeggio": false,
+              "__typename": "Note"
+            }
+          ],
+          "notesR": [
+            {
+              "key": 62,
+              "name": "D",
+              "delay": 2,
+              "duration": 1841,
+              "velocity": 61,
+              "isInArpeggio": false,
+              "__typename": "Note"
+            }
+          ],
+          "horizontalSheetX": 717,
+          "__typename": "NoteEvent"
+        },
+        {
+          "t": 11242,
+          "notesL": [
+            {
+              "key": 54,
+              "name": "F♯",
+              "delay": 0,
+              "duration": 1496,
+              "velocity": 67,
+              "isInArpeggio": false,
+              "__typename": "Note"
+            }
+          ],
+          "notesR": [],
+          "horizontalSheetX": 782,
+          "__typename": "NoteEvent"
+        },
+        {
+          "t": 11947,
+          "notesL": [],
+          "notesR": [
+            {
+              "key": 66,
+              "name": "F♯",
+              "delay": 0,
+              "duration": 330,
+              "velocity": 77,
+              "isInArpeggio": false,
+              "__typename": "Note"
+            }
+          ],
+          "horizontalSheetX": 830,
+          "__typename": "NoteEvent"
+        },
+        {
+          "t": 12283,
+          "notesL": [],
+          "notesR": [
+            {
+              "key": 69,
+              "name": "A",
+              "delay": 0,
+              "duration": 500,
+              "velocity": 81,
+              "isInArpeggio": false,
+              "__typename": "Note"
+            }
+          ],
+          "horizontalSheetX": 859,
+          "__typename": "NoteEvent"
+        },
+        {
+          "t": 12730,
+          "notesL": [
+            {
+              "key": 62,
+              "name": "D",
+              "delay": 18,
+              "duration": 2574,
+              "velocity": 51,
+              "isInArpeggio": false,
+              "__typename": "Note"
+            },
+            {
+              "key": 55,
+              "name": "G",
+              "delay": 38,
+              "duration": 2477,
+              "velocity": 45,
+              "isInArpeggio": false,
+              "__typename": "Note"
+            }
+          ],
+          "notesR": [
+            {
+              "key": 71,
+              "name": "B",
+              "delay": 0,
+              "duration": 919,
+              "velocity": 59,
+              "isInArpeggio": false,
+              "__typename": "Note"
+            }
+          ],
+          "horizontalSheetX": 904,
+          "__typename": "NoteEvent"
+        },
+        {
+          "t": 13840,
+          "notesL": [],
+          "notesR": [
+            {
+              "key": 74,
+              "name": "D",
+              "delay": 0,
+              "duration": 476,
+              "velocity": 71,
+              "isInArpeggio": false,
+              "__typename": "Note"
+            }
+          ],
+          "horizontalSheetX": 961,
+          "__typename": "NoteEvent"
+        },
+        {
+          "t": 14221,
+          "notesL": [],
+          "notesR": [
+            {
+              "key": 73,
+              "name": "C♯",
+              "delay": 0,
+              "duration": 744,
+              "velocity": 69,
+              "isInArpeggio": false,
+              "__typename": "Note"
+            }
+          ],
+          "horizontalSheetX": 991,
+          "__typename": "NoteEvent"
+        },
+        {
+          "t": 14952,
+          "notesL": [],
+          "notesR": [
+            {
+              "key": 69,
+              "name": "A",
+              "delay": 0,
+              "duration": 865,
+              "velocity": 65,
+              "isInArpeggio": false,
+              "__typename": "Note"
+            }
+          ],
+          "horizontalSheetX": 1039,
+          "__typename": "NoteEvent"
+        },
+        {
+          "t": 15752,
+          "notesL": [
+            {
+              "key": 62,
+              "name": "D",
+              "delay": 5,
+              "duration": 1453,
+              "velocity": 43,
+              "isInArpeggio": false,
+              "__typename": "Note"
+            },
+            {
+              "key": 57,
+              "name": "A",
+              "delay": 10,
+              "duration": 2345,
+              "velocity": 43,
+              "isInArpeggio": false,
+              "__typename": "Note"
+            }
+          ],
+          "notesR": [
+            {
+              "key": 66,
+              "name": "F♯",
+              "delay": 0,
+              "duration": 866,
+              "velocity": 56,
+              "isInArpeggio": false,
+              "__typename": "Note"
+            }
+          ],
+          "horizontalSheetX": 1098,
+          "__typename": "NoteEvent"
+        },
+        {
+          "t": 16830,
+          "notesL": [],
+          "notesR": [
+            {
+              "key": 67,
+              "name": "G",
+              "delay": 0,
+              "duration": 144,
+              "velocity": 54,
+              "isInArpeggio": false,
+              "__typename": "Note"
+            }
+          ],
+          "horizontalSheetX": 1153,
+          "__typename": "NoteEvent"
+        },
+        {
+          "t": 16981,
+          "notesL": [],
+          "notesR": [
+            {
+              "key": 66,
+              "name": "F♯",
+              "delay": 0,
+              "duration": 228,
+              "velocity": 57,
+              "isInArpeggio": false,
+              "__typename": "Note"
+            }
+          ],
+          "horizontalSheetX": 1174,
+          "__typename": "NoteEvent"
+        },
+        {
+          "t": 17241,
+          "notesL": [
+            {
+              "key": 61,
+              "name": "C♯",
+              "delay": 19,
+              "duration": 794,
+              "velocity": 33,
+              "isInArpeggio": false,
+              "__typename": "Note"
+            }
+          ],
+          "notesR": [
+            {
+              "key": 64,
+              "name": "E",
+              "delay": 0,
+              "duration": 735,
+              "velocity": 39,
+              "isInArpeggio": false,
+              "__typename": "Note"
+            }
+          ],
+          "horizontalSheetX": 1195,
+          "__typename": "NoteEvent"
+        },
+        {
+          "t": 17993,
+          "notesL": [],
+          "notesR": [
+            {
+              "key": 62,
+              "name": "D",
+              "delay": 0,
+              "duration": 341,
+              "velocity": 68,
+              "isInArpeggio": false,
+              "__typename": "Note"
+            }
+          ],
+          "horizontalSheetX": 1242,
+          "__typename": "NoteEvent"
+        },
+        {
+          "t": 18300,
+          "notesL": [],
+          "notesR": [
+            {
+              "key": 64,
+              "name": "E",
+              "delay": 0,
+              "duration": 477,
+              "velocity": 73,
+              "isInArpeggio": false,
+              "__typename": "Note"
+            }
+          ],
+          "horizontalSheetX": 1277,
+          "__typename": "NoteEvent"
+        },
+        {
+          "t": 18751,
+          "notesL": [
+            {
+              "key": 50,
+              "name": "D",
+              "delay": 6,
+              "duration": 2453,
+              "velocity": 53,
+              "isInArpeggio": false,
+              "__typename": "Note"
+            },
+            {
+              "key": 57,
+              "name": "A",
+              "delay": 16,
+              "duration": 2439,
+              "velocity": 43,
+              "isInArpeggio": false,
+              "__typename": "Note"
+            }
+          ],
+          "notesR": [
+            {
+              "key": 66,
+              "name": "F♯",
+              "delay": 0,
+              "duration": 761,
+              "velocity": 66,
+              "isInArpeggio": false,
+              "__typename": "Note"
+            }
+          ],
+          "horizontalSheetX": 1326,
+          "__typename": "NoteEvent"
+        },
+        {
+          "t": 19467,
+          "notesL": [],
+          "notesR": [
+            {
+              "key": 69,
+              "name": "A",
+              "delay": 0,
+              "duration": 593,
+              "velocity": 69,
+              "isInArpeggio": false,
+              "__typename": "Note"
+            }
+          ],
+          "horizontalSheetX": 1369,
+          "__typename": "NoteEvent"
+        },
+        {
+          "t": 20174,
+          "notesL": [],
+          "notesR": [
+            {
+              "key": 66,
+              "name": "F♯",
+              "delay": 0,
+              "duration": 409,
+              "velocity": 66,
+              "isInArpeggio": false,
+              "__typename": "Note"
+            }
+          ],
+          "horizontalSheetX": 1413,
+          "__typename": "NoteEvent"
+        },
+        {
+          "t": 20516,
+          "notesL": [],
+          "notesR": [
+            {
+              "key": 64,
+              "name": "E",
+              "delay": 0,
+              "duration": 336,
+              "velocity": 66,
+              "isInArpeggio": false,
+              "__typename": "Note"
+            }
+          ],
+          "horizontalSheetX": 1445,
+          "__typename": "NoteEvent"
+        },
+        {
+          "t": 20847,
+          "notesL": [],
+          "notesR": [
+            {
+              "key": 62,
+              "name": "D",
+              "delay": 0,
+              "duration": 425,
+              "velocity": 74,
+              "isInArpeggio": false,
+              "__typename": "Note"
+            }
+          ],
+          "horizontalSheetX": 1476,
+          "__typename": "NoteEvent"
+        },
+        {
+          "t": 21394,
+          "notesL": [],
+          "notesR": [
+            {
+              "key": 64,
+              "name": "E",
+              "delay": 0,
+              "duration": 201,
+              "velocity": 55,
+              "isInArpeggio": false,
+              "__typename": "Note"
+            }
+          ],
+          "horizontalSheetX": 1515,
+          "__typename": "NoteEvent"
+        },
+        {
+          "t": 21583,
+          "notesL": [
+            {
+              "key": 57,
+              "name": "A",
+              "delay": 21,
+              "duration": 1506,
+              "velocity": 34,
+              "isInArpeggio": false,
+              "__typename": "Note"
+            },
+            {
+              "key": 50,
+              "name": "D",
+              "delay": 39,
+              "duration": 1480,
+              "velocity": 36,
+              "isInArpeggio": false,
+              "__typename": "Note"
+            }
+          ],
+          "notesR": [
+            {
+              "key": 62,
+              "name": "D",
+              "delay": 0,
+              "duration": 2069,
+              "velocity": 61,
+              "isInArpeggio": false,
+              "__typename": "Note"
+            }
+          ],
+          "horizontalSheetX": 1548,
+          "__typename": "NoteEvent"
+        },
+        {
+          "t": 23057,
+          "notesL": [
+            {
+              "key": 54,
+              "name": "F♯",
+              "delay": 0,
+              "duration": 1549,
+              "velocity": 53,
+              "isInArpeggio": false,
+              "__typename": "Note"
+            }
+          ],
+          "notesR": [],
+          "horizontalSheetX": 1613,
+          "__typename": "NoteEvent"
+        },
+        {
+          "t": 23768,
+          "notesL": [],
+          "notesR": [
+            {
+              "key": 66,
+              "name": "F♯",
+              "delay": 0,
+              "duration": 382,
+              "velocity": 71,
+              "isInArpeggio": false,
+              "__typename": "Note"
+            }
+          ],
+          "horizontalSheetX": 1660,
+          "__typename": "NoteEvent"
+        },
+        {
+          "t": 24099,
+          "notesL": [],
+          "notesR": [
+            {
+              "key": 69,
+              "name": "A",
+              "delay": 0,
+              "duration": 514,
+              "velocity": 80,
+              "isInArpeggio": false,
+              "__typename": "Note"
+            }
+          ],
+          "horizontalSheetX": 1690,
+          "__typename": "NoteEvent"
+        },
+        {
+          "t": 24590,
+          "notesL": [
+            {
+              "key": 55,
+              "name": "G",
+              "delay": 0,
+              "duration": 2801,
+              "velocity": 45,
+              "isInArpeggio": false,
+              "__typename": "Note"
+            },
+            {
+              "key": 62,
+              "name": "D",
+              "delay": 0,
+              "duration": 2402,
+              "velocity": 44,
+              "isInArpeggio": false,
+              "__typename": "Note"
+            }
+          ],
+          "notesR": [
+            {
+              "key": 71,
+              "name": "B",
+              "delay": 0,
+              "duration": 1394,
+              "velocity": 57,
+              "isInArpeggio": false,
+              "__typename": "Note"
+            }
+          ],
+          "horizontalSheetX": 1734,
+          "__typename": "NoteEvent"
+        },
+        {
+          "t": 25934,
+          "notesL": [],
+          "notesR": [
+            {
+              "key": 69,
+              "name": "A",
+              "delay": 0,
+              "duration": 784,
+              "velocity": 65,
+              "isInArpeggio": false,
+              "__typename": "Note"
+            }
+          ],
+          "horizontalSheetX": 1806,
+          "__typename": "NoteEvent"
+        },
+        {
+          "t": 26644,
+          "notesL": [],
+          "notesR": [
+            {
+              "key": 66,
+              "name": "F♯",
+              "delay": 0,
+              "duration": 339,
+              "velocity": 75,
+              "isInArpeggio": false,
+              "__typename": "Note"
+            }
+          ],
+          "horizontalSheetX": 1851,
+          "__typename": "NoteEvent"
+        },
+        {
+          "t": 27413,
+          "notesL": [
+            {
+              "key": 62,
+              "name": "D",
+              "delay": 0,
+              "duration": 1428,
+              "velocity": 58,
+              "isInArpeggio": false,
+              "__typename": "Note"
+            },
+            {
+              "key": 59,
+              "name": "B",
+              "delay": 6,
+              "duration": 1470,
+              "velocity": 60,
+              "isInArpeggio": false,
+              "__typename": "Note"
+            }
+          ],
+          "notesR": [
+            {
+              "key": 66,
+              "name": "F♯",
+              "delay": 1,
+              "duration": 1109,
+              "velocity": 71,
+              "isInArpeggio": false,
+              "__typename": "Note"
+            }
+          ],
+          "horizontalSheetX": 1908,
+          "__typename": "NoteEvent"
+        },
+        {
+          "t": 28877,
+          "notesL": [
+            {
+              "key": 57,
+              "name": "A",
+              "delay": 0,
+              "duration": 1136,
+              "velocity": 58,
+              "isInArpeggio": false,
+              "__typename": "Note"
+            },
+            {
+              "key": 61,
+              "name": "C♯",
+              "delay": 0,
+              "duration": 1102,
+              "velocity": 58,
+              "isInArpeggio": false,
+              "__typename": "Note"
+            }
+          ],
+          "notesR": [
+            {
+              "key": 64,
+              "name": "E",
+              "delay": 0,
+              "duration": 1501,
+              "velocity": 73,
+              "isInArpeggio": false,
+              "__typename": "Note"
+            }
+          ],
+          "horizontalSheetX": 1987,
+          "__typename": "NoteEvent"
+        },
+        {
+          "t": 30385,
+          "notesL": [
+            {
+              "key": 50,
+              "name": "D",
+              "delay": 0,
+              "duration": 65,
+              "velocity": 72,
+              "isInArpeggio": false,
+              "__typename": "Note"
+            }
+          ],
+          "notesR": [
+            {
+              "key": 62,
+              "name": "D",
+              "delay": 12,
+              "duration": 134,
+              "velocity": 66,
+              "isInArpeggio": false,
+              "__typename": "Note"
+            }
+          ],
+          "horizontalSheetX": 2079,
+          "__typename": "NoteEvent"
+        },
+        {
+          "t": 30534,
+          "notesL": [],
+          "notesR": [
+            {
+              "key": 64,
+              "name": "E",
+              "delay": 0,
+              "duration": 159,
+              "velocity": 59,
+              "isInArpeggio": false,
+              "__typename": "Note"
+            }
+          ],
+          "horizontalSheetX": 2098,
+          "__typename": "NoteEvent"
+        },
+        {
+          "t": 30697,
+          "notesL": [],
+          "notesR": [
+            {
+              "key": 62,
+              "name": "D",
+              "delay": 0,
+              "duration": 957,
+              "velocity": 60,
+              "isInArpeggio": false,
+              "__typename": "Note"
+            }
+          ],
+          "horizontalSheetX": 2118,
+          "__typename": "NoteEvent"
+        },
+        {
+          "t": 31087,
+          "notesL": [
+            {
+              "key": 57,
+              "name": "A",
+              "delay": 0,
+              "duration": 61,
+              "velocity": 75,
+              "isInArpeggio": false,
+              "__typename": "Note"
+            }
+          ],
+          "notesR": [],
+          "horizontalSheetX": 2149,
+          "__typename": "NoteEvent"
+        },
+        {
+          "t": 31791,
+          "notesL": [
+            {
+              "key": 62,
+              "name": "D",
+              "delay": 0,
+              "duration": 62,
+              "velocity": 71,
+              "isInArpeggio": false,
+              "__typename": "Note"
+            }
+          ],
+          "notesR": [],
+          "horizontalSheetX": 2192,
+          "__typename": "NoteEvent"
+        },
+        {
+          "t": 32474,
+          "notesL": [
+            {
+              "key": 57,
+              "name": "A",
+              "delay": 0,
+              "duration": 70,
+              "velocity": 78,
+              "isInArpeggio": false,
+              "__typename": "Note"
+            }
+          ],
+          "notesR": [],
+          "horizontalSheetX": 2235,
+          "__typename": "NoteEvent"
+        },
+        {
+          "t": 33153,
+          "notesL": [
+            {
+              "key": 50,
+              "name": "D",
+              "delay": 0,
+              "duration": 90,
+              "velocity": 81,
+              "isInArpeggio": false,
+              "__typename": "Note"
+            }
+          ],
+          "notesR": [],
+          "horizontalSheetX": 2290,
+          "__typename": "NoteEvent"
+        },
+        {
+          "t": 33870,
+          "notesL": [
+            {
+              "key": 57,
+              "name": "A",
+              "delay": 0,
+              "duration": 67,
+              "velocity": 70,
+              "isInArpeggio": false,
+              "__typename": "Note"
+            }
+          ],
+          "notesR": [],
+          "horizontalSheetX": 2335,
+          "__typename": "NoteEvent"
+        },
+        {
+          "t": 34638,
+          "notesL": [
+            {
+              "key": 62,
+              "name": "D",
+              "delay": 0,
+              "duration": 1039,
+              "velocity": 40,
+              "isInArpeggio": false,
+              "__typename": "Note"
+            }
+          ],
+          "notesR": [],
+          "horizontalSheetX": 2381,
+          "__typename": "NoteEvent"
+        },
+        {
+          "t": 36087,
+          "notesL": [
+            {
+              "key": 62,
+              "name": "D",
+              "delay": 7,
+              "duration": 1798,
+              "velocity": 61,
+              "isInArpeggio": false,
+              "__typename": "Note"
+            }
+          ],
+          "notesR": [
+            {
+              "key": 74,
+              "name": "D",
+              "delay": 0,
+              "duration": 159,
+              "velocity": 71,
+              "isInArpeggio": false,
+              "__typename": "Note"
+            }
+          ],
+          "horizontalSheetX": 2495,
+          "__typename": "NoteEvent"
+        },
+        {
+          "t": 36253,
+          "notesL": [],
+          "notesR": [
+            {
+              "key": 76,
+              "name": "E",
+              "delay": 0,
+              "duration": 164,
+              "velocity": 70,
+              "isInArpeggio": false,
+              "__typename": "Note"
+            }
+          ],
+          "horizontalSheetX": 2511,
+          "__typename": "NoteEvent"
+        },
+        {
+          "t": 36412,
+          "notesL": [],
+          "notesR": [
+            {
+              "key": 78,
+              "name": "F♯",
+              "delay": 0,
+              "duration": 962,
+              "velocity": 77,
+              "isInArpeggio": false,
+              "__typename": "Note"
+            }
+          ],
+          "horizontalSheetX": 2528,
+          "__typename": "NoteEvent"
+        },
+        {
+          "t": 36750,
+          "notesL": [
+            {
+              "key": 66,
+              "name": "F♯",
+              "delay": 0,
+              "duration": 84,
+              "velocity": 65,
+              "isInArpeggio": false,
+              "__typename": "Note"
+            },
+            {
+              "key": 69,
+              "name": "A",
+              "delay": 4,
+              "duration": 53,
+              "velocity": 56,
+              "isInArpeggio": false,
+              "__typename": "Note"
+            }
+          ],
+          "notesR": [],
+          "horizontalSheetX": 2555,
+          "__typename": "NoteEvent"
+        },
+        {
+          "t": 37457,
+          "notesL": [
+            {
+              "key": 66,
+              "name": "F♯",
+              "delay": 0,
+              "duration": 75,
+              "velocity": 64,
+              "isInArpeggio": false,
+              "__typename": "Note"
+            },
+            {
+              "key": 69,
+              "name": "A",
+              "delay": 4,
+              "duration": 57,
+              "velocity": 62,
+              "isInArpeggio": false,
+              "__typename": "Note"
+            }
+          ],
+          "notesR": [],
+          "horizontalSheetX": 2591,
+          "__typename": "NoteEvent"
+        },
+        {
+          "t": 37829,
+          "notesL": [],
+          "notesR": [
+            {
+              "key": 78,
+              "name": "F♯",
+              "delay": 0,
+              "duration": 542,
+              "velocity": 83,
+              "isInArpeggio": false,
+              "__typename": "Note"
+            }
+          ],
+          "horizontalSheetX": 2618,
+          "__typename": "NoteEvent"
+        },
+        {
+          "t": 38478,
+          "notesL": [],
+          "notesR": [
+            {
+              "key": 78,
+              "name": "F♯",
+              "delay": 0,
+              "duration": 281,
+              "velocity": 86,
+              "isInArpeggio": false,
+              "__typename": "Note"
+            }
+          ],
+          "horizontalSheetX": 2671,
+          "__typename": "NoteEvent"
+        },
+        {
+          "t": 38851,
+          "notesL": [
+            {
+              "key": 61,
+              "name": "C♯",
+              "delay": 0,
+              "duration": 982,
+              "velocity": 60,
+              "isInArpeggio": false,
+              "__typename": "Note"
+            }
+          ],
+          "notesR": [
+            {
+              "key": 81,
+              "name": "A",
+              "delay": 2,
+              "duration": 120,
+              "velocity": 70,
+              "isInArpeggio": false,
+              "__typename": "Note"
+            }
+          ],
+          "horizontalSheetX": 2709,
+          "__typename": "NoteEvent"
+        },
+        {
+          "t": 38973,
+          "notesL": [],
+          "notesR": [
+            {
+              "key": 83,
+              "name": "B",
+              "delay": 0,
+              "duration": 165,
+              "velocity": 66,
+              "isInArpeggio": false,
+              "__typename": "Note"
+            }
+          ],
+          "horizontalSheetX": 2731,
+          "__typename": "NoteEvent"
+        },
+        {
+          "t": 39109,
+          "notesL": [],
+          "notesR": [
+            {
+              "key": 81,
+              "name": "A",
+              "delay": 0,
+              "duration": 174,
+              "velocity": 66,
+              "isInArpeggio": false,
+              "__typename": "Note"
+            }
+          ],
+          "horizontalSheetX": 2752,
+          "__typename": "NoteEvent"
+        },
+        {
+          "t": 39277,
+          "notesL": [],
+          "notesR": [
+            {
+              "key": 76,
+              "name": "E",
+              "delay": 0,
+              "duration": 241,
+              "velocity": 72,
+              "isInArpeggio": false,
+              "__typename": "Note"
+            }
+          ],
+          "horizontalSheetX": 2773,
+          "__typename": "NoteEvent"
+        },
+        {
+          "t": 39528,
+          "notesL": [
+            {
+              "key": 69,
+              "name": "A",
+              "delay": 18,
+              "duration": 109,
+              "velocity": 68,
+              "isInArpeggio": false,
+              "__typename": "Note"
+            },
+            {
+              "key": 64,
+              "name": "E",
+              "delay": 25,
+              "duration": 130,
+              "velocity": 59,
+              "isInArpeggio": false,
+              "__typename": "Note"
+            }
+          ],
+          "notesR": [
+            {
+              "key": 74,
+              "name": "D",
+              "delay": 0,
+              "duration": 352,
+              "velocity": 74,
+              "isInArpeggio": false,
+              "__typename": "Note"
+            }
+          ],
+          "horizontalSheetX": 2794,
+          "__typename": "NoteEvent"
+        },
+        {
+          "t": 39866,
+          "notesL": [],
+          "notesR": [
+            {
+              "key": 76,
+              "name": "E",
+              "delay": 0,
+              "duration": 1088,
+              "velocity": 75,
+              "isInArpeggio": false,
+              "__typename": "Note"
+            }
+          ],
+          "horizontalSheetX": 2828,
+          "__typename": "NoteEvent"
+        },
+        {
+          "t": 40231,
+          "notesL": [
+            {
+              "key": 69,
+              "name": "A",
+              "delay": 0,
+              "duration": 469,
+              "velocity": 61,
+              "isInArpeggio": false,
+              "__typename": "Note"
+            },
+            {
+              "key": 64,
+              "name": "E",
+              "delay": 12,
+              "duration": 516,
+              "velocity": 56,
+              "isInArpeggio": false,
+              "__typename": "Note"
+            }
+          ],
+          "notesR": [],
+          "horizontalSheetX": 2862,
+          "__typename": "NoteEvent"
+        },
+        {
+          "t": 41533,
+          "notesL": [
+            {
+              "key": 59,
+              "name": "B",
+              "delay": 0,
+              "duration": 1542,
+              "velocity": 68,
+              "isInArpeggio": false,
+              "__typename": "Note"
+            }
+          ],
+          "notesR": [
+            {
+              "key": 69,
+              "name": "A",
+              "delay": 0,
+              "duration": 146,
+              "velocity": 74,
+              "isInArpeggio": false,
+              "__typename": "Note"
+            }
+          ],
+          "horizontalSheetX": 2966,
+          "__typename": "NoteEvent"
+        },
+        {
+          "t": 41676,
+          "notesL": [],
+          "notesR": [
+            {
+              "key": 71,
+              "name": "B",
+              "delay": 0,
+              "duration": 175,
+              "velocity": 72,
+              "isInArpeggio": false,
+              "__typename": "Note"
+            }
+          ],
+          "horizontalSheetX": 2983,
+          "__typename": "NoteEvent"
+        },
+        {
+          "t": 41845,
+          "notesL": [],
+          "notesR": [
+            {
+              "key": 73,
+              "name": "C♯",
+              "delay": 0,
+              "duration": 375,
+              "velocity": 75,
+              "isInArpeggio": false,
+              "__typename": "Note"
+            }
+          ],
+          "horizontalSheetX": 3000,
+          "__typename": "NoteEvent"
+        },
+        {
+          "t": 42188,
+          "notesL": [
+            {
+              "key": 66,
+              "name": "F♯",
+              "delay": 0,
+              "duration": 94,
+              "velocity": 57,
+              "isInArpeggio": false,
+              "__typename": "Note"
+            },
+            {
+              "key": 62,
+              "name": "D",
+              "delay": 0,
+              "duration": 158,
+              "velocity": 58,
+              "isInArpeggio": false,
+              "__typename": "Note"
+            }
+          ],
+          "notesR": [],
+          "horizontalSheetX": 3027,
+          "__typename": "NoteEvent"
+        },
+        {
+          "t": 42509,
+          "notesL": [],
+          "notesR": [
+            {
+              "key": 73,
+              "name": "C♯",
+              "delay": 0,
+              "duration": 733,
+              "velocity": 82,
+              "isInArpeggio": false,
+              "__typename": "Note"
+            }
+          ],
+          "horizontalSheetX": 3053,
+          "__typename": "NoteEvent"
+        },
+        {
+          "t": 42858,
+          "notesL": [
+            {
+              "key": 66,
+              "name": "F♯",
+              "delay": 0,
+              "duration": 161,
+              "velocity": 65,
+              "isInArpeggio": false,
+              "__typename": "Note"
+            },
+            {
+              "key": 62,
+              "name": "D",
+              "delay": 0,
+              "duration": 212,
+              "velocity": 58,
+              "isInArpeggio": false,
+              "__typename": "Note"
+            }
+          ],
+          "notesR": [],
+          "horizontalSheetX": 3080,
+          "__typename": "NoteEvent"
+        },
+        {
+          "t": 43200,
+          "notesL": [],
+          "notesR": [
+            {
+              "key": 74,
+              "name": "D",
+              "delay": 0,
+              "duration": 734,
+              "velocity": 82,
+              "isInArpeggio": false,
+              "__typename": "Note"
+            }
+          ],
+          "horizontalSheetX": 3107,
+          "__typename": "NoteEvent"
+        },
+        {
+          "t": 43836,
+          "notesL": [],
+          "notesR": [
+            {
+              "key": 71,
+              "name": "B",
+              "delay": 0,
+              "duration": 425,
+              "velocity": 62,
+              "isInArpeggio": false,
+              "__typename": "Note"
+            }
+          ],
+          "horizontalSheetX": 3160,
+          "__typename": "NoteEvent"
+        },
+        {
+          "t": 44236,
+          "notesL": [
+            {
+              "key": 62,
+              "name": "D",
+              "delay": 0,
+              "duration": 948,
+              "velocity": 46,
+              "isInArpeggio": false,
+              "__typename": "Note"
+            },
+            {
+              "key": 55,
+              "name": "G",
+              "delay": 12,
+              "duration": 949,
+              "velocity": 40,
+              "isInArpeggio": false,
+              "__typename": "Note"
+            }
+          ],
+          "notesR": [
+            {
+              "key": 66,
+              "name": "F♯",
+              "delay": 4,
+              "duration": 854,
+              "velocity": 61,
+              "isInArpeggio": false,
+              "__typename": "Note"
+            }
+          ],
+          "horizontalSheetX": 3199,
+          "__typename": "NoteEvent"
+        },
+        {
+          "t": 45326,
+          "notesL": [],
+          "notesR": [
+            {
+              "key": 69,
+              "name": "A",
+              "delay": 0,
+              "duration": 457,
+              "velocity": 67,
+              "isInArpeggio": false,
+              "__typename": "Note"
+            }
+          ],
+          "horizontalSheetX": 3267,
+          "__typename": "NoteEvent"
+        },
+        {
+          "t": 45767,
+          "notesL": [
+            {
+              "key": 57,
+              "name": "A",
+              "delay": 0,
+              "duration": 2280,
+              "velocity": 42,
+              "isInArpeggio": false,
+              "__typename": "Note"
+            },
+            {
+              "key": 61,
+              "name": "C♯",
+              "delay": 6,
+              "duration": 2417,
+              "velocity": 38,
+              "isInArpeggio": false,
+              "__typename": "Note"
+            }
+          ],
+          "notesR": [
+            {
+              "key": 64,
+              "name": "E",
+              "delay": 2,
+              "duration": 1646,
+              "velocity": 46,
+              "isInArpeggio": false,
+              "__typename": "Note"
+            }
+          ],
+          "horizontalSheetX": 3302,
+          "__typename": "NoteEvent"
+        },
+        {
+          "t": 48044,
+          "notesL": [],
+          "notesR": [
+            {
+              "key": 69,
+              "name": "A",
+              "delay": 0,
+              "duration": 368,
+              "velocity": 67,
+              "isInArpeggio": false,
+              "__typename": "Note"
+            }
+          ],
+          "horizontalSheetX": 3461,
+          "__typename": "NoteEvent"
+        },
+        {
+          "t": 48420,
+          "notesL": [],
+          "notesR": [
+            {
+              "key": 73,
+              "name": "C♯",
+              "delay": 0,
+              "duration": 385,
+              "velocity": 75,
+              "isInArpeggio": false,
+              "__typename": "Note"
+            }
+          ],
+          "horizontalSheetX": 3489,
+          "__typename": "NoteEvent"
+        },
+        {
+          "t": 48801,
+          "notesL": [
+            {
+              "key": 62,
+              "name": "D",
+              "delay": 6,
+              "duration": 1637,
+              "velocity": 65,
+              "isInArpeggio": false,
+              "__typename": "Note"
+            }
+          ],
+          "notesR": [
+            {
+              "key": 74,
+              "name": "D",
+              "delay": 0,
+              "duration": 169,
+              "velocity": 73,
+              "isInArpeggio": false,
+              "__typename": "Note"
+            }
+          ],
+          "horizontalSheetX": 3553,
+          "__typename": "NoteEvent"
+        },
+        {
+          "t": 48972,
+          "notesL": [],
+          "notesR": [
+            {
+              "key": 76,
+              "name": "E",
+              "delay": 0,
+              "duration": 182,
+              "velocity": 74,
+              "isInArpeggio": false,
+              "__typename": "Note"
+            }
+          ],
+          "horizontalSheetX": 3570,
+          "__typename": "NoteEvent"
+        },
+        {
+          "t": 49147,
+          "notesL": [],
+          "notesR": [
+            {
+              "key": 78,
+              "name": "F♯",
+              "delay": 0,
+              "duration": 349,
+              "velocity": 82,
+              "isInArpeggio": false,
+              "__typename": "Note"
+            }
+          ],
+          "horizontalSheetX": 3588,
+          "__typename": "NoteEvent"
+        },
+        {
+          "t": 49466,
+          "notesL": [
+            {
+              "key": 66,
+              "name": "F♯",
+              "delay": 0,
+              "duration": 79,
+              "velocity": 62,
+              "isInArpeggio": false,
+              "__typename": "Note"
+            },
+            {
+              "key": 69,
+              "name": "A",
+              "delay": 9,
+              "duration": 46,
+              "velocity": 59,
+              "isInArpeggio": false,
+              "__typename": "Note"
+            }
+          ],
+          "notesR": [],
+          "horizontalSheetX": 3615,
+          "__typename": "NoteEvent"
+        },
+        {
+          "t": 49786,
+          "notesL": [],
+          "notesR": [
+            {
+              "key": 78,
+              "name": "F♯",
+              "delay": 0,
+              "duration": 1319,
+              "velocity": 89,
+              "isInArpeggio": false,
+              "__typename": "Note"
+            }
+          ],
+          "horizontalSheetX": 3643,
+          "__typename": "NoteEvent"
+        },
+        {
+          "t": 50140,
+          "notesL": [
+            {
+              "key": 66,
+              "name": "F♯",
+              "delay": 0,
+              "duration": 175,
+              "velocity": 63,
+              "isInArpeggio": false,
+              "__typename": "Note"
+            },
+            {
+              "key": 69,
+              "name": "A",
+              "delay": 2,
+              "duration": 178,
+              "velocity": 61,
+              "isInArpeggio": false,
+              "__typename": "Note"
+            }
+          ],
+          "notesR": [],
+          "horizontalSheetX": 3671,
+          "__typename": "NoteEvent"
+        },
+        {
+          "t": 51127,
+          "notesL": [],
+          "notesR": [
+            {
+              "key": 81,
+              "name": "A",
+              "delay": 0,
+              "duration": 339,
+              "velocity": 77,
+              "isInArpeggio": false,
+              "__typename": "Note"
+            }
+          ],
+          "horizontalSheetX": 3737,
+          "__typename": "NoteEvent"
+        },
+        {
+          "t": 51445,
+          "notesL": [
+            {
+              "key": 55,
+              "name": "G",
+              "delay": 16,
+              "duration": 886,
+              "velocity": 61,
+              "isInArpeggio": false,
+              "__typename": "Note"
+            }
+          ],
+          "notesR": [
+            {
+              "key": 78,
+              "name": "F♯",
+              "delay": 0,
+              "duration": 407,
+              "velocity": 78,
+              "isInArpeggio": false,
+              "__typename": "Note"
+            }
+          ],
+          "horizontalSheetX": 3780,
+          "__typename": "NoteEvent"
+        },
+        {
+          "t": 51782,
+          "notesL": [],
+          "notesR": [
+            {
+              "key": 76,
+              "name": "E",
+              "delay": 0,
+              "duration": 663,
+              "velocity": 78,
+              "isInArpeggio": false,
+              "__typename": "Note"
+            }
+          ],
+          "horizontalSheetX": 3809,
+          "__typename": "NoteEvent"
+        },
+        {
+          "t": 52107,
+          "notesL": [
+            {
+              "key": 62,
+              "name": "D",
+              "delay": 0,
+              "duration": 718,
+              "velocity": 60,
+              "isInArpeggio": false,
+              "__typename": "Note"
+            },
+            {
+              "key": 59,
+              "name": "B",
+              "delay": 16,
+              "duration": 645,
+              "velocity": 53,
+              "isInArpeggio": false,
+              "__typename": "Note"
+            }
+          ],
+          "notesR": [],
+          "horizontalSheetX": 3838,
+          "__typename": "NoteEvent"
+        },
+        {
+          "t": 52429,
+          "notesL": [],
+          "notesR": [
+            {
+              "key": 74,
+              "name": "D",
+              "delay": 0,
+              "duration": 357,
+              "velocity": 77,
+              "isInArpeggio": false,
+              "__typename": "Note"
+            }
+          ],
+          "horizontalSheetX": 3867,
+          "__typename": "NoteEvent"
+        },
+        {
+          "t": 52781,
+          "notesL": [
+            {
+              "key": 57,
+              "name": "A",
+              "delay": 0,
+              "duration": 1332,
+              "velocity": 58,
+              "isInArpeggio": false,
+              "__typename": "Note"
+            }
+          ],
+          "notesR": [
+            {
+              "key": 76,
+              "name": "E",
+              "delay": 2,
+              "duration": 338,
+              "velocity": 69,
+              "isInArpeggio": false,
+              "__typename": "Note"
+            }
+          ],
+          "horizontalSheetX": 3896,
+          "__typename": "NoteEvent"
+        },
+        {
+          "t": 53112,
+          "notesL": [],
+          "notesR": [
+            {
+              "key": 73,
+              "name": "C♯",
+              "delay": 0,
+              "duration": 347,
+              "velocity": 67,
+              "isInArpeggio": false,
+              "__typename": "Note"
+            }
+          ],
+          "horizontalSheetX": 3925,
+          "__typename": "NoteEvent"
+        },
+        {
+          "t": 53473,
+          "notesL": [
+            {
+              "key": 64,
+              "name": "E",
+              "delay": 0,
+              "duration": 709,
+              "velocity": 49,
+              "isInArpeggio": false,
+              "__typename": "Note"
+            },
+            {
+              "key": 61,
+              "name": "C♯",
+              "delay": 8,
+              "duration": 702,
+              "velocity": 47,
+              "isInArpeggio": false,
+              "__typename": "Note"
+            }
+          ],
+          "notesR": [],
+          "horizontalSheetX": 3954,
+          "__typename": "NoteEvent"
+        },
+        {
+          "t": 53600,
+          "notesL": [],
+          "notesR": [
+            {
+              "key": 73,
+              "name": "C♯",
+              "delay": 0,
+              "duration": 141,
+              "velocity": 69,
+              "isInArpeggio": false,
+              "__typename": "Note"
+            }
+          ],
+          "horizontalSheetX": 3972,
+          "__typename": "NoteEvent"
+        },
+        {
+          "t": 53750,
+          "notesL": [],
+          "notesR": [
+            {
+              "key": 74,
+              "name": "D",
+              "delay": 0,
+              "duration": 215,
+              "velocity": 70,
+              "isInArpeggio": false,
+              "__typename": "Note"
+            }
+          ],
+          "horizontalSheetX": 3990,
+          "__typename": "NoteEvent"
+        },
+        {
+          "t": 53922,
+          "notesL": [],
+          "notesR": [
+            {
+              "key": 73,
+              "name": "C♯",
+              "delay": 0,
+              "duration": 223,
+              "velocity": 68,
+              "isInArpeggio": false,
+              "__typename": "Note"
+            }
+          ],
+          "horizontalSheetX": 4008,
+          "__typename": "NoteEvent"
+        },
+        {
+          "t": 54143,
+          "notesL": [
+            {
+              "key": 59,
+              "name": "B",
+              "delay": 12,
+              "duration": 2139,
+              "velocity": 49,
+              "isInArpeggio": false,
+              "__typename": "Note"
+            }
+          ],
+          "notesR": [
+            {
+              "key": 71,
+              "name": "B",
+              "delay": 0,
+              "duration": 1937,
+              "velocity": 62,
+              "isInArpeggio": false,
+              "__typename": "Note"
+            }
+          ],
+          "horizontalSheetX": 4040,
+          "__typename": "NoteEvent"
+        },
+        {
+          "t": 55492,
+          "notesL": [
+            {
+              "key": 62,
+              "name": "D",
+              "delay": 0,
+              "duration": 775,
+              "velocity": 45,
+              "isInArpeggio": false,
+              "__typename": "Note"
+            },
+            {
+              "key": 66,
+              "name": "F♯",
+              "delay": 5,
+              "duration": 439,
+              "velocity": 39,
+              "isInArpeggio": false,
+              "__typename": "Note"
+            }
+          ],
+          "notesR": [],
+          "horizontalSheetX": 4103,
+          "__typename": "NoteEvent"
+        },
+        {
+          "t": 56323,
+          "notesL": [],
+          "notesR": [
+            {
+              "key": 66,
+              "name": "F♯",
+              "delay": 0,
+              "duration": 194,
+              "velocity": 64,
+              "isInArpeggio": false,
+              "__typename": "Note"
+            }
+          ],
+          "horizontalSheetX": 4173,
+          "__typename": "NoteEvent"
+        },
+        {
+          "t": 56495,
+          "notesL": [],
+          "notesR": [
+            {
+              "key": 71,
+              "name": "B",
+              "delay": 0,
+              "duration": 192,
+              "velocity": 67,
+              "isInArpeggio": false,
+              "__typename": "Note"
+            }
+          ],
+          "horizontalSheetX": 4196,
+          "__typename": "NoteEvent"
+        },
+        {
+          "t": 56643,
+          "notesL": [],
+          "notesR": [
+            {
+              "key": 73,
+              "name": "C♯",
+              "delay": 0,
+              "duration": 243,
+              "velocity": 74,
+              "isInArpeggio": false,
+              "__typename": "Note"
+            }
+          ],
+          "horizontalSheetX": 4218,
+          "__typename": "NoteEvent"
+        },
+        {
+          "t": 56869,
+          "notesL": [
+            {
+              "key": 62,
+              "name": "D",
+              "delay": 15,
+              "duration": 2441,
+              "velocity": 55,
+              "isInArpeggio": false,
+              "__typename": "Note"
+            },
+            {
+              "key": 55,
+              "name": "G",
+              "delay": 19,
+              "duration": 2488,
+              "velocity": 48,
+              "isInArpeggio": false,
+              "__typename": "Note"
+            }
+          ],
+          "notesR": [
+            {
+              "key": 74,
+              "name": "D",
+              "delay": 0,
+              "duration": 1192,
+              "velocity": 72,
+              "isInArpeggio": false,
+              "__typename": "Note"
+            }
+          ],
+          "horizontalSheetX": 4255,
+          "__typename": "NoteEvent"
+        },
+        {
+          "t": 57927,
+          "notesL": [],
+          "notesR": [
+            {
+              "key": 73,
+              "name": "C♯",
+              "delay": 0,
+              "duration": 967,
+              "velocity": 69,
+              "isInArpeggio": false,
+              "__typename": "Note"
+            }
+          ],
+          "horizontalSheetX": 4313,
+          "__typename": "NoteEvent"
+        },
+        {
+          "t": 58900,
+          "notesL": [],
+          "notesR": [
+            {
+              "key": 69,
+              "name": "A",
+              "delay": 0,
+              "duration": 745,
+              "velocity": 72,
+              "isInArpeggio": false,
+              "__typename": "Note"
+            }
+          ],
+          "horizontalSheetX": 4390,
+          "__typename": "NoteEvent"
+        },
+        {
+          "t": 59612,
+          "notesL": [
+            {
+              "key": 57,
+              "name": "A",
+              "delay": 14,
+              "duration": 2757,
+              "velocity": 43,
+              "isInArpeggio": false,
+              "__typename": "Note"
+            },
+            {
+              "key": 61,
+              "name": "C♯",
+              "delay": 15,
+              "duration": 2729,
+              "velocity": 43,
+              "isInArpeggio": false,
+              "__typename": "Note"
+            }
+          ],
+          "notesR": [
+            {
+              "key": 66,
+              "name": "F♯",
+              "delay": 0,
+              "duration": 847,
+              "velocity": 62,
+              "isInArpeggio": false,
+              "__typename": "Note"
+            }
+          ],
+          "horizontalSheetX": 4453,
+          "__typename": "NoteEvent"
+        },
+        {
+          "t": 60614,
+          "notesL": [],
+          "notesR": [
+            {
+              "key": 67,
+              "name": "G",
+              "delay": 0,
+              "duration": 160,
+              "velocity": 61,
+              "isInArpeggio": false,
+              "__typename": "Note"
+            }
+          ],
+          "horizontalSheetX": 4514,
+          "__typename": "NoteEvent"
+        },
+        {
+          "t": 60765,
+          "notesL": [],
+          "notesR": [
+            {
+              "key": 66,
+              "name": "F♯",
+              "delay": 0,
+              "duration": 242,
+              "velocity": 62,
+              "isInArpeggio": false,
+              "__typename": "Note"
+            }
+          ],
+          "horizontalSheetX": 4537,
+          "__typename": "NoteEvent"
+        },
+        {
+          "t": 61011,
+          "notesL": [],
+          "notesR": [
+            {
+              "key": 64,
+              "name": "E",
+              "delay": 0,
+              "duration": 773,
+              "velocity": 48,
+              "isInArpeggio": false,
+              "__typename": "Note"
+            }
+          ],
+          "horizontalSheetX": 4561,
+          "__typename": "NoteEvent"
+        },
+        {
+          "t": 61987,
+          "notesL": [],
+          "notesR": [
+            {
+              "key": 62,
+              "name": "D",
+              "delay": 0,
+              "duration": 97,
+              "velocity": 67,
+              "isInArpeggio": false,
+              "__typename": "Note"
+            }
+          ],
+          "horizontalSheetX": 4622,
+          "__typename": "NoteEvent"
+        },
+        {
+          "t": 62128,
+          "notesL": [],
+          "notesR": [
+            {
+              "key": 64,
+              "name": "E",
+              "delay": 0,
+              "duration": 233,
+              "velocity": 63,
+              "isInArpeggio": false,
+              "__typename": "Note"
+            }
+          ],
+          "horizontalSheetX": 4646,
+          "__typename": "NoteEvent"
+        },
+        {
+          "t": 62388,
+          "notesL": [
+            {
+              "key": 62,
+              "name": "D",
+              "delay": 5,
+              "duration": 2763,
+              "velocity": 53,
+              "isInArpeggio": false,
+              "__typename": "Note"
+            },
+            {
+              "key": 59,
+              "name": "B",
+              "delay": 8,
+              "duration": 2941,
+              "velocity": 34,
+              "isInArpeggio": false,
+              "__typename": "Note"
+            }
+          ],
+          "notesR": [
+            {
+              "key": 66,
+              "name": "F♯",
+              "delay": 0,
+              "duration": 2118,
+              "velocity": 65,
+              "isInArpeggio": false,
+              "__typename": "Note"
+            }
+          ],
+          "horizontalSheetX": 4685,
+          "__typename": "NoteEvent"
+        },
+        {
+          "t": 64682,
+          "notesL": [],
+          "notesR": [
+            {
+              "key": 66,
+              "name": "F♯",
+              "delay": 0,
+              "duration": 151,
+              "velocity": 74,
+              "isInArpeggio": false,
+              "__typename": "Note"
+            }
+          ],
+          "horizontalSheetX": 4818,
+          "__typename": "NoteEvent"
+        },
+        {
+          "t": 64825,
+          "notesL": [],
+          "notesR": [
+            {
+              "key": 67,
+              "name": "G",
+              "delay": 0,
+              "duration": 367,
+              "velocity": 84,
+              "isInArpeggio": false,
+              "__typename": "Note"
+            }
+          ],
+          "horizontalSheetX": 4843,
+          "__typename": "NoteEvent"
+        },
+        {
+          "t": 65136,
+          "notesL": [
+            {
+              "key": 57,
+              "name": "A",
+              "delay": 11,
+              "duration": 2308,
+              "velocity": 46,
+              "isInArpeggio": false,
+              "__typename": "Note"
+            },
+            {
+              "key": 61,
+              "name": "C♯",
+              "delay": 18,
+              "duration": 2263,
+              "velocity": 49,
+              "isInArpeggio": false,
+              "__typename": "Note"
+            }
+          ],
+          "notesR": [
+            {
+              "key": 69,
+              "name": "A",
+              "delay": 0,
+              "duration": 1843,
+              "velocity": 78,
+              "isInArpeggio": false,
+              "__typename": "Note"
+            }
+          ],
+          "horizontalSheetX": 4883,
+          "__typename": "NoteEvent"
+        },
+        {
+          "t": 66558,
+          "notesL": [],
+          "notesR": [
+            {
+              "key": 64,
+              "name": "E",
+              "delay": 0,
+              "duration": 1387,
+              "velocity": 65,
+              "isInArpeggio": false,
+              "__typename": "Note"
+            }
+          ],
+          "horizontalSheetX": 4957,
+          "__typename": "NoteEvent"
+        },
+        {
+          "t": 67944,
+          "notesL": [
+            {
+              "key": 50,
+              "name": "D",
+              "delay": 0,
+              "duration": 1720,
+              "velocity": 64,
+              "isInArpeggio": false,
+              "__typename": "Note"
+            }
+          ],
+          "notesR": [
+            {
+              "key": 62,
+              "name": "D",
+              "delay": 11,
+              "duration": 158,
+              "velocity": 74,
+              "isInArpeggio": false,
+              "__typename": "Note"
+            }
+          ],
+          "horizontalSheetX": 5043,
+          "__typename": "NoteEvent"
+        },
+        {
+          "t": 68093,
+          "notesL": [],
+          "notesR": [
+            {
+              "key": 64,
+              "name": "E",
+              "delay": 0,
+              "duration": 183,
+              "velocity": 66,
+              "isInArpeggio": false,
+              "__typename": "Note"
+            }
+          ],
+          "horizontalSheetX": 5062,
+          "__typename": "NoteEvent"
+        },
+        {
+          "t": 68278,
+          "notesL": [],
+          "notesR": [
+            {
+              "key": 66,
+              "name": "F♯",
+              "delay": 0,
+              "duration": 1053,
+              "velocity": 73,
+              "isInArpeggio": false,
+              "__typename": "Note"
+            }
+          ],
+          "horizontalSheetX": 5081,
+          "__typename": "NoteEvent"
+        },
+        {
+          "t": 68630,
+          "notesL": [
+            {
+              "key": 57,
+              "name": "A",
+              "delay": 0,
+              "duration": 91,
+              "velocity": 60,
+              "isInArpeggio": false,
+              "__typename": "Note"
+            },
+            {
+              "key": 54,
+              "name": "F♯",
+              "delay": 8,
+              "duration": 120,
+              "velocity": 57,
+              "isInArpeggio": false,
+              "__typename": "Note"
+            }
+          ],
+          "notesR": [],
+          "horizontalSheetX": 5111,
+          "__typename": "NoteEvent"
+        },
+        {
+          "t": 69305,
+          "notesL": [
+            {
+              "key": 54,
+              "name": "F♯",
+              "delay": 0,
+              "duration": 368,
+              "velocity": 56,
+              "isInArpeggio": false,
+              "__typename": "Note"
+            },
+            {
+              "key": 57,
+              "name": "A",
+              "delay": 2,
+              "duration": 350,
+              "velocity": 62,
+              "isInArpeggio": false,
+              "__typename": "Note"
+            }
+          ],
+          "notesR": [],
+          "horizontalSheetX": 5153,
+          "__typename": "NoteEvent"
+        },
+        {
+          "t": 69653,
+          "notesL": [],
+          "notesR": [
+            {
+              "key": 66,
+              "name": "F♯",
+              "delay": 0,
+              "duration": 554,
+              "velocity": 77,
+              "isInArpeggio": false,
+              "__typename": "Note"
+            }
+          ],
+          "horizontalSheetX": 5183,
+          "__typename": "NoteEvent"
+        },
+        {
+          "t": 70323,
+          "notesL": [],
+          "notesR": [
+            {
+              "key": 66,
+              "name": "F♯",
+              "delay": 0,
+              "duration": 307,
+              "velocity": 83,
+              "isInArpeggio": false,
+              "__typename": "Note"
+            }
+          ],
+          "horizontalSheetX": 5243,
+          "__typename": "NoteEvent"
+        },
+        {
+          "t": 70637,
+          "notesL": [
+            {
+              "key": 52,
+              "name": "E",
+              "delay": 14,
+              "duration": 1732,
+              "velocity": 63,
+              "isInArpeggio": false,
+              "__typename": "Note"
+            }
+          ],
+          "notesR": [
+            {
+              "key": 64,
+              "name": "E",
+              "delay": 0,
+              "duration": 177,
+              "velocity": 73,
+              "isInArpeggio": false,
+              "__typename": "Note"
+            }
+          ],
+          "horizontalSheetX": 5286,
+          "__typename": "NoteEvent"
+        },
+        {
+          "t": 70793,
+          "notesL": [],
+          "notesR": [
+            {
+              "key": 66,
+              "name": "F♯",
+              "delay": 0,
+              "duration": 211,
+              "velocity": 72,
+              "isInArpeggio": false,
+              "__typename": "Note"
+            }
+          ],
+          "horizontalSheetX": 5305,
+          "__typename": "NoteEvent"
+        },
+        {
+          "t": 70995,
+          "notesL": [],
+          "notesR": [
+            {
+              "key": 68,
+              "name": "G♯",
+              "delay": 0,
+              "duration": 417,
+              "velocity": 77,
+              "isInArpeggio": false,
+              "__typename": "Note"
+            }
+          ],
+          "horizontalSheetX": 5332,
+          "__typename": "NoteEvent"
+        },
+        {
+          "t": 71324,
+          "notesL": [
+            {
+              "key": 59,
+              "name": "B",
+              "delay": 0,
+              "duration": 351,
+              "velocity": 58,
+              "isInArpeggio": false,
+              "__typename": "Note"
+            },
+            {
+              "key": 56,
+              "name": "G♯",
+              "delay": 4,
+              "duration": 353,
+              "velocity": 55,
+              "isInArpeggio": false,
+              "__typename": "Note"
+            }
+          ],
+          "notesR": [],
+          "horizontalSheetX": 5363,
+          "__typename": "NoteEvent"
+        },
+        {
+          "t": 71650,
+          "notesL": [],
+          "notesR": [
+            {
+              "key": 68,
+              "name": "G♯",
+              "delay": 0,
+              "duration": 474,
+              "velocity": 80,
+              "isInArpeggio": false,
+              "__typename": "Note"
+            }
+          ],
+          "horizontalSheetX": 5394,
+          "__typename": "NoteEvent"
+        },
+        {
+          "t": 71979,
+          "notesL": [
+            {
+              "key": 59,
+              "name": "B",
+              "delay": 0,
+              "duration": 368,
+              "velocity": 68,
+              "isInArpeggio": false,
+              "__typename": "Note"
+            },
+            {
+              "key": 56,
+              "name": "G♯",
+              "delay": 12,
+              "duration": 390,
+              "velocity": 59,
+              "isInArpeggio": false,
+              "__typename": "Note"
+            }
+          ],
+          "notesR": [],
+          "horizontalSheetX": 5425,
+          "__typename": "NoteEvent"
+        },
+        {
+          "t": 72333,
+          "notesL": [],
+          "notesR": [
+            {
+              "key": 68,
+              "name": "G♯",
+              "delay": 0,
+              "duration": 535,
+              "velocity": 83,
+              "isInArpeggio": false,
+              "__typename": "Note"
+            }
+          ],
+          "horizontalSheetX": 5456,
+          "__typename": "NoteEvent"
+        },
+        {
+          "t": 72999,
+          "notesL": [],
+          "notesR": [
+            {
+              "key": 68,
+              "name": "G♯",
+              "delay": 0,
+              "duration": 349,
+              "velocity": 82,
+              "isInArpeggio": false,
+              "__typename": "Note"
+            }
+          ],
+          "horizontalSheetX": 5518,
+          "__typename": "NoteEvent"
+        },
+        {
+          "t": 73345,
+          "notesL": [
+            {
+              "key": 61,
+              "name": "C♯",
+              "delay": 17,
+              "duration": 1197,
+              "velocity": 61,
+              "isInArpeggio": false,
+              "__typename": "Note"
+            },
+            {
+              "key": 54,
+              "name": "F♯",
+              "delay": 25,
+              "duration": 1207,
+              "velocity": 61,
+              "isInArpeggio": false,
+              "__typename": "Note"
+            }
+          ],
+          "notesR": [
+            {
+              "key": 66,
+              "name": "F♯",
+              "delay": 0,
+              "duration": 160,
+              "velocity": 77,
+              "isInArpeggio": false,
+              "__typename": "Note"
+            }
+          ],
+          "horizontalSheetX": 5561,
+          "__typename": "NoteEvent"
+        },
+        {
+          "t": 73490,
+          "notesL": [],
+          "notesR": [
+            {
+              "key": 68,
+              "name": "G♯",
+              "delay": 0,
+              "duration": 209,
+              "velocity": 77,
+              "isInArpeggio": false,
+              "__typename": "Note"
+            }
+          ],
+          "horizontalSheetX": 5588,
+          "__typename": "NoteEvent"
+        },
+        {
+          "t": 73678,
+          "notesL": [],
+          "notesR": [
+            {
+              "key": 70,
+              "name": "A♯",
+              "delay": 0,
+              "duration": 892,
+              "velocity": 78,
+              "isInArpeggio": false,
+              "__typename": "Note"
+            }
+          ],
+          "horizontalSheetX": 5616,
+          "__typename": "NoteEvent"
+        },
+        {
+          "t": 74786,
+          "notesL": [
+            {
+              "key": 61,
+              "name": "C♯",
+              "delay": 0,
+              "duration": 51,
+              "velocity": 77,
+              "isInArpeggio": false,
+              "__typename": "Note"
+            },
+            {
+              "key": 54,
+              "name": "F♯",
+              "delay": 8,
+              "duration": 54,
+              "velocity": 74,
+              "isInArpeggio": false,
+              "__typename": "Note"
+            }
+          ],
+          "notesR": [
+            {
+              "key": 70,
+              "name": "A♯",
+              "delay": 2,
+              "duration": 78,
+              "velocity": 82,
+              "isInArpeggio": false,
+              "__typename": "Note"
+            }
+          ],
+          "horizontalSheetX": 5708,
+          "__typename": "NoteEvent"
+        },
+        {
+          "t": 75138,
+          "notesL": [
+            {
+              "key": 61,
+              "name": "C♯",
+              "delay": 9,
+              "duration": 433,
+              "velocity": 78,
+              "isInArpeggio": false,
+              "__typename": "Note"
+            },
+            {
+              "key": 54,
+              "name": "F♯",
+              "delay": 12,
+              "duration": 432,
+              "velocity": 77,
+              "isInArpeggio": false,
+              "__typename": "Note"
+            }
+          ],
+          "notesR": [
+            {
+              "key": 70,
+              "name": "A♯",
+              "delay": 0,
+              "duration": 446,
+              "velocity": 93,
+              "isInArpeggio": false,
+              "__typename": "Note"
+            }
+          ],
+          "horizontalSheetX": 5748,
+          "__typename": "NoteEvent"
+        },
+        {
+          "t": 75846,
+          "notesL": [
+            {
+              "key": 61,
+              "name": "C♯",
+              "delay": 6,
+              "duration": 52,
+              "velocity": 80,
+              "isInArpeggio": false,
+              "__typename": "Note"
+            },
+            {
+              "key": 54,
+              "name": "F♯",
+              "delay": 12,
+              "duration": 54,
+              "velocity": 70,
+              "isInArpeggio": false,
+              "__typename": "Note"
+            }
+          ],
+          "notesR": [
+            {
+              "key": 70,
+              "name": "A♯",
+              "delay": 0,
+              "duration": 93,
+              "velocity": 91,
+              "isInArpeggio": false,
+              "__typename": "Note"
+            }
+          ],
+          "horizontalSheetX": 5801,
+          "__typename": "NoteEvent"
+        },
+        {
+          "t": 76264,
+          "notesL": [
+            {
+              "key": 61,
+              "name": "C♯",
+              "delay": 4,
+              "duration": 4350,
+              "velocity": 83,
+              "isInArpeggio": false,
+              "__typename": "Note"
+            },
+            {
+              "key": 54,
+              "name": "F♯",
+              "delay": 9,
+              "duration": 4348,
+              "velocity": 77,
+              "isInArpeggio": false,
+              "__typename": "Note"
+            }
+          ],
+          "notesR": [
+            {
+              "key": 66,
+              "name": "F♯",
+              "delay": 0,
+              "duration": 4324,
+              "velocity": 81,
+              "isInArpeggio": false,
+              "__typename": "Note"
+            },
+            {
+              "key": 70,
+              "name": "A♯",
+              "delay": 2,
+              "duration": 4349,
+              "velocity": 82,
+              "isInArpeggio": false,
+              "__typename": "Note"
+            }
+          ],
+          "horizontalSheetX": 5861,
+          "__typename": "NoteEvent"
+        }
+      ],
+      "sustainPedalData": [
+        {
+          "t": 5797,
+          "value": 30,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 5827,
+          "value": 44,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 5857,
+          "value": 51,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 5888,
+          "value": 57,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 5918,
+          "value": 62,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 5948,
+          "value": 65,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 5978,
+          "value": 71,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 6008,
+          "value": 76,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 6038,
+          "value": 127,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 7087,
+          "value": 60,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 7117,
+          "value": 18,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 7147,
+          "value": 0,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 8347,
+          "value": 16,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 8378,
+          "value": 62,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 8408,
+          "value": 71,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 8438,
+          "value": 79,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 8468,
+          "value": 127,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 9819,
+          "value": 67,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 9848,
+          "value": 40,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 9877,
+          "value": 0,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 9997,
+          "value": 1,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 10027,
+          "value": 22,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 10057,
+          "value": 54,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 10088,
+          "value": 60,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 10118,
+          "value": 65,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 10148,
+          "value": 67,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 10178,
+          "value": 75,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 10208,
+          "value": 77,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 10238,
+          "value": 127,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 11287,
+          "value": 53,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 11317,
+          "value": 1,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 11347,
+          "value": 0,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 11377,
+          "value": 4,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 11407,
+          "value": 36,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 11438,
+          "value": 67,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 11468,
+          "value": 76,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 11498,
+          "value": 127,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 12757,
+          "value": 64,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 12787,
+          "value": 44,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 12817,
+          "value": 14,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 12847,
+          "value": 0,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 13057,
+          "value": 26,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 13087,
+          "value": 53,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 13118,
+          "value": 65,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 13148,
+          "value": 68,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 13178,
+          "value": 76,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 13208,
+          "value": 127,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 14318,
+          "value": 77,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 14378,
+          "value": 127,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 15787,
+          "value": 67,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 15819,
+          "value": 36,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 15847,
+          "value": 16,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 15877,
+          "value": 2,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 15907,
+          "value": 0,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 15967,
+          "value": 4,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 15997,
+          "value": 27,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 16027,
+          "value": 47,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 16058,
+          "value": 62,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 16088,
+          "value": 64,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 16118,
+          "value": 67,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 16148,
+          "value": 72,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 16178,
+          "value": 78,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 16208,
+          "value": 127,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 17257,
+          "value": 58,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 17288,
+          "value": 40,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 17317,
+          "value": 16,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 17347,
+          "value": 12,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 17377,
+          "value": 4,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 17438,
+          "value": 26,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 17467,
+          "value": 53,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 17498,
+          "value": 65,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 17528,
+          "value": 67,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 17558,
+          "value": 73,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 17588,
+          "value": 78,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 17618,
+          "value": 127,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 18788,
+          "value": 70,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 18817,
+          "value": 39,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 18847,
+          "value": 23,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 18877,
+          "value": 15,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 18907,
+          "value": 12,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 18967,
+          "value": 18,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 18997,
+          "value": 51,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 19028,
+          "value": 62,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 19058,
+          "value": 67,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 19088,
+          "value": 70,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 19118,
+          "value": 80,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 19148,
+          "value": 127,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 21637,
+          "value": 57,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 21668,
+          "value": 28,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 21697,
+          "value": 4,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 21727,
+          "value": 0,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 21847,
+          "value": 25,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 21878,
+          "value": 62,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 21908,
+          "value": 67,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 21938,
+          "value": 71,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 21967,
+          "value": 76,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 21998,
+          "value": 127,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 23077,
+          "value": 60,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 23107,
+          "value": 21,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 23137,
+          "value": 0,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 23197,
+          "value": 32,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 23228,
+          "value": 64,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 23258,
+          "value": 79,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 23288,
+          "value": 127,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 24577,
+          "value": 89,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 24607,
+          "value": 62,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 24637,
+          "value": 34,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 24667,
+          "value": 22,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 24697,
+          "value": 9,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 24727,
+          "value": 4,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 24787,
+          "value": 14,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 24818,
+          "value": 57,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 24848,
+          "value": 67,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 24877,
+          "value": 70,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 24907,
+          "value": 75,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 24938,
+          "value": 127,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 27457,
+          "value": 62,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 27487,
+          "value": 26,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 27518,
+          "value": 0,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 27638,
+          "value": 34,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 27668,
+          "value": 64,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 27698,
+          "value": 74,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 27728,
+          "value": 77,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 27758,
+          "value": 127,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 28898,
+          "value": 67,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 28927,
+          "value": 36,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 28957,
+          "value": 14,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 28988,
+          "value": 8,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 29077,
+          "value": 55,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 29107,
+          "value": 67,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 29137,
+          "value": 72,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 29167,
+          "value": 74,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 29198,
+          "value": 118,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 29227,
+          "value": 127,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 30457,
+          "value": 41,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 30487,
+          "value": 19,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 30517,
+          "value": 14,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 30787,
+          "value": 11,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 31807,
+          "value": 8,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 31897,
+          "value": 5,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 32766,
+          "value": 4,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 33786,
+          "value": 1,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 34416,
+          "value": 0,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 34896,
+          "value": 12,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 34926,
+          "value": 23,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 34956,
+          "value": 44,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 34987,
+          "value": 56,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 35017,
+          "value": 58,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 35047,
+          "value": 62,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 35077,
+          "value": 67,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 35107,
+          "value": 69,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 35137,
+          "value": 74,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 35167,
+          "value": 78,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 35197,
+          "value": 127,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 36096,
+          "value": 32,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 36126,
+          "value": 0,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 44377,
+          "value": 19,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 44407,
+          "value": 36,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 44438,
+          "value": 57,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 44468,
+          "value": 58,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 44498,
+          "value": 63,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 44528,
+          "value": 67,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 44558,
+          "value": 72,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 44588,
+          "value": 76,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 44618,
+          "value": 79,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 44648,
+          "value": 127,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 45757,
+          "value": 80,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 45787,
+          "value": 54,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 45817,
+          "value": 0,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 45937,
+          "value": 9,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 45967,
+          "value": 40,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 45998,
+          "value": 62,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 46028,
+          "value": 64,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 46058,
+          "value": 69,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 46088,
+          "value": 73,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 46118,
+          "value": 78,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 46148,
+          "value": 118,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 46177,
+          "value": 127,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 48847,
+          "value": 64,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 48877,
+          "value": 21,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 48907,
+          "value": 2,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 48938,
+          "value": 0,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 50167,
+          "value": 12,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 50198,
+          "value": 58,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 50228,
+          "value": 67,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 50258,
+          "value": 74,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 50288,
+          "value": 118,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 50317,
+          "value": 127,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 51457,
+          "value": 69,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 51488,
+          "value": 32,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 51517,
+          "value": 0,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 51667,
+          "value": 14,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 51697,
+          "value": 32,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 51727,
+          "value": 41,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 51757,
+          "value": 55,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 51788,
+          "value": 57,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 51818,
+          "value": 59,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 51848,
+          "value": 62,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 51878,
+          "value": 65,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 51908,
+          "value": 67,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 51938,
+          "value": 69,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 51968,
+          "value": 72,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 51998,
+          "value": 76,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 52028,
+          "value": 78,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 52058,
+          "value": 127,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 52777,
+          "value": 59,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 52807,
+          "value": 26,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 52838,
+          "value": 0,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 52988,
+          "value": 11,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 53018,
+          "value": 63,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 53048,
+          "value": 73,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 53078,
+          "value": 127,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 54038,
+          "value": 78,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 54067,
+          "value": 56,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 54097,
+          "value": 16,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 54127,
+          "value": 1,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 54157,
+          "value": 0,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 55537,
+          "value": 29,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 55567,
+          "value": 51,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 55597,
+          "value": 64,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 55627,
+          "value": 66,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 55657,
+          "value": 73,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 55688,
+          "value": 79,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 55717,
+          "value": 127,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 56917,
+          "value": 53,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 56947,
+          "value": 20,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 56977,
+          "value": 1,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 57067,
+          "value": 34,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 57097,
+          "value": 71,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 57127,
+          "value": 78,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 57158,
+          "value": 127,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 59677,
+          "value": 44,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 59707,
+          "value": 19,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 59738,
+          "value": 0,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 59857,
+          "value": 27,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 59888,
+          "value": 57,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 59917,
+          "value": 67,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 59948,
+          "value": 71,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 59978,
+          "value": 78,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 60007,
+          "value": 127,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 61027,
+          "value": 67,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 61057,
+          "value": 21,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 61087,
+          "value": 12,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 61147,
+          "value": 36,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 61177,
+          "value": 67,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 61208,
+          "value": 76,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 61238,
+          "value": 127,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 62377,
+          "value": 60,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 62408,
+          "value": 27,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 62437,
+          "value": 0,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 62557,
+          "value": 2,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 62587,
+          "value": 36,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 62618,
+          "value": 69,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 62648,
+          "value": 74,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 62678,
+          "value": 77,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 62707,
+          "value": 127,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 65138,
+          "value": 67,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 65168,
+          "value": 59,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 65197,
+          "value": 40,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 65227,
+          "value": 23,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 65257,
+          "value": 5,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 65288,
+          "value": 0,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 65498,
+          "value": 4,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 65528,
+          "value": 7,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 65558,
+          "value": 27,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 65589,
+          "value": 55,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 65618,
+          "value": 70,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 65649,
+          "value": 75,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 65679,
+          "value": 127,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 66608,
+          "value": 71,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 66638,
+          "value": 69,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 66668,
+          "value": 77,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 66699,
+          "value": 127,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 67988,
+          "value": 63,
+          "__typename": "SustainPedalData"
+        },
+        {
+          "t": 68018,
+          "value": 0,
+          "__typename": "SustainPedalData"
+        }
+      ],
+      "videoMp4Url": "https://cdn.flowkey.com/mp4/medium/resources/mp4HqOutput/3Eguqi4WHdJHFPABm/concerning-hobbits-l2_2021-08-26_16-08-16-1629987482090/1629987696077.mp4",
+      "videoDuration": 82.76,
+      "__typename": "Song"
+    }
+  }
+}
