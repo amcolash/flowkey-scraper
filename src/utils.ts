@@ -1,5 +1,6 @@
-import { join } from "path";
-import { Note } from "./types";
+import { join } from 'path';
+
+import { Note } from './types';
 
 // https://app.studyraid.com/en/read/12495/404090/basic-shape-drawing
 export function drawRectOutline(image, x: number, y: number, w: number, h: number, color) {
@@ -16,10 +17,10 @@ export function drawRectOutline(image, x: number, y: number, w: number, h: numbe
   }
 }
 
-export function getNoteDir(note: Pick<Note, "note" | "octave">): string {
-  return join(__dirname, `../images/notes/${note.note}${note.octave}`);
+export function getNoteDir(note: Pick<Note, 'note' | 'octave' | 'clef'>): string {
+  return join(__dirname, `../images/notes/${note.clef || 'treble'}/${note.note}${note.octave}`);
 }
 
-export function getNoteName(note: Note): string {
-  return `${note.duration}${note.dot ? "_dot" : ""}_${note.stem}.png`;
+export function getNoteFile(note: Note): string {
+  return `${note.duration}${note.dot ? '_dot' : ''}_${note.stem}.png`;
 }

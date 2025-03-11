@@ -1,10 +1,12 @@
-export type NoteDuration = "w" | "h" | "q" | "8" | "16";
+export type NoteDuration = 'w' | 'h' | 'q' | '8' | '16';
+
 export type Note = {
-  note: string;
-  octave: number;
+  note: 'C' | 'D' | 'E' | 'F' | 'G' | 'A' | 'B';
+  octave: 1 | 2 | 3 | 4 | 5 | 6 | 7;
   duration: NoteDuration;
   dot: boolean;
-  stem: "up" | "down";
+  stem: 'up' | 'down';
+  clef?: 'treble' | 'bass';
 };
 
 // Noteflight types
