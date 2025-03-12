@@ -1,8 +1,10 @@
 export type NoteDuration = 'w' | 'h' | 'q' | '8' | '16';
+export type NoteName = 'C' | 'D' | 'E' | 'F' | 'G' | 'A' | 'B';
+export type Octave = 1 | 2 | 3 | 4 | 5 | 6 | 7;
 
 export type Note = {
-  note: 'C' | 'D' | 'E' | 'F' | 'G' | 'A' | 'B';
-  octave: 1 | 2 | 3 | 4 | 5 | 6 | 7;
+  note: NoteName;
+  octave: Octave;
   duration: NoteDuration;
   dot: boolean;
   stem: 'up' | 'down';
@@ -76,7 +78,7 @@ export interface NoteEvent {
 
 export interface Notes {
   key: number;
-  name: string;
+  name: NoteName;
   delay: number;
   duration: number;
   velocity: number;

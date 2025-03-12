@@ -6,7 +6,7 @@ import { join } from 'path';
 import { determineDuration } from './matching';
 import { NoteflightData, Notes, Song } from './types';
 import { drawRectOutline } from './utils';
-import { generateNoteImages } from './vexflow';
+import { generateAllNotes, generateNoteImages } from './vexflow';
 
 async function downloadImages(song: Song) {
   await mkdir('./images/sheets', { recursive: true });
@@ -74,7 +74,7 @@ async function imageIdentify(song: Song) {
   await image.write(output);
 }
 
-async function step(name: string, fn: () => Promise<void>) {
+async function step(name: string, fn: () => Promise<any>) {
   console.log(`starting: ${name}`);
   await fn();
   console.log(`complete: ${name}`);
@@ -89,23 +89,17 @@ async function parse() {
   // await step("image composite", () => imageComposite(song));
   // await step("image identify", () => imageIdentify(song));
 
-  // generate bass clef note images (c2-c4)
-  for (let o = 2; o <= 4; o++) {
-    for (let n = 0; n < 7; n++) {
-      // @ts-ignore
-      await generateNoteImages({ note: 'CDEFGAB'[n], octave: o, clef: 'bass' });
-    }
-  }
+  await generateAllNotes();
 
-  // generate treble clef note images (c4-c6)
-  for (let o = 4; o <= 6; o++) {
-    for (let n = 0; n < 7; n++) {
-      // @ts-ignore
-      await generateNoteImages({ note: 'CDEFGAB'[n], octave: o, clef: 'treble' });
-    }
-  }
+  // await generateNoteImages({ note: 'D', octave: 2, clef: 'bass' });
 
-  // await determineDuration(song);
+  // await step('determine duration', () => determineDuration(song, song.noteEvents[0]));
+  // await step('determine duration', () => determineDuration(song, song.noteEvents[1]));
+  // await step('determine duration', () => determineDuration(song, song.noteEvents[2]));
+
+  // await determineDuration(song, song.noteEvents[0]);
+  await determineDuration(song, song.noteEvents[1]);
+  // await determineDuration(song, song.noteEvents[2]);
 
   return;
 
