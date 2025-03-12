@@ -89,7 +89,7 @@ async function parse() {
   // await step("image composite", () => imageComposite(song));
   // await step("image identify", () => imageIdentify(song));
 
-  await generateAllNotes();
+  // await generateAllNotes();
 
   // await generateNoteImages({ note: 'D', octave: 2, clef: 'bass' });
 
@@ -97,9 +97,10 @@ async function parse() {
   // await step('determine duration', () => determineDuration(song, song.noteEvents[1]));
   // await step('determine duration', () => determineDuration(song, song.noteEvents[2]));
 
-  // await determineDuration(song, song.noteEvents[0]);
+  await determineDuration(song, song.noteEvents[0]);
   await determineDuration(song, song.noteEvents[1]);
-  // await determineDuration(song, song.noteEvents[2]);
+  await determineDuration(song, song.noteEvents[2]);
+  await determineDuration(song, song.noteEvents[3]);
 
   return;
 

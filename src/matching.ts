@@ -1,7 +1,7 @@
 import { mkdir } from 'fs/promises';
 import { Bitmap, Jimp, JimpInstance } from 'jimp';
 import { cv } from 'opencv-wasm';
-import { join } from 'path';
+import { join, relative } from 'path';
 
 import { Note, NoteDuration, NoteEvent, Octave, Song } from './types';
 import { getNoteDir, getNoteFile } from './utils';
@@ -46,9 +46,9 @@ export async function determineDuration(song: Song, note: NoteEvent): Promise<No
           clef: 'bass',
         };
 
-        if (duration !== 'q' || n.dot || n.stem === 'down') continue;
+        // if (duration !== 'q' || n.dot || n.stem === 'down') continue;
 
-        console.log('checking', n);
+        // console.log('checking', n);
 
         const templatePath = join(getNoteDir(n), getNoteFile(n));
         const template = await Jimp.read(templatePath);
@@ -59,7 +59,7 @@ export async function determineDuration(song: Song, note: NoteEvent): Promise<No
         const contours = await templateMatch(region.bitmap, template.bitmap, 0.7);
 
         if (contours.size() > 0) {
-          console.log('Found note', n);
+          console.log('Found note', relative(join(__dirname, '../images/'), templatePath));
           return duration;
         }
       }
