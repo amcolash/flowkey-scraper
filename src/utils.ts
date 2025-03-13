@@ -17,10 +17,10 @@ export function drawRectOutline(image, x: number, y: number, w: number, h: numbe
   }
 }
 
-export function getNoteDir(note: Pick<Note, 'note' | 'octave' | 'clef'>): string {
-  return join(__dirname, `../images/notes/${note.clef || 'treble'}/${note.note}${note.octave}`);
+export function getNoteDir(): string {
+  return join(__dirname, `../images/notes/`);
 }
 
-export function getNoteFile(note: Note): string {
+export function getNoteFile(note: Pick<Note, 'duration' | 'dot' | 'stem'>): string {
   return `${note.duration}${note.dot ? '_dot' : ''}_${note.stem}.png`;
 }

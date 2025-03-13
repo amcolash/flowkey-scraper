@@ -89,43 +89,12 @@ async function parse() {
   // await step("image composite", () => imageComposite(song));
   // await step("image identify", () => imageIdentify(song));
 
-  // await generateAllNotes();
-
-  // await generateNoteImages({ note: 'D', octave: 2, clef: 'bass' });
-
-  // await step('determine duration', () => determineDuration(song, song.noteEvents[0]));
-  // await step('determine duration', () => determineDuration(song, song.noteEvents[1]));
-  // await step('determine duration', () => determineDuration(song, song.noteEvents[2]));
+  await step('generate note images', () => generateNoteImages());
 
   await determineDuration(song, song.noteEvents[0]);
   await determineDuration(song, song.noteEvents[1]);
   await determineDuration(song, song.noteEvents[2]);
   await determineDuration(song, song.noteEvents[3]);
-
-  return;
-
-  const notes = song.noteEvents;
-  const duration = song.videoDuration;
-  const startTime = notes[0].t;
-
-  let longest: Notes;
-  notes.forEach((n) => {
-    n.notesL.forEach((l) => {
-      if (!longest || l.duration > longest.duration) longest = l;
-    });
-
-    n.notesR.forEach((r) => {
-      if (!longest || r.duration > longest.duration) longest = r;
-    });
-  });
-
-  // console.log("Longest note duration: ", longest);
-
-  // console.log(
-  //   notes.map((n) => {
-  //     return [n.notesL.map((l) => l.duration), n.notesR.map((r) => r.duration)];
-  //   })
-  // );
 }
 
 parse();

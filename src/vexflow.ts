@@ -14,7 +14,7 @@ global.window = dom.window;
 global.document = dom.window.document;
 
 // Create global canvas, renderer, and context for note generation
-const canvas = createCanvas(70, 189);
+const canvas = createCanvas(100, 250);
 const renderer = new Renderer(canvas as any as HTMLCanvasElement, Renderer.Backends.CANVAS);
 const context = renderer.getContext();
 
@@ -24,14 +24,12 @@ context.scale(scale, scale);
 // Note durations to generate
 export const durations: NoteDuration[] = ['w', 'h', 'q', '8', '16'];
 
-export async function generateNoteImages(rootNote: Pick<Note, 'note' | 'octave' | 'clef'>) {
+export async function generateNoteImages() {
   // Connect it to the rendering context and draw
-  const stave = new Stave(-10, -7.7, 75);
+  const stave = new Stave(0, -30, 100);
   stave.setContext(context);
 
-  const keys = [`${rootNote.note}/${rootNote.octave}`];
-
-  const noteDir = getNoteDir(rootNote);
+  const noteDir = getNoteDir();
   await mkdir(noteDir, { recursive: true });
 
   // Draw notes
@@ -39,31 +37,23 @@ export async function generateNoteImages(rootNote: Pick<Note, 'note' | 'octave' 
     for (let stem = 0; stem < 2; stem++) {
       for (let d = 0; d < durations.length; d++) {
         const duration = durations[d];
-        const note: Note = {
-          note: rootNote.note,
-          octave: rootNote.octave,
+        const note = {
           duration,
           dot: dot === 1,
-          stem: stem ? 'up' : 'down',
+          stem: stem ? 'up' : ('down' as 'up' | 'down'),
         };
         const output = join(noteDir, getNoteFile(note));
 
         // if (existsSync(output)) continue;
 
-        // context.clear();
-        let prev = context.fillStyle;
-        context.fillStyle = 'white';
-        context.fillRect(0, 0, canvas.width, canvas.height);
-        context.fillStyle = prev;
-
-        // stave.draw();
+        context.clear();
 
         const notes: StaveNote[] = [
           new StaveNote({
-            keys,
+            keys: ['C/4'],
             duration,
             stemDirection: stem ? Stem.UP : Stem.DOWN,
-            clef: rootNote.clef || 'treble',
+            clef: 'treble',
           }),
         ];
 
@@ -71,27 +61,12 @@ export async function generateNoteImages(rootNote: Pick<Note, 'note' | 'octave' 
         Formatter.FormatAndDraw(context, stave, notes);
 
         const scaled = (await Jimp.fromBuffer(canvas.toBuffer())).autocrop();
+        const final = new Jimp({ width: scaled.width, height: scaled.height, color: 0xffffffff });
+        final.composite(scaled);
+
         // @ts-ignore
-        scaled.write(output);
+        final.write(output);
       }
-    }
-  }
-}
-
-export async function generateAllNotes() {
-  // generate bass clef note images (c2-c4)
-  for (let o = 2; o <= 4; o++) {
-    for (let n = 0; n < 7; n++) {
-      // @ts-ignore
-      await generateNoteImages({ note: 'CDEFGAB'[n], octave: o, clef: 'bass' });
-    }
-  }
-
-  // generate treble clef note images (c4-c6)
-  for (let o = 4; o <= 6; o++) {
-    for (let n = 0; n < 7; n++) {
-      // @ts-ignore
-      await generateNoteImages({ note: 'CDEFGAB'[n], octave: o, clef: 'treble' });
     }
   }
 }
