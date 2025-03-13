@@ -4,9 +4,8 @@ import { Jimp } from 'jimp';
 import { join } from 'path';
 
 import { determineDuration } from './matching';
-import { NoteflightData, Notes, Song } from './types';
-import { drawRectOutline } from './utils';
-import { generateAllNotes, generateNoteImages } from './vexflow';
+import { NoteflightData, Song } from './types';
+import { generateNoteImages } from './vexflow';
 
 async function downloadImages(song: Song) {
   await mkdir('./images/sheets', { recursive: true });
@@ -43,37 +42,6 @@ async function imageComposite(song: Song) {
   await final.write(dest);
 }
 
-async function imageIdentify(song: Song) {
-  const input = join(__dirname, 'images', 'final.png');
-  const image = await Jimp.read(input);
-
-  const sheet = song.musicsheets.horizontalSheet;
-  const notes = song.noteEvents;
-
-  const leftPadding = 15;
-  const rightPadding = 5;
-  const padding = leftPadding + rightPadding;
-  const size = 30 + padding;
-
-  notes.forEach((n) => {
-    if (n.notesL.length > 0)
-      drawRectOutline(
-        image,
-        n.horizontalSheetX * 2 - leftPadding,
-        sheet.totalHeight,
-        size,
-        sheet.totalHeight,
-        0x000000ff
-      );
-    if (n.notesR.length > 0)
-      drawRectOutline(image, n.horizontalSheetX * 2 - leftPadding, 0, size, sheet.totalHeight, 0x000000ff);
-  });
-
-  const output = join(__dirname, 'images', 'annotated.png');
-  // @ts-ignore
-  await image.write(output);
-}
-
 async function step(name: string, fn: () => Promise<any>) {
   console.log(`starting: ${name}`);
   await fn();
@@ -87,14 +55,13 @@ async function parse() {
 
   // await step("downloading images", () => downloadImages(song));
   // await step("image composite", () => imageComposite(song));
-  // await step("image identify", () => imageIdentify(song));
 
   await step('generate note images', () => generateNoteImages());
 
-  await determineDuration(song, song.noteEvents[0]);
-  await determineDuration(song, song.noteEvents[1]);
-  await determineDuration(song, song.noteEvents[2]);
-  await determineDuration(song, song.noteEvents[3]);
+  await determineDuration(song, song.noteEvents[0], 'bass');
+  await determineDuration(song, song.noteEvents[1], 'bass');
+  await determineDuration(song, song.noteEvents[2], 'bass');
+  await determineDuration(song, song.noteEvents[3], 'bass');
 }
 
 parse();
