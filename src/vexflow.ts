@@ -1,11 +1,12 @@
 import { createCanvas } from 'canvas';
+import { existsSync } from 'fs';
 import { mkdir } from 'fs/promises';
 import { Jimp } from 'jimp';
 import { JSDOM } from 'jsdom';
 import { join } from 'path';
 import { Dot, Formatter, Renderer, Stave, StaveNote, Stem } from 'vexflow';
 
-import { Note, NoteDuration } from './types';
+import { NoteDuration } from './types';
 import { getNoteDir, getNoteFile } from './utils';
 
 // Set up a fake DOM environment for Vexflow to work.
@@ -25,74 +26,75 @@ context.scale(scale, scale);
 export const durations: NoteDuration[] = ['w', 'h', 'q', '8', '16'];
 
 type Options = {
-  stem?: boolean;
-  additionalNotes?: string[];
+  stems: boolean;
+  extraNotes?: string[];
 };
 
-const durationData: Record<NoteDuration, Options> = {
-  w: { stem: false },
-  h: {},
-  q: {},
-  '8': {},
-  '16': {},
+type NoteConfig = {
+  duration: NoteDuration;
+  note: string;
+  stem: 'up' | 'down';
+  dot: boolean;
 };
 
-export async function generateNoteImages() {
-  for (const duration of durations) {
-    generateNoteDurations(duration, 'C/4');
-    generateNoteDurations(duration, 'D/4');
+const noteOptions: Record<NoteDuration, Options> = {
+  w: { stems: false },
+  h: { stems: true },
+  q: { stems: true },
+  '8': { stems: true },
+  '16': { stems: true },
+};
 
-    if (durationData[duration].additionalNotes) {
-      for (const note of durationData[duration].additionalNotes) {
-        generateNoteDurations(duration, note);
+function generateConfigs() {
+  const configs: NoteConfig[] = [];
+
+  Object.entries(noteOptions).forEach(([d, options]) => {
+    const duration = d as NoteDuration;
+    const { stems, extraNotes } = options;
+
+    const baseNotes = ['C/4', 'D/4'].concat(extraNotes || []);
+
+    for (const note of baseNotes) {
+      configs.push({ duration, note, stem: 'down', dot: false });
+      configs.push({ duration, note, stem: 'down', dot: true });
+
+      if (stems) {
+        configs.push({ duration, note, stem: 'up', dot: false });
+        configs.push({ duration, note, stem: 'up', dot: true });
       }
     }
+  });
+
+  return configs;
+}
+
+export async function generateNoteImages() {
+  const configs = generateConfigs();
+
+  for (const { duration, note, stem, dot } of configs) {
+    await generateNoteImage({ duration, note, stem, dot });
   }
 }
 
-async function generateNoteDurations(duration: NoteDuration, note: string) {
+async function generateNoteImage({ duration, note, stem, dot }: NoteConfig) {
   const noteDir = getNoteDir(duration);
   await mkdir(noteDir, { recursive: true });
 
-  const data = durationData[duration];
+  const outputPath = join(noteDir, getNoteFile(note, dot, stem));
+  if (existsSync(outputPath)) return;
 
-  // Connect stave to the rendering context
-  const stave = new Stave(0, -30, 100);
-  stave.setContext(context);
-  // stave.draw();
+  context.clear();
+  const stave = new Stave(0, -30, 100).setContext(context);
+  const noteObj = new StaveNote({
+    keys: [note],
+    duration,
+    stemDirection: stem === 'up' ? Stem.UP : Stem.DOWN,
+    clef: 'treble',
+  });
 
-  // Draw notes
-  for (let dot = 0; dot < 2; dot++) {
-    for (let stem = 0; stem < (data.stem !== false ? 2 : 1); stem++) {
-      const note = {
-        duration,
-        dot: dot === 1,
-        stem: stem ? 'up' : ('down' as 'up' | 'down'),
-      };
+  if (dot) Dot.buildAndAttach([noteObj]);
+  Formatter.FormatAndDraw(context, stave, [noteObj]);
 
-      const output = join(noteDir, getNoteFile(note));
-      // if (existsSync(output)) continue;
-
-      context.clear();
-
-      const notes: StaveNote[] = [
-        new StaveNote({
-          keys: duration === 'w' && stem ? ['D/4'] : ['C/4'],
-          duration,
-          stemDirection: stem ? Stem.UP : Stem.DOWN,
-          clef: 'treble',
-        }),
-      ];
-
-      if (dot) Dot.buildAndAttach(notes);
-      Formatter.FormatAndDraw(context, stave, notes);
-
-      const scaled = (await Jimp.fromBuffer(canvas.toBuffer())).autocrop();
-      const final = new Jimp({ width: scaled.width, height: scaled.height, color: 0xffffffff });
-      final.composite(scaled);
-
-      // @ts-ignore
-      final.write(output);
-    }
-  }
+  // @ts-ignore
+  (await Jimp.fromBuffer(canvas.toBuffer())).autocrop().write(outputPath);
 }
