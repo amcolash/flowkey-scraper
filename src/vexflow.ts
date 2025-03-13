@@ -24,49 +24,75 @@ context.scale(scale, scale);
 // Note durations to generate
 export const durations: NoteDuration[] = ['w', 'h', 'q', '8', '16'];
 
+type Options = {
+  stem?: boolean;
+  additionalNotes?: string[];
+};
+
+const durationData: Record<NoteDuration, Options> = {
+  w: { stem: false },
+  h: {},
+  q: {},
+  '8': {},
+  '16': {},
+};
+
 export async function generateNoteImages() {
-  // Connect it to the rendering context and draw
+  for (const duration of durations) {
+    generateNoteDurations(duration, 'C/4');
+    generateNoteDurations(duration, 'D/4');
+
+    if (durationData[duration].additionalNotes) {
+      for (const note of durationData[duration].additionalNotes) {
+        generateNoteDurations(duration, note);
+      }
+    }
+  }
+}
+
+async function generateNoteDurations(duration: NoteDuration, note: string) {
+  const noteDir = getNoteDir(duration);
+  await mkdir(noteDir, { recursive: true });
+
+  const data = durationData[duration];
+
+  // Connect stave to the rendering context
   const stave = new Stave(0, -30, 100);
   stave.setContext(context);
-
-  const noteDir = getNoteDir();
-  await mkdir(noteDir, { recursive: true });
+  // stave.draw();
 
   // Draw notes
   for (let dot = 0; dot < 2; dot++) {
-    for (let stem = 0; stem < 2; stem++) {
-      for (let d = 0; d < durations.length; d++) {
-        const duration = durations[d];
-        const note = {
+    for (let stem = 0; stem < (data.stem !== false ? 2 : 1); stem++) {
+      const note = {
+        duration,
+        dot: dot === 1,
+        stem: stem ? 'up' : ('down' as 'up' | 'down'),
+      };
+
+      const output = join(noteDir, getNoteFile(note));
+      // if (existsSync(output)) continue;
+
+      context.clear();
+
+      const notes: StaveNote[] = [
+        new StaveNote({
+          keys: duration === 'w' && stem ? ['D/4'] : ['C/4'],
           duration,
-          dot: dot === 1,
-          stem: stem ? 'up' : ('down' as 'up' | 'down'),
-        };
-        const output = join(noteDir, getNoteFile(note));
+          stemDirection: stem ? Stem.UP : Stem.DOWN,
+          clef: 'treble',
+        }),
+      ];
 
-        // if (existsSync(output)) continue;
+      if (dot) Dot.buildAndAttach(notes);
+      Formatter.FormatAndDraw(context, stave, notes);
 
-        context.clear();
+      const scaled = (await Jimp.fromBuffer(canvas.toBuffer())).autocrop();
+      const final = new Jimp({ width: scaled.width, height: scaled.height, color: 0xffffffff });
+      final.composite(scaled);
 
-        const notes: StaveNote[] = [
-          new StaveNote({
-            keys: ['C/4'],
-            duration,
-            stemDirection: stem ? Stem.UP : Stem.DOWN,
-            clef: 'treble',
-          }),
-        ];
-
-        if (dot) Dot.buildAndAttach(notes);
-        Formatter.FormatAndDraw(context, stave, notes);
-
-        const scaled = (await Jimp.fromBuffer(canvas.toBuffer())).autocrop();
-        const final = new Jimp({ width: scaled.width, height: scaled.height, color: 0xffffffff });
-        final.composite(scaled);
-
-        // @ts-ignore
-        final.write(output);
-      }
+      // @ts-ignore
+      final.write(output);
     }
   }
 }

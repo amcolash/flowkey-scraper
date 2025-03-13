@@ -28,6 +28,11 @@ export async function determineDuration(
     h: sheet.totalHeight,
   };
 
+  if ((clef === 'treble' && note.notesR.length === 0) || (clef === 'bass' && note.notesL.length === 0)) {
+    console.log('Could not find note');
+    return;
+  }
+
   const imgPath = join(__dirname, '../images', 'final.png');
   const region = await Jimp.read(imgPath);
   region.crop(dims);

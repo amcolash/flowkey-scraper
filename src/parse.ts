@@ -1,6 +1,7 @@
+import { ImageData, createCanvas } from 'canvas';
 import { existsSync } from 'fs';
 import { mkdir, readFile, writeFile } from 'fs/promises';
-import { Jimp } from 'jimp';
+import { Jimp, loadFont } from 'jimp';
 import { join } from 'path';
 
 import { determineDuration } from './matching';
@@ -42,6 +43,31 @@ async function imageComposite(song: Song) {
   await final.write(dest);
 }
 
+async function analyzeSong(song: Song) {
+  const img = await Jimp.read(join(__dirname, '../images', 'final.png'));
+  const imageData = new ImageData(Uint8ClampedArray.from(img.bitmap.data), img.bitmap.width, img.bitmap.height);
+
+  const canvas = createCanvas(img.width, img.height);
+  const ctx = canvas.getContext('2d');
+  ctx.font = '20px Arial';
+  ctx.fillStyle = 'black';
+  ctx.putImageData(imageData, 0, 0);
+
+  let length = song.noteEvents.length;
+  // length = 32;
+
+  for (let i = 0; i < length; i++) {
+    const duration = await determineDuration(song, song.noteEvents[i], 'bass');
+
+    if (duration)
+      ctx.fillText(duration, song.noteEvents[i].horizontalSheetX * 2, song.musicsheets.horizontalSheet.totalHeight);
+  }
+
+  const annotated = await Jimp.fromBuffer(canvas.toBuffer());
+  // @ts-ignore
+  await annotated.write(join(__dirname, '../images/annotated.png'));
+}
+
 async function step(name: string, fn: () => Promise<any>) {
   console.log(`starting: ${name}`);
   await fn();
@@ -57,11 +83,9 @@ async function parse() {
   // await step("image composite", () => imageComposite(song));
 
   await step('generate note images', () => generateNoteImages());
+  return;
 
-  await determineDuration(song, song.noteEvents[0], 'bass');
-  await determineDuration(song, song.noteEvents[1], 'bass');
-  await determineDuration(song, song.noteEvents[2], 'bass');
-  await determineDuration(song, song.noteEvents[3], 'bass');
+  await step('analyze song', () => analyzeSong(song));
 }
 
 parse();
