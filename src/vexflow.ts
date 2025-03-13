@@ -81,9 +81,14 @@ async function generateNoteImage({ duration, note, stem, dot }: NoteConfig) {
   await mkdir(noteDir, { recursive: true });
 
   const outputPath = join(noteDir, getNoteFile(note, dot, stem));
-  if (existsSync(outputPath)) return;
+  // if (existsSync(outputPath)) return;
 
-  context.clear();
+  // Clear the canvas, then reset the fill style
+  let prev = context.fillStyle;
+  context.fillStyle = 'white';
+  context.fillRect(0, 0, canvas.width, canvas.height);
+  context.fillStyle = prev;
+
   const stave = new Stave(0, -30, 100).setContext(context);
   const noteObj = new StaveNote({
     keys: [note],

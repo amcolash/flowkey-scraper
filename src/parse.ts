@@ -55,6 +55,7 @@ async function analyzeSong(song: Song) {
 
   let length = song.noteEvents.length;
   // length = 32;
+  // length = 1;
 
   for (let i = 0; i < length; i++) {
     const duration = await determineDuration(song, song.noteEvents[i], 'bass');
@@ -83,7 +84,7 @@ async function parse() {
   // await step("image composite", () => imageComposite(song));
 
   await step('generate note images', () => generateNoteImages());
-  return;
+  // return;
 
   await step('analyze song', () => analyzeSong(song));
 }

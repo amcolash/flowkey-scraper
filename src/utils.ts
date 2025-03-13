@@ -1,4 +1,5 @@
 import { join } from 'path';
+import { Note } from 'vexflow';
 
 import { NoteDuration } from './types';
 
@@ -31,4 +32,14 @@ export function getNoteDir(duration: NoteDuration): string {
 
 export function getNoteFile(note: string, dot: boolean, stem?: 'up' | 'down'): string {
   return `${note.replace('/', '')}${dot ? `_dot` : ''}${stem ? `_${stem}` : ''}.png`;
+}
+
+export function parseNoteDuration(filePath: string): NoteDuration {
+  if (filePath.includes('whole')) return 'w';
+  if (filePath.includes('half')) return 'h';
+  if (filePath.includes('quarter')) return 'q';
+  if (filePath.includes('eighth')) return '8';
+  if (filePath.includes('sixteenth')) return '16';
+
+  return 'q';
 }
