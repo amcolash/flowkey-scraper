@@ -53,12 +53,18 @@ async function analyzeSong(song: Song) {
   ctx.fillStyle = 'black';
   ctx.putImageData(imageData, 0, 0);
 
-  let length = song.noteEvents.length;
-  // length = 32;
-  length = 8;
+  let start = 0;
+  start = 10;
 
-  for (let i = 0; i < length; i++) {
-    const duration = await determineDuration(song, song.noteEvents[i], 'treble');
+  let end = song.noteEvents.length;
+  end = 8;
+  end = 32;
+  end = 11;
+
+  console.log();
+
+  for (let i = start; i < end; i++) {
+    const duration = await determineDuration(song, i, 'treble');
     if (duration)
       ctx.fillText(duration, song.noteEvents[i].horizontalSheetX * 2, song.musicsheets.horizontalSheet.totalHeight);
   }

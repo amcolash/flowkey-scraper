@@ -1,24 +1,25 @@
 import { mkdir, readdir } from 'fs/promises';
 import { Bitmap, Jimp, JimpInstance } from 'jimp';
 import { cv } from 'opencv-wasm';
-import { join } from 'path';
+import { basename, join } from 'path';
 
 import { NoteDuration, NoteEvent, Song } from './types';
 import { parseNoteDuration } from './utils';
 
-const DEBUG = false;
+const DEBUG = true;
 
-const leftPadding = 15;
-const rightPadding = 5;
+const leftPadding = 12;
+const rightPadding = 8;
 const padding = leftPadding + rightPadding;
-const size = 30 + padding;
+const size = 34 + padding;
 
 export async function determineDuration(
   song: Song,
-  note: NoteEvent,
+  index: number,
   clef: 'bass' | 'treble'
 ): Promise<NoteDuration | undefined> {
   const sheet = song.musicsheets.horizontalSheet;
+  const note = song.noteEvents[index];
 
   const dims = {
     x: note.horizontalSheetX * 2 - leftPadding,
@@ -40,6 +41,7 @@ export async function determineDuration(
   await debugJimp(region, 'region');
 
   let bestMatch: { duration: NoteDuration; score: number } | undefined = undefined;
+  const durationBest: Partial<Record<NoteDuration, { score: number; template: string }>> = {};
 
   const templates = (
     await readdir(join(__dirname, '../images/notes'), { recursive: true, withFileTypes: true })
@@ -59,15 +61,25 @@ export async function determineDuration(
     const score = await templateMatch(region.bitmap, template.bitmap);
     const duration = parseNoteDuration(templatePath);
 
-    if (DEBUG) console.log(duration, templatePath, 'with score:', score?.toFixed(3));
+    // if (DEBUG) console.log(duration, templatePath, 'with score:', score?.toFixed(3));
 
     if (score && (!bestMatch || score > bestMatch.score)) {
       bestMatch = { duration, score };
     }
+
+    if (score && (!durationBest[duration] || score > durationBest[duration].score)) {
+      durationBest[duration] = { score, template: basename(templatePath, '.png') };
+    }
   }
 
   if (bestMatch && bestMatch.score > 0.6) {
-    console.log('Best match:', bestMatch.duration, 'with score:', bestMatch.score.toFixed(3));
+    console.log(`Best match (${index}):`, bestMatch.duration, 'with score:', bestMatch.score.toFixed(3));
+    console.log(
+      Object.entries(durationBest)
+        .map((v) => `${v[0]}\t${v[1].score.toFixed(3)}\t${v[1].template}`)
+        .join('\n'),
+      '\n'
+    );
     return bestMatch.duration;
   }
 

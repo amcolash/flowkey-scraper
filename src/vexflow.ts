@@ -7,7 +7,7 @@ import { join } from 'path';
 import { Beam, Dot, Formatter, Renderer, Stave, StaveNote, Stem } from 'vexflow';
 
 import { NoteDuration } from './types';
-import { getNoteDir, getNoteFile } from './utils';
+import { drawRectOutline, getNoteDir, getNoteFile } from './utils';
 
 // Set up a fake DOM environment for Vexflow to work.
 const dom = new JSDOM();
@@ -126,19 +126,14 @@ async function generateNoteImage({ duration, note, stem, dot, beams }: NoteConfi
     beam = new Beam(notes);
   }
 
+  // stave.draw();
+
   Formatter.FormatAndDraw(context, stave, notes);
   if (beams) beam.setContext(context).draw();
   if (dot) Dot.buildAndAttach(notes, { all: true });
 
-  if (beams) {
-    // Add space on the right side of the image to cut the beam. This allows for auto cropping
-    let prev = context.fillStyle;
-    context.fillStyle = 'white';
-    context.fillRect(canvas.width / scale - 1, 0, 1, canvas.height);
-    context.fillStyle = prev;
-  }
-
   const output = await Jimp.fromBuffer(canvas.toBuffer());
+  drawRectOutline(output, 0, 0, output.width, output.height, 0xffffffff);
   output.autocrop();
 
   if (beams) {
