@@ -4,8 +4,7 @@ import { cv } from 'opencv-wasm';
 import { join } from 'path';
 
 import { NoteDuration, NoteEvent, Song } from './types';
-import { getNoteDir, getNoteFile, parseNoteDuration } from './utils';
-import { durations } from './vexflow';
+import { parseNoteDuration } from './utils';
 
 const DEBUG = false;
 
@@ -50,11 +49,17 @@ export async function determineDuration(
     const templatePath = join(t.parentPath, t.name);
     const template = await Jimp.read(templatePath);
 
+    if (template.width > dims.w) {
+      template.crop({ x: 0, y: 0, w: dims.w, h: template.height });
+    }
+
     // @ts-ignore
     await debugJimp(template, 'template');
 
     const score = await templateMatch(region.bitmap, template.bitmap);
     const duration = parseNoteDuration(templatePath);
+
+    if (DEBUG) console.log(duration, templatePath, 'with score:', score?.toFixed(3));
 
     if (score && (!bestMatch || score > bestMatch.score)) {
       bestMatch = { duration, score };
@@ -67,6 +72,7 @@ export async function determineDuration(
   }
 
   console.log('Could not find note');
+  return '?';
 }
 
 async function templateMatch(img: Bitmap, template: Bitmap): Promise<number | void> {

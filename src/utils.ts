@@ -1,5 +1,4 @@
 import { join } from 'path';
-import { Note } from 'vexflow';
 
 import { NoteDuration } from './types';
 
@@ -24,14 +23,15 @@ const noteMapping: Record<NoteDuration, string> = {
   q: 'quarter',
   '8': 'eighth',
   '16': 'sixteenth',
+  '?': 'unknown',
 };
 
 export function getNoteDir(duration: NoteDuration): string {
   return join(__dirname, `../images/notes/${noteMapping[duration]}`);
 }
 
-export function getNoteFile(note: string, dot: boolean, stem?: 'up' | 'down'): string {
-  return `${note.replace('/', '')}${dot ? `_dot` : ''}${stem ? `_${stem}` : ''}.png`;
+export function getNoteFile(note: string, dot: boolean, stem: 'up' | 'down', beams: boolean): string {
+  return `${note.replace('/', '')}${dot ? `_dot` : ''}_${stem}${beams ? `_beams` : ''}.png`;
 }
 
 export function parseNoteDuration(filePath: string): NoteDuration {
@@ -41,5 +41,5 @@ export function parseNoteDuration(filePath: string): NoteDuration {
   if (filePath.includes('eighth')) return '8';
   if (filePath.includes('sixteenth')) return '16';
 
-  return 'q';
+  return '?';
 }

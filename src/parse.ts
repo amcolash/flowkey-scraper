@@ -1,7 +1,7 @@
 import { ImageData, createCanvas } from 'canvas';
 import { existsSync } from 'fs';
 import { mkdir, readFile, writeFile } from 'fs/promises';
-import { Jimp, loadFont } from 'jimp';
+import { Jimp } from 'jimp';
 import { join } from 'path';
 
 import { determineDuration } from './matching';
@@ -55,11 +55,10 @@ async function analyzeSong(song: Song) {
 
   let length = song.noteEvents.length;
   // length = 32;
-  // length = 1;
+  length = 8;
 
   for (let i = 0; i < length; i++) {
-    const duration = await determineDuration(song, song.noteEvents[i], 'bass');
-
+    const duration = await determineDuration(song, song.noteEvents[i], 'treble');
     if (duration)
       ctx.fillText(duration, song.noteEvents[i].horizontalSheetX * 2, song.musicsheets.horizontalSheet.totalHeight);
   }

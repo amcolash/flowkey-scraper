@@ -1,4 +1,4 @@
-export type NoteDuration = 'w' | 'h' | 'q' | '8' | '16';
+export type NoteDuration = 'w' | 'h' | 'q' | '8' | '16' | '?';
 export type NoteName = 'C' | 'D' | 'E' | 'F' | 'G' | 'A' | 'B';
 export type Octave = 1 | 2 | 3 | 4 | 5 | 6 | 7;
 
